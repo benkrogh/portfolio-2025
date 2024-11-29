@@ -4,10 +4,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      'react': 'react',
+      'react-dom': 'react-dom'
+    }
   },
   build: {
-    outDir: 'dist',
     rollupOptions: {
       input: {
         main: './index.html'
