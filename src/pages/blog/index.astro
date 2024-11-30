@@ -1,7 +1,6 @@
 ---
-import Layout from '../../layouts/MainLayout.astro';
-import { BlogCard } from '../../components/blog/BlogCard';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
+import Layout from '@/layouts/Layout.astro';
+import { BlogCard } from '@/components/blog/BlogCard';
 
 const posts = await Astro.glob('./posts/*.md');
 const formattedPosts = posts.map(post => ({
