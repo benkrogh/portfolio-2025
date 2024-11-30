@@ -1,17 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { SkipBack, Play, Pause, SkipForward } from 'lucide-react';
+import React, { useEffect, useRef, useState } from "react";
+import { SkipBack, Play, Pause, SkipForward } from "lucide-react";
 
-const tracks = [{
-  id: 1,
-  title: "Sample Track",
-  album: "Test Album",
-  url: "https://benjaminkrogh.com/audio/test.mp3"
-}];
+const tracks = [
+  {
+    id: 1,
+    title: "Sample Track",
+    album: "Test Album",
+    url: "https://benjaminkrogh.com/audio/test.mp3",
+  },
+];
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const audioRef = useRef(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     audioRef.current = new Audio();
@@ -22,6 +24,8 @@ const MusicPlayer = () => {
 
   const togglePlay = async () => {
     try {
+      if (!audioRef.current) return;
+
       if (isPlaying) {
         await audioRef.current.pause();
       } else {
@@ -35,18 +39,25 @@ const MusicPlayer = () => {
 
   useEffect(() => {
     if (!audioRef.current) return;
-    
+
     const updateProgress = () => {
-      const value = (audioRef.current.currentTime / audioRef.current.duration) * 100;
+      if (!audioRef.current) return;
+
+      const value =
+        (audioRef.current.currentTime / audioRef.current.duration) * 100;
       setProgress(value || 0);
     };
 
-    audioRef.current.addEventListener('timeupdate', updateProgress);
-    return () => audioRef.current?.removeEventListener('timeupdate', updateProgress);
+    audioRef.current.addEventListener("timeupdate", updateProgress);
+    return () =>
+      audioRef.current?.removeEventListener("timeupdate", updateProgress);
   }, []);
 
   return (
-    <div style={{ backgroundColor: '#EDE9E5', borderRadius: '32px' }} className="w-full max-w-3xl mx-auto relative overflow-hidden">
+    <div
+      style={{ backgroundColor: "#EDE9E5", borderRadius: "32px" }}
+      className="w-full max-w-3xl mx-auto relative overflow-hidden"
+    >
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -60,8 +71,15 @@ const MusicPlayer = () => {
             <button className="p-2 hover:bg-gray-200 rounded-full transition-colors">
               <SkipBack className="w-6 h-6" />
             </button>
-            <button onClick={togglePlay} className="p-2 hover:bg-gray-200 rounded-full transition-colors">
-              {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+            <button
+              onClick={togglePlay}
+              className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+            >
+              {isPlaying ? (
+                <Pause className="w-6 h-6" />
+              ) : (
+                <Play className="w-6 h-6" />
+              )}
             </button>
             <button className="p-2 hover:bg-gray-200 rounded-full transition-colors">
               <SkipForward className="w-6 h-6" />
@@ -70,9 +88,9 @@ const MusicPlayer = () => {
         </div>
       </div>
       <div className="h-8 bg-transparent w-full absolute bottom-0">
-        <div 
-          className="h-full transition-all duration-200" 
-          style={{ width: `${progress}%`, backgroundColor: '#A39F98' }}
+        <div
+          className="h-full transition-all duration-200"
+          style={{ width: `${progress}%`, backgroundColor: "#A39F98" }}
         />
       </div>
     </div>
