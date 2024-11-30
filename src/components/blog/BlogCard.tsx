@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import type { Post } from '../../types/blog';
-import { formatDate, adjustColor } from '../../utils/blogUtils';
+import { useState } from "react";
+import type { Post } from "@/types/blog";
+import { formatDate, adjustColor } from "@/utils/blogUtils";
 
 interface BlogCardProps {
   post: Post;
@@ -12,11 +12,11 @@ export const BlogCard = ({ post, prefersReducedMotion }: BlogCardProps) => {
   const bgColor = isHovered ? adjustColor(post.color, 10) : post.color;
 
   return (
-    <a 
-      href={`/blog/${post.slug}`}
+    <a
+      href={`/blog/posts/${post.slug}`}
       className="block no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-3xl"
     >
-      <div 
+      <div
         className="h-24 rounded-3xl p-4 flex justify-between items-center transition-colors duration-200"
         style={{ backgroundColor: bgColor }}
         onMouseEnter={() => setIsHovered(true)}
@@ -24,13 +24,14 @@ export const BlogCard = ({ post, prefersReducedMotion }: BlogCardProps) => {
       >
         <div className="flex items-center">
           <span className="font-mono text-inherit">{post.title}</span>
-          <div 
           <div
             className={`ml-2 transform inline-block ${
-              prefersReducedMotion ? '' : 'transition-transform duration-200 ease-in-out'
+              prefersReducedMotion
+                ? ""
+                : "transition-transform duration-200 ease-in-out"
             }`}
             style={{
-              transform: isHovered ? 'translateX(0.75rem)' : 'translateX(0)'
+              transform: isHovered ? "translateX(0.75rem)" : "translateX(0)",
             }}
           >
             →
