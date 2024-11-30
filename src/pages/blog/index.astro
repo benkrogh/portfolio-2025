@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/MainLayout.astro';
+import { BlogCard } from '../../components/blog/BlogCard';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
+
+const posts = await Astro.glob('./posts/*.md');
+const formattedPosts = posts.map(post => ({
+  slug: post.url?.split('/').pop()?.replace('.md', '') || '',
+  title: post.frontmatter.title,
+  date: post.frontmatter.date,
+  color: post.frontmatter.color || '#EC6A5C'
+}));
+---
+
+<Layout title="Blog | My Portfolio">
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <h1 class="font-mono text-2xl mb-8">
+      /blog: My thoughts on<br />
+      design, music, and culture
+    </h1>
+    
+    <div class="space-y-2">
+      {formattedPosts.map(post => (
+        <BlogCard client:visible post={post} prefersReducedMotion={false} />
+      ))}
+    </div>
+  </div>
+</Layout>
