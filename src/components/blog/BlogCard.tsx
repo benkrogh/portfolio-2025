@@ -25,6 +25,7 @@ export const BlogCard = ({ post, prefersReducedMotion }: BlogCardProps) => {
         <div className="flex items-center">
           <span className="font-mono text-inherit">{post.title}</span>
           <div 
+          <div
             className={`ml-2 transform inline-block ${
               prefersReducedMotion ? '' : 'transition-transform duration-200 ease-in-out'
             }`}
