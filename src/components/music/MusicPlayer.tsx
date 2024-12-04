@@ -54,11 +54,12 @@ const MusicPlayer = () => {
   }, []);
 
   return (
-    <div
-      style={{ backgroundColor: "#EDE9E5", borderRadius: "32px" }}
-      className="w-full max-w-3xl mx-auto relative overflow-hidden"
+    <div className="mx-8 sm:mx-12">
+      <div
+        style={{ backgroundColor: "#EDE9E5", borderRadius: "32px" }}
+        className="w-full max-w-[1500px] mx-auto relative overflow-hidden px-4 sm:px-6 my-6" 
     >
-      <div className="p-6">
+       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-[#EC6A5C] rounded-md" />
@@ -92,6 +93,7 @@ const MusicPlayer = () => {
           className="h-full transition-all duration-200"
           style={{ width: `${progress}%`, backgroundColor: "#A39F98" }}
         />
+      </div>
       </div>
     </div>
   );

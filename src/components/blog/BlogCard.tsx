@@ -17,7 +17,7 @@ export const BlogCard = ({ post, prefersReducedMotion }: BlogCardProps) => {
       className="block no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-3xl"
     >
       <div
-        className="h-24 rounded-3xl p-4 flex justify-between items-center transition-colors duration-200"
+        className="h-24 rounded-3xl p-8 flex justify-between items-center transition-colors duration-500"
         style={{ backgroundColor: bgColor }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -28,7 +28,7 @@ export const BlogCard = ({ post, prefersReducedMotion }: BlogCardProps) => {
             className={`ml-2 transform inline-block ${
               prefersReducedMotion
                 ? ""
-                : "transition-transform duration-200 ease-in-out"
+                : "transition-transform duration-500 ease-in-out"
             }`}
             style={{
               transform: isHovered ? "translateX(0.75rem)" : "translateX(0)",
