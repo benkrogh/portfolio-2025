@@ -13,7 +13,7 @@ export const BlogCard = ({ post, prefersReducedMotion }: BlogCardProps) => {
 
   return (
     <a
-      href={`/blog/posts/${post.slug}`}
+      href={`/blog/${post.slug}`}
       className="block no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-3xl"
     >
       <div
@@ -37,7 +37,9 @@ export const BlogCard = ({ post, prefersReducedMotion }: BlogCardProps) => {
             →
           </div>
         </div>
-        <span className="text-[1.5rem] leading-[2rem]">{formatDate(post.date)}</span>
+        <span className="text-[1.5rem] leading-[2rem]">
+          {formatDate(post.date)}
+        </span>
       </div>
     </a>
   );
