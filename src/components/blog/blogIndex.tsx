@@ -90,7 +90,7 @@ const BlogPost = ({ post, prefersReducedMotion }: { post: Post; prefersReducedMo
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex items-center">
-          <span className="font-mono text-inherit">{post.title}</span>
+          <span className="font-mono text-[1.5rem] leading-[2rem]">{post.title}</span>
           <div className="relative ml-2">
             <span 
               aria-hidden="true"
@@ -104,7 +104,7 @@ const BlogPost = ({ post, prefersReducedMotion }: { post: Post; prefersReducedMo
             </span>
           </div>
         </div>
-        <span className="font-mono text-sm">{formatDate(post.date)}</span>
+        <span className="font-mono text-[1.5rem] leading-[2rem]">{formatDate(post.date)}</span>
       </div>
     </a>
   );

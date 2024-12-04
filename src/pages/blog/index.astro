@@ -1,13 +1,25 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import { BlogCard } from '@/components/blog/BlogCard';
+import { style } from '@/styles/global.css';
+
+// Add an array of colors to choose from
+const colors = [
+  '#EC6A5C', // Pepper Red
+  '#F09456', // Orange
+  '#C1E5C3', // Seafoam
+  '#67B6EB', // Powder Blue
+  '#D6D2CB', // Grey
+  '#96A0FA', // Purple
+];
 
 const posts = await Astro.glob('./posts/*.md');
 const formattedPosts = posts.map(post => ({
   slug: post.url?.split('/').pop()?.replace('.md', '') || '',
   title: post.frontmatter.title,
   date: post.frontmatter.date,
-  color: post.frontmatter.color || '#EC6A5C'
+  // Randomly select a color from the array
+  color: post.frontmatter.color || colors[Math.floor(Math.random() * colors.length)]
 }));
 ---
 
@@ -15,7 +27,7 @@ const formattedPosts = posts.map(post => ({
   <div class="px-4 sm:px-8">
     <div class="w-full max-w-[1500px] mx-auto my-12 sm:my-16">
       <div class="bg-[#EDE9E5] rounded-[32px] p-8 sm:p-12 w-full"> {/* Added w-full */}
-        <h1 class="font-mono text-2xl sm:text-3xl leading-relaxed">
+        <h1 class="text-5xl sm:text-5xl leading-relaxed">
           /blog: My thoughts on<br />
           design, music, and culture
         </h1>
