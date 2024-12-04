@@ -13,7 +13,7 @@ const colors = [
   '#96A0FA', // Purple
 ];
 
-const posts = await Astro.glob('./posts/*.md');
+const posts = await Astro.glob('./*.md');
 const formattedPosts = posts.map(post => ({
   slug: post.url?.split('/').pop()?.replace('.md', '') || '',
   title: post.frontmatter.title,

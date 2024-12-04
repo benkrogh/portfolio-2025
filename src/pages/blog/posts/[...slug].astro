@@ -1,10 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import type { GetStaticPaths } from 'astro';
-import { style } from '@/styles/global.css';
 
 export const getStaticPaths: GetStaticPaths = (async () => {
-  const posts = await Astro.glob('./posts/*.md');
+  const posts = await Astro.glob('./*.md');
   
   return posts.map(post => ({
     params: { 
