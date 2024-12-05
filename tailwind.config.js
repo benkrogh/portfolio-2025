@@ -22,6 +22,16 @@ module.exports = {
       height: {
         '72': '288px',  // 72 = 18rem = 288px
       },
+      fontSize: {
+        sm: '0.938rem',
+        base: '1.125rem',
+        xl: '1.5rem',
+        '2xl': ['2rem', {
+          fontWeight: '300',
+        }],
+        '3xl': '3rem',
+        '4xl': '4rem',
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
