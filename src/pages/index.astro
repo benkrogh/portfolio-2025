@@ -6,12 +6,12 @@ import MusicPlayer from '@/components/music/MusicPlayer';
 const projects = [
   {
     title: 'demoBuddy',
-    image: '/projects/demobuddy.png',
-    gradient: 'from-orange-400 to-orange-500',
+    image: '/images/homepage/demobuddy.png',
+    gradient: 'from-accent-red to-accent-orange',
   },
   {
     title: 'Square Charge',
-    image: '/projects/square-charge.png',
+    image: '/images/homepage/squarecharge.png',
     gradient: 'from-blue-400 to-purple-400',
   },
   {
@@ -19,7 +19,31 @@ const projects = [
     image: '/projects/ebay-today.png',
     gradient: 'from-green-300 to-emerald-400',
   },
-  // Add more projects as needed
+  {
+    title: 'Project Four',
+    image: '/projects/placeholder-4.png',
+    gradient: 'from-pink-400 to-rose-500',
+  },
+  {
+    title: 'Project Five',
+    image: '/projects/placeholder-5.png',
+    gradient: 'from-yellow-400 to-amber-500',
+  },
+  {
+    title: 'Project Six',
+    image: '/projects/placeholder-6.png',
+    gradient: 'from-teal-400 to-cyan-500',
+  },
+  {
+    title: 'Project Seven',
+    image: '/projects/placeholder-7.png',
+    gradient: 'from-indigo-400 to-violet-500',
+  },
+  {
+    title: 'Project Eight',
+    image: '/projects/placeholder-8.png',
+    gradient: 'from-red-400 to-orange-500',
+  }
 ];
 ---
 
@@ -39,11 +63,11 @@ const projects = [
     <!-- Projects Grid -->
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
       {projects.map((project) => (
-        <div class={`relative overflow-hidden rounded-[32px] bg-gradient-to-br ${project.gradient} p-4 aspect-square`}>
+        <div class={`relative overflow-hidden rounded-[32px] bg-gradient-to-br ${project.gradient} p-4 aspect-square flex items-center justify-center`}>
           <img 
             src={project.image} 
             alt={project.title}
-            class="w-full h-full object-cover rounded-lg"
+            class="w-4/5 h-4/5 object-contain"
           />
         </div>
       ))}
