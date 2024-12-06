@@ -19,9 +19,9 @@ export default function DesignPrinciples() {
         backgroundColor: '#EC6A5C',
           borderRadius: '32px', 
         }} 
-        className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 p-12 my-6"
+        className="w-full max-w-[1500px] mx-auto px-12 p-14 my-6"
       >
-      <span className="GeistMono text-4xl inline" style={{ color: '#521710' }}>
+      <span className="GeistMono text-2xl inline" style={{ color: '#521710' }}>
         SEVEN DESIGN PRINCIPLES: 
         {defaultPrinciples.map((principle, index) => (
           <React.Fragment key={principle.id}>

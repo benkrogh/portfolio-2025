@@ -13,14 +13,16 @@ const { frontmatter } = Astro.props;
 
 <Layout title={frontmatter.title}>
   <article class="w-full max-w-[1500px] mx-auto px-4 py-8">
-    <div class="bg-[#EC6A5C] rounded-[32px] p-8 sm:p-12 w-full">
-      <h1 class="text-5xl mb-2">{frontmatter.title}</h1>
-      <div class="text-2xl opacity-50">
+    <div class="bg-[#EC6A5C] rounded-[32px] h-72 p-8 sm:p-12 pb-12 w-full flex flex-col justify-end">
+      <h1 class="font-mono font-light text-[2.5rem] mb-2">{frontmatter.title}</h1>
+      <div class="font-mono font-light text-2xl opacity-50">
         <span>{frontmatter.date}</span>
       </div>
     </div>
-    <div class="prose prose-lg mx-auto max-w-[700px]]">
-      <slot />
+    <div class="prose mx-auto max-w-[660px]">
+      <article>
+        <slot />
+      </article>
     </div>
   </article>
 </Layout>

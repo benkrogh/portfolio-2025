@@ -2,9 +2,61 @@
 import Layout from '@/layouts/Layout.astro';
 import DesignPrinciples from '@/components/design/DesignPrinciples';
 import MusicPlayer from '@/components/music/MusicPlayer';
+
+const projects = [
+  {
+    title: 'demoBuddy',
+    image: '/projects/demobuddy.png',
+    gradient: 'from-orange-400 to-orange-500',
+  },
+  {
+    title: 'Square Charge',
+    image: '/projects/square-charge.png',
+    gradient: 'from-blue-400 to-purple-400',
+  },
+  {
+    title: 'eBay Today',
+    image: '/projects/ebay-today.png',
+    gradient: 'from-green-300 to-emerald-400',
+  },
+  // Add more projects as needed
+];
 ---
 
 <Layout>
-	<DesignPrinciples client:load />
-	<MusicPlayer client:load />
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Hero Section -->
+    <header class="mb-16">
+      <div class="w-full max-w-[1500px] mx-auto ">
+        <h1 class="text-2xl font-mono mb-4 p-4 bg-[#EDE9E5] rounded-[32px] p-8 sm:p-12 w-full">
+          Ben Krogh is a product <br class="hidden sm:block" />
+          design leader who still <br class="hidden lg:block" />
+          loves to make things.
+        </h1>
+      </div>
+    </header>
+
+    <!-- Projects Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+      {projects.map((project) => (
+        <div class={`relative overflow-hidden rounded-[32px] bg-gradient-to-br ${project.gradient} p-4 aspect-square`}>
+          <img 
+            src={project.image} 
+            alt={project.title}
+            class="w-full h-full object-cover rounded-lg"
+          />
+        </div>
+      ))}
+    </section>
+
+    <!-- Design Principles Section -->
+    <section class="mb-16">
+      <DesignPrinciples client:load />
+    </section>
+
+    <!-- Music Player -->
+    <footer>
+      <MusicPlayer client:load />
+    </footer>
+  </main>
 </Layout>

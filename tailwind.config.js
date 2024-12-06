@@ -27,7 +27,7 @@ module.exports = {
         base: '1.125rem',
         xl: '1.5rem',
         '2xl': ['2rem', {
-          fontWeight: '300',
+          lineHeight: '3rem',
         }],
         '3xl': '3rem',
         '4xl': '4rem',
@@ -36,16 +36,54 @@ module.exports = {
         DEFAULT: {
           css: {
             color: theme('colors.gray.900'),
+            // Headings
             h1: {
               color: theme('colors.gray.900'),
-              fontWeight: '800',
+              fontWeight: '300',
+              fontSize: '2.5rem',
+              fontFamily: theme('fontFamily.mono'),
+              letterSpacing: '-0.02em',
+            },
+            h2: {
+              color: theme('colors.gray.900'),
+              fontWeight: '400',
+              fontSize: '2rem',
+              marginTop: '2em',
+              marginBottom: '1em',
             },
             h3: {
               color: theme('colors.gray.900'),
-              fontWeight: '600',
-              fontSize: '1.5rem',
+              fontWeight: '300',
+              fontSize: '1.375rem',
+              letterSpacing: '-0.02em',
               marginTop: '1.5em',
-              marginBottom: '0.75em',
+              marginBottom: '1.0em',
+            },
+            // Paragraphs
+            p: {
+              fontSize: '1.125rem',
+              fontWeight: '300',
+              lineHeight: '1.625',
+              marginTop: '1.25em',
+              marginBottom: '1.25em',
+            },
+            // Lists
+            ul: {
+              marginTop: '1em',
+              marginBottom: '1em',
+            },
+            li: {
+              fontSize: '1.125rem',
+              marginTop: '0.5em',
+              marginBottom: '0.5em',
+            },
+            // Code blocks
+            pre: {
+              fontSize: '0.938rem',
+              padding: '1rem',
+            },
+            code: {
+              fontSize: '0.938rem',
             },
           },
         },
