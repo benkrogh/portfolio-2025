@@ -54,10 +54,10 @@ const MusicPlayer = () => {
   }, []);
 
   return (
-    <div className="mx-8 sm:mx-12">
+    <div>
       <div
         style={{ backgroundColor: "#EDE9E5", borderRadius: "32px" }}
-        className="w-full max-w-[1500px] mx-auto relative overflow-hidden px-4 sm:px-6 my-6" 
+        className="w-full max-w-[1400px] mx-auto relative overflow-hidden px-4 sm:px-6 my-6" 
     >
        <div className="p-6">
         <div className="flex items-center justify-between">

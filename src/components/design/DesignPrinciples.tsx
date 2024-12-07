@@ -13,13 +13,13 @@ const defaultPrinciples = [
 
 export default function DesignPrinciples() {
   return (
-    <div className="mx-8 sm:mx-12">
+    <div >
       <div 
         style={{ 
         backgroundColor: '#EC6A5C',
           borderRadius: '32px', 
         }} 
-        className="w-full max-w-[1500px] mx-auto px-12 p-14 my-6"
+        className="w-full max-w-[1400px] mx-auto px-12 p-14"
       >
       <span className="GeistMono text-2xl inline" style={{ color: '#521710' }}>
         SEVEN DESIGN PRINCIPLES: 

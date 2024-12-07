@@ -2,12 +2,15 @@
 // Import necessary styles and components
 import '../styles/fonts.css';
 import '../styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
+import GlobalCursor from '@/components/GlobalCursor';
 
 interface Props {
   title?: string;
+  hideGlobalCursor?: boolean;
 }
 
-const { title = "Astro Basics" } = Astro.props;
+const { title = "Astro Basics", hideGlobalCursor = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,8 +21,10 @@ const { title = "Astro Basics" } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ViewTransitions />
 	</head>
 	<body>
+		{!hideGlobalCursor && <GlobalCursor client:load />}
 		<slot />
 	</body>
 </html>

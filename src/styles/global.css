@@ -22,4 +22,47 @@
     font-size: 1.5rem;
     line-height: 2rem;
   }
+}
+
+/* Global custom cursor styles */
+html, body {
+  cursor: none !important;
+}
+
+* {
+  cursor: none !important;
+}
+
+#custom-cursor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: #17120A;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease, border 0.2s ease, opacity 0.2s ease;
+  border: 2px solid transparent;
+  opacity: 0; /* Start hidden */
+}
+
+#custom-cursor.hover {
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 6px !important;
+  border: 2px solid #17120A !important;
+  background: transparent !important;
+}
+
+/* Reset for touch devices */
+@media (hover: none) {
+  html, body, * {
+    cursor: auto !important;
+  }
+  
+  #custom-cursor,
+  .custom-cursor {
+    display: none !important;
+  }
 } 
