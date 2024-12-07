@@ -3,20 +3,20 @@
 import '../styles/fonts.css';
 import '../styles/global.css';
 import { ViewTransitions } from 'astro:transitions';
-import GlobalCursor from '@/components/GlobalCursor';
+import Navigation from '../components/Navigation';
 
 interface Props {
-  title?: string;
-  hideGlobalCursor?: boolean;
+  title: string;
 }
 
-const { title = "Astro Basics", hideGlobalCursor = false } = Astro.props;
+const { title } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
@@ -24,8 +24,21 @@ const { title = "Astro Basics", hideGlobalCursor = false } = Astro.props;
 		<ViewTransitions />
 	</head>
 	<body>
-		{!hideGlobalCursor && <GlobalCursor client:load />}
-		<slot />
+		<Navigation client:load />
+		<main>
+			<slot />
+		</main>
+		<script>
+			import { currentPath } from '../stores/navigationStore';
+			
+			// Update current path when the page loads
+			currentPath.set(window.location.pathname);
+
+			// Update current path when navigation occurs
+			document.addEventListener('astro:page-load', () => {
+				currentPath.set(window.location.pathname);
+			});
+		</script>
 	</body>
 </html>
 
@@ -33,8 +46,10 @@ const { title = "Astro Basics", hideGlobalCursor = false } = Astro.props;
 	html,
 	body {
 		margin: 0;
+		padding: 0;
 		background-color: #FCFAF7;
 		width: 100%;
 		height: 100%;
+		overflow-x: hidden;
 	}
 </style>

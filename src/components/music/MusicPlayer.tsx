@@ -226,7 +226,7 @@ const MusicPlayer = () => {
     <div className="mb-6">
       <div
         style={{ backgroundColor: "#EDE9E5", borderRadius: "32px", height: "144px" }}
-        className="w-full max-w-[1400px] mx-auto relative overflow-hidden"
+        className="w-full max-w-[1320px] mx-auto relative overflow-hidden"
       >
         <canvas
           ref={canvasRef}

@@ -2,13 +2,12 @@ import React from 'react';
 
 const defaultPrinciples = [
   { id: 1, title: "DESIGN TO DELIGHT AND INSPIRE" },
-  { id: 2, title: "BE THOUGHTFUL FIRST" },
-  { id: 3, title: "DELIVER LATER" },
-  { id: 4, title: "DESIGN WITH RESTRAINTS" },
-  { id: 5, title: "DESIGN SYSTEMS THAT INSPIRE TRUST" },
-  { id: 6, title: "DESIGN TO EMPOWER PEOPLE" },
-  { id: 7, title: "HAVE A REASON FOR WHAT YOU DO" },
-  { id: 8, title: "GOOD DESIGN IS REDUCTIVE" }
+  { id: 2, title: "BE THOUGHTFUL FIRST, CLEVER LATER" },
+  { id: 3, title: "DESIGN WITH RESTRAINTS" },
+  { id: 4, title: "DESIGN SYSTEMS THAT INSPIRE TRUST" },
+  { id: 5, title: "DESIGN TO EMPOWER PEOPLE" },
+  { id: 6, title: "HAVE A REASON FOR WHAT YOU DO" },
+  { id: 7, title: "GOOD DESIGN IS REDUCTIVE" }
 ];
 
 export default function DesignPrinciples() {
@@ -19,7 +18,7 @@ export default function DesignPrinciples() {
         backgroundColor: '#EC6A5C',
           borderRadius: '32px', 
         }} 
-        className="w-full max-w-[1400px] mx-auto px-12 p-14"
+        className="w-full max-w-[1320px] mx-auto px-12 p-14"
       >
       <span className="GeistMono text-2xl inline" style={{ color: '#521710' }}>
         SEVEN DESIGN PRINCIPLES: 

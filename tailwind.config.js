@@ -29,7 +29,9 @@ module.exports = {
         '2xl': ['2rem', {
           lineHeight: '3rem',
         }],
-        '3xl': '3rem',
+        '3xl': ['3rem', {
+          lineHeight: '3.625rem',
+        }],
         '4xl': '4rem',
       },
       typography: (theme) => ({
