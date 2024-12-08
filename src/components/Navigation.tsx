@@ -2,133 +2,60 @@ import { useEffect, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { currentPath } from '../stores/navigationStore';
 
-const Navigation = () => {
-  const [hoveredShape, setHoveredShape] = useState<string | null>(null);
+interface NavigationProps {
+  currentPath: string;
+}
+
+const Navigation = ({ currentPath: initialPath }: NavigationProps) => {
+  const [isVisible, setIsVisible] = useState(true);
   const $currentPath = useStore(currentPath);
 
+  useEffect(() => {
+    console.log("Navigation component mounted");
+    currentPath.set(initialPath);
+    
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      // Show nav if scrolling up or at the top, hide if scrolling down
+      const shouldBeVisible = currentScrollY < lastScrollY || currentScrollY < 100;
+      setIsVisible(shouldBeVisible);
+
+      // Console logs for debugging
+      console.log(`Current Scroll Y: ${currentScrollY}, Last Scroll Y: ${lastScrollY}, Is Visible: ${shouldBeVisible}`);
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    console.log("Scroll event listener added");
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      console.log("Scroll event listener removed");
+    };
+  }, [initialPath]);
+
   return (
-    <nav className="fixed top-8 left-8 z-[100] flex items-center bg-transparent">
-      {/* Logo/Home */}
-      <a 
-        href="/"
-        className="block mr-4 font-sm"
-      >
-        <img 
-          src="/images/nav-logo.svg" 
-          alt="BK Logo" 
-          className="w-[50px] h-[36px]"
-        />
-      </a>
-
-      <div className="flex items-center">
-        {/* Projects (Triangle) */}
-        <div className={`
-          relative w-5 h-5
-          transition-[margin] duration-300
-          ${hoveredShape === 'triangle' ? 'mr-4 ml-2' : 'mr-4 ml-2'}
-        `}>
-          <a 
-            href="/"
-            className="block h-full font-sm"
-            onMouseEnter={() => setHoveredShape('triangle')}
-            onMouseLeave={() => setHoveredShape(null)}
-          >
-            <div 
-              className={`
-                absolute top-1/2 -translate-y-1/2
-                w-[32px] h-[28px]
-                transition-all duration-300 ease-out
-                ${hoveredShape === 'triangle' 
-                  ? 'bg-[#17120A] rounded-[10px] w-[100px] py-3 px-2'
-                  : 'bg-[#EC6A5C]'
-                }
-              `}
-              style={{ 
-                clipPath: hoveredShape === 'triangle' ? 'none' : 'polygon(50% 0, 0% 100%, 100% 100%)',
-              }}
-            >
-              <span className={`
-                absolute inset-0 
-                flex items-center justify-center 
-                text-white font-medium text-sm
-                transition-opacity duration-200
-                ${hoveredShape === 'triangle' ? 'opacity-100' : 'opacity-0'}
-              `}>
-                projects
-              </span>
+    <>
+      <div className={`header-nav ${isVisible ? 'nav-visible' : 'nav-hidden'}`}>
+        <div className="max-w-[1320px] mx-auto px-4 pt-8">
+          <nav className="flex items-center h-[56px] pl-4 pr-3 bg-[#1C1C1C] rounded-full">
+            <a href="/" className="mx-6">
+              <img 
+                src="/images/BK.svg" 
+                alt="BK Logo" 
+                className="w-[34px] h-[16px]" 
+              />
+            </a>
+            <div className="flex items-center gap-1.5">
+              {/* Navigation Items */}
             </div>
-          </a>
-        </div>
-
-        {/* About (Square) */}
-        <div className={`
-          relative w-5 h-5
-          transition-[margin] duration-300
-          ${hoveredShape === 'square' ? 'mr-4 ml-2' : 'mr-4 ml-2'}
-        `}>
-          <a 
-            href="/about"
-            className="block h-full font-sm"
-            onMouseEnter={() => setHoveredShape('square')}
-            onMouseLeave={() => setHoveredShape(null)}
-          >
-            <div 
-              className={`
-                absolute top-1/2 -translate-y-1/2
-                w-[28px] h-[28px]
-                transition-all duration-300 ease-out
-                ${hoveredShape === 'square' 
-                  ? 'bg-[#17120A] rounded-[10px] w-[100px] py-3 px-2'
-                  : 'bg-[#7EAEFF]'
-                }
-              `}
-            >
-              <span className={`
-                absolute inset-0 
-                flex items-center justify-center 
-                text-white font-medium text-sm
-                transition-opacity duration-200
-                ${hoveredShape === 'square' ? 'opacity-100' : 'opacity-0'}
-              `}>
-                about
-              </span>
-            </div>
-          </a>
-        </div>
-
-        {/* Blog (Circle) */}
-        <div className="relative w-5 h-5">
-          <a 
-            href="/blog"
-            className="block h-full font-sm"
-            onMouseEnter={() => setHoveredShape('circle')}
-            onMouseLeave={() => setHoveredShape(null)}
-          >
-            <div 
-              className={`
-                absolute top-1/2 -translate-y-1/2
-                w-[28px] h-[28px]
-                transition-all duration-300 ease-out
-                ${hoveredShape === 'circle' 
-                  ? 'bg-[#17120A] rounded-[10px] w-[100px] py-3 px-2'
-                  : 'bg-[#7FD1B9] rounded-full'
-                }
-              `}
-            >
-              <span className={`
-                absolute inset-0 
-                flex items-center justify-center 
-                text-white font-medium text-sm
-                transition-opacity duration-200
-                ${hoveredShape === 'circle' ? 'opacity-100' : 'opacity-0'}
-              `}>
-                blog
-              </span>
-            </div>
-          </a>
+          </nav>
         </div>
       </div>
-    </nav>
+    </>
   );
 };
 

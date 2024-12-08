@@ -1,5 +1,6 @@
 ---
 import Layout from './Layout.astro';
+import CustomCursor from '@/components/CustomCursor';
 import type { MarkdownLayoutProps } from 'astro';
 
 type Props = MarkdownLayoutProps<{
@@ -12,6 +13,7 @@ const { frontmatter } = Astro.props;
 ---
 
 <Layout title={frontmatter.title}>
+  <CustomCursor client:load />
   <article class="w-full max-w-[1320px] mx-auto px-4 py-8">
     <div class="bg-[#EC6A5C] rounded-[32px] h-72 p-8 sm:p-12 pb-12 w-full flex flex-col justify-end">
       <h1 class="font-mono font-light text-[2.5rem] mb-2">{frontmatter.title}</h1>

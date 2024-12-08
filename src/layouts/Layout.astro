@@ -10,6 +10,8 @@ interface Props {
 }
 
 const { title } = Astro.props;
+const currentPath = Astro.url.pathname;
+console.log('Layout currentPath:', currentPath); // Debug log
 ---
 
 <!doctype html>
@@ -24,20 +26,34 @@ const { title } = Astro.props;
 		<ViewTransitions />
 	</head>
 	<body>
-		<Navigation client:load />
-		<main>
-			<slot />
-		</main>
+		<Navigation client:load currentPath={currentPath} />
+		<slot />
+		
 		<script>
-			import { currentPath } from '../stores/navigationStore';
+			let lastScrollY = window.scrollY;
+			let scrollTimeout;
 			
-			// Update current path when the page loads
-			currentPath.set(window.location.pathname);
-
-			// Update current path when navigation occurs
-			document.addEventListener('astro:page-load', () => {
-				currentPath.set(window.location.pathname);
-			});
+			function updateScrollDirection() {
+				const scrollY = window.scrollY;
+				const direction = scrollY > lastScrollY ? "down" : "up";
+				const isAtTop = scrollY <= 0;
+				
+				// Only update if there's a real change
+				if (scrollY !== lastScrollY) {
+					document.documentElement.dataset.scrollDirection = direction;
+					document.documentElement.dataset.atTop = isAtTop.toString();
+					lastScrollY = scrollY;
+				}
+			}
+			
+			// Set initial state
+			updateScrollDirection();
+			
+			// Throttled scroll handler
+			window.addEventListener('scroll', () => {
+				clearTimeout(scrollTimeout);
+				scrollTimeout = setTimeout(updateScrollDirection, 10);
+			}, { passive: true });
 		</script>
 	</body>
 </html>

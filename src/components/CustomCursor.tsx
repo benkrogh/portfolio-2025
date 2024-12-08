@@ -15,19 +15,23 @@ export default function CustomCursor() {
 
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
+      const scrollX = window.scrollX || window.pageXOffset;
+      const scrollY = window.scrollY || window.pageYOffset;
+      
       setCursor(prev => ({
         ...prev,
-        x: e.clientX,
-        y: e.clientY
+        x: e.clientX + scrollX,
+        y: e.clientY + scrollY
       }));
     };
 
-    const handleProjectHover = (e: MouseEvent) => {
+    const handleHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const projectCard = target.closest('[data-project]');
+      const blogCard = target.closest('[data-blog-card]');
       const projectGrid = document.querySelector('.project-grid-area');
       
-      if (projectCard && projectGrid?.contains(target)) {
+      if ((projectCard && projectGrid?.contains(target)) || blogCard) {
         setCursor(prev => ({
           ...prev,
           isHovering: true
@@ -41,18 +45,30 @@ export default function CustomCursor() {
     };
 
     document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseover', handleProjectHover);
+    document.addEventListener('mouseover', handleHover);
 
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseover', handleProjectHover);
+      document.removeEventListener('mouseover', handleHover);
     };
   }, []);
 
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <div
-      className="fixed pointer-events-none z-50 will-change-transform"
+      id="cursor"
+      className="fixed pointer-events-none z-[9999] will-change-transform"
       style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
         transform: `translate3d(${cursor.x - (cursor.isHovering ? 16 : 5)}px, ${cursor.y - (cursor.isHovering ? 16 : 5)}px, 0)`,
         WebkitBackfaceVisibility: 'hidden',
         WebkitPerspective: 1000
