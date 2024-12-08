@@ -1,38 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Custom Cursor Test</title>
     <style>
-        body {
-            cursor: none !important; /* Hide the default cursor */
-        }
+      body {
+        cursor: none !important; /* Hide the default cursor */
+      }
 
-        .custom-cursor {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            background-color: yellow; /* Change to a bright color for testing */
-            border-radius: 4px;
-            pointer-events: none; /* Prevent the cursor from interfering with mouse events */
-            transition: transform 0.1s ease; /* Smooth movement */
-            z-index: 9999; /* Ensure it appears above other elements */
-        }
+      .custom-cursor {
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        background-color: yellow; /* Change to a bright color for testing */
+        border-radius: 4px;
+        pointer-events: none; /* Prevent the cursor from interfering with mouse events */
+        transition: transform 0.1s ease; /* Smooth movement */
+        z-index: 9999; /* Ensure it appears above other elements */
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        console.log("Custom cursor script loaded"); // Debugging line
-        // Create a custom cursor element
-        const cursor = document.createElement('div');
-        cursor.classList.add('custom-cursor');
-        document.body.appendChild(cursor);
+      console.log("Custom cursor script loaded"); // Debugging line
+      // Create a custom cursor element
+      const cursor = document.createElement("div");
+      cursor.classList.add("custom-cursor");
+      document.body.appendChild(cursor);
 
-        // Update cursor position on mouse move
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-        });
+      // Update cursor position on mouse move
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      });
     </script>
-</body>
+  </body>
 </html>

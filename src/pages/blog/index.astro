@@ -1,26 +1,26 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import { BlogCard } from '@/components/blog/BlogCard';
-import CustomCursor from '@/components/CustomCursor';
-import { style } from '@/styles/global.css';
+import Layout from "@/layouts/Layout.astro";
+import { BlogCard } from "@/components/blog/BlogCard";
+import CustomCursor from "@/components/CustomCursor";
 
 // Add an array of colors to choose from
 const colors = [
-  '#EC6A5C', // Pepper Red
-  '#F09456', // Orange
-  '#C1E5C3', // Seafoam
-  '#67B6EB', // Powder Blue
-  '#D6D2CB', // Grey
-  '#96A0FA', // Purple
+  "#EC6A5C", // Pepper Red
+  "#F09456", // Orange
+  "#C1E5C3", // Seafoam
+  "#67B6EB", // Powder Blue
+  "#D6D2CB", // Grey
+  "#96A0FA", // Purple
 ];
 
-const posts = await Astro.glob('./*.md');
-const formattedPosts = posts.map(post => ({
-  slug: post.url?.split('/').pop()?.replace('.md', '') || '',
+const posts = await Astro.glob("./*.md");
+const formattedPosts = posts.map((post) => ({
+  slug: post.url?.split("/").pop()?.replace(".md", "") || "",
   title: post.frontmatter.title,
   date: post.frontmatter.date,
   // Randomly select a color from the array
-  color: post.frontmatter.color || colors[Math.floor(Math.random() * colors.length)]
+  color:
+    post.frontmatter.color || colors[Math.floor(Math.random() * colors.length)],
 }));
 ---
 
@@ -34,11 +34,13 @@ const formattedPosts = posts.map(post => ({
           design, music, and culture
         </h1>
       </div>
-      
+
       <div class="mt-8">
-        {formattedPosts.map(post => (
-          <BlogCard client:visible post={post} prefersReducedMotion={false} />
-        ))}
+        {
+          formattedPosts.map((post) => (
+            <BlogCard client:visible post={post} prefersReducedMotion={false} />
+          ))
+        }
       </div>
     </div>
   </div>

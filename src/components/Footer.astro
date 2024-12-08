@@ -1,29 +1,31 @@
 ---
 const links = [
-  { text: 'read.cv', url: 'https://read.cv/benkrogh' },
-  { text: 'my music', url: '/music' },
-  { text: 'dribbble', url: 'https://dribbble.com/benkrogh' }
+  { text: "read.cv", url: "https://read.cv/benkrogh" },
+  { text: "my music", url: "/music" },
+  { text: "dribbble", url: "https://dribbble.com/benkrogh" },
 ];
 ---
 
 <footer class="w-full max-w-[1320px] mx-auto px-4 py-8">
-  <div class="bg-[#17120A] text-white rounded-[32px] p-8 sm:p-12 flex justify-between items-center">
+  <div
+    class="bg-[#17120A] text-white rounded-[32px] p-8 sm:p-12 flex justify-between items-center"
+  >
     <div class="font-mono text-[#A39F98] text-base">
       © Ben Krogh 2009 - present
     </div>
     <nav>
       <ul class="font-mono text-base flex flex-col items-end gap-2">
-        {links.map(link => (
-          <li>
-            <a 
-              href={link.url}
-              class="hover:opacity-70 transition-opacity"
-            >
-              {link.text}
-            </a>
-          </li>
-        ))}
+        {
+          links.map((link) => (
+            <li>
+              <a href={link.url} class="hover:opacity-70 transition-opacity">
+                {link.text}
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
   </div>
-</footer> 
+</footer>
+

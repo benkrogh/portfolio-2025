@@ -1,9 +1,9 @@
 ---
 // Import necessary styles and components
-import '../styles/fonts.css';
-import '../styles/global.css';
-import { ViewTransitions } from 'astro:transitions';
-import Navigation from '@/components/Navigation';
+import "../styles/fonts.css";
+import "../styles/global.css";
+import { ViewTransitions } from "astro:transitions";
+import Navigation from "@/components/Navigation";
 
 interface Props {
   title: string;
@@ -11,23 +11,22 @@ interface Props {
 
 const { title } = Astro.props;
 const currentPath = Astro.url.pathname;
-console.log('Layout currentPath:', currentPath); // Debug log
+console.log("Layout currentPath:", currentPath); // Debug log
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		<ViewTransitions />
-	</head>
-	<body>
-		<Navigation client:load currentPath={currentPath} />
-		<slot />
-	
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <ViewTransitions />
+  </head>
+  <body>
+    <Navigation client:load currentPath={currentPath} />
+    <slot />
+  </body>
 </html>

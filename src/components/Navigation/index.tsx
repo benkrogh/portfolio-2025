@@ -1,16 +1,17 @@
 import styles from "./navigation.module.css";
 
-import { useStore } from "@nanostores/react";
-import { currentPath } from "@/stores/navigationStore";
+import React from "react";
 import useScrollDirection from "@/hooks/useScrollDirection";
 
 interface NavigationProps {
   currentPath: string;
 }
 
-const Navigation = ({ currentPath: initialPath }: NavigationProps) => {
-  const $currentPath = useStore(currentPath);
+const Navigation = ({ currentPath }: NavigationProps) => {
   const isNavVisible = useScrollDirection(50); // Pass the threshold as a parameter if needed
+
+  // Placeholder for the current path
+  console.log(currentPath);
 
   return (
     <>

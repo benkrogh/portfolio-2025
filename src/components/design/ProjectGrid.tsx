@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface Project {
   title: string;
@@ -18,8 +18,8 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
           key={index}
           className={`relative overflow-hidden rounded-lg bg-gradient-to-br ${project.gradient} p-4 aspect-square`}
         >
-          <img 
-            src={project.image} 
+          <img
+            src={project.image}
             alt={project.title}
             className="w-full h-full object-cover rounded-lg"
           />
@@ -27,4 +27,4 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
       ))}
     </div>
   );
-} 
+}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import type { Post } from "@/types/blog";
 import { formatDate, adjustColor } from "@/utils/blogUtils";
 

@@ -1,108 +1,115 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import DesignPrinciples from '@/components/design/DesignPrinciples';
-import MusicPlayer from '@/components/music/MusicPlayer';
-import CustomCursor from '@/components/CustomCursor';
-import Footer from '@/components/Footer.astro';
+import Layout from "@/layouts/Layout.astro";
+import DesignPrinciples from "@/components/design/DesignPrinciples";
+import MusicPlayer from "@/components/music/MusicPlayer";
+import CustomCursor from "@/components/CustomCursor";
+import Footer from "@/components/Footer.astro";
 
 const projects = [
   {
-    title: 'demoBuddy',
-    date: 'WIP',
-    image: '/images/homepage/demobuddy.png',
-    gradient: 'from-accent-red to-accent-orange',
-    url: '/projects/demobuddy'
+    title: "demoBuddy",
+    date: "WIP",
+    image: "/images/homepage/demobuddy.png",
+    gradient: "from-accent-red to-accent-orange",
+    url: "/projects/demobuddy",
   },
   {
-    title: 'Square Charge',
-    date: 'Created 11.24',
-    image: '/images/homepage/squarecharge.png',
-    gradient: 'from-blue-400 to-purple-400',
-    url: '/projects/square-charge'
+    title: "Square Charge",
+    date: "Created 11.24",
+    image: "/images/homepage/squarecharge.png",
+    gradient: "from-blue-400 to-purple-400",
+    url: "/projects/square-charge",
   },
   {
-    title: 'eBay Today',
-    date: 'Created 11.24',
-    image: '/projects/ebay-today.png',
-    gradient: 'from-green-300 to-emerald-400',
-    url: '/projects/ebay-today'
+    title: "eBay Today",
+    date: "Created 11.24",
+    image: "/projects/ebay-today.png",
+    gradient: "from-green-300 to-emerald-400",
+    url: "/projects/ebay-today",
   },
   {
-    title: 'Project Four',
-    date: 'Created 11.24',
-    image: '/projects/placeholder-4.png',
-    gradient: 'from-pink-400 to-rose-500',
-    url: '/projects/project-four'
+    title: "Project Four",
+    date: "Created 11.24",
+    image: "/projects/placeholder-4.png",
+    gradient: "from-pink-400 to-rose-500",
+    url: "/projects/project-four",
   },
   {
-    title: 'Project Five',
-    date: 'Created 11.24',
-    image: '/projects/placeholder-5.png',
-    gradient: 'from-yellow-400 to-amber-500',
-    url: '/projects/project-five'
+    title: "Project Five",
+    date: "Created 11.24",
+    image: "/projects/placeholder-5.png",
+    gradient: "from-yellow-400 to-amber-500",
+    url: "/projects/project-five",
   },
   {
-    title: 'Project Six',
-    date: 'Created 11.24',
-    image: '/projects/placeholder-6.png',
-    gradient: 'from-teal-400 to-cyan-500',
-    url: '/projects/project-six'
+    title: "Project Six",
+    date: "Created 11.24",
+    image: "/projects/placeholder-6.png",
+    gradient: "from-teal-400 to-cyan-500",
+    url: "/projects/project-six",
   },
   {
-    title: 'Project Seven',
-    date: 'Created 11.24',
-    image: '/projects/placeholder-7.png',
-    gradient: 'from-indigo-400 to-violet-500',
-    url: '/projects/project-seven'
+    title: "Project Seven",
+    date: "Created 11.24",
+    image: "/projects/placeholder-7.png",
+    gradient: "from-indigo-400 to-violet-500",
+    url: "/projects/project-seven",
   },
   {
-    title: 'Project Eight',
-    date: 'Created 11.24',
-    image: '/projects/placeholder-8.png',
-    gradient: 'from-red-400 to-orange-500',
-    url: '/projects/project-eight'
-  }
+    title: "Project Eight",
+    date: "Created 11.24",
+    image: "/projects/placeholder-8.png",
+    gradient: "from-red-400 to-orange-500",
+    url: "/projects/project-eight",
+  },
 ];
 ---
 
-<Layout hideGlobalCursor>
+<Layout title="Home | My Portfolio">
   <CustomCursor client:load />
   <main class="custom-cursor-area max-w-[1320px] mx-auto px-4 py-8">
     <!-- Hero Section -->
     <header class="mb-6">
-      <div class="w-full max-w-[1320px] mx-auto ">
-        <h1 id="hero-title" class="text-3xl font-mono mb-4 p-4 bg-[#EDE9E5] rounded-[32px] p-8 sm:p-12 w-full h-[288px] flex items-center">
+      <div class="w-full max-w-[1320px] mx-auto">
+        <h1
+          id="hero-title"
+          class="text-3xl font-mono mb-4 p-4 bg-[#EDE9E5] rounded-[32px] p-8 sm:p-12 w-full h-[288px] flex items-center"
+        >
           <!-- Text will be animated here -->
         </h1>
       </div>
     </header>
 
     <!-- Projects Grid -->
-    <section class="project-grid-area grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-      {projects.map((project) => (
-        <a 
-          href={project.url}
-          data-project
-          data-title={project.title}
-          data-date={project.date}
-          class="block relative"
-        >
-          <div 
-            class={`
+    <section
+      class="project-grid-area grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"
+    >
+      {
+        projects.map((project) => (
+          <a
+            href={project.url}
+            data-project
+            data-title={project.title}
+            data-date={project.date}
+            class="block relative"
+          >
+            <div
+              class={`
               relative overflow-hidden rounded-[32px] bg-gradient-to-br ${project.gradient} 
               p-4 aspect-square flex items-center justify-center
               transition-transform duration-300 ease-out
               hover:scale-[1.02] focus:scale-[1.02]
             `}
-          >
-            <img 
-              src={project.image} 
-              alt={project.title}
-              class="w-4/5 h-4/5 object-contain transition-opacity duration-300"
-            />
-          </div>
-        </a>
-      ))}
+            >
+              <img
+                src={project.image}
+                alt={project.title}
+                class="w-4/5 h-4/5 object-contain transition-opacity duration-300"
+              />
+            </div>
+          </a>
+        ))
+      }
     </section>
     <!-- Music Player -->
     <MusicPlayer client:load />
@@ -117,21 +124,28 @@ const projects = [
 
 <script>
   // Wait for the DOM to fully load
-  document.addEventListener('DOMContentLoaded', () => {
-    const text = "Ben Krogh is a product [BR] design leader who still [BR] loves to make things.";
-    const titleElement = document.getElementById('hero-title');
-    
+  document.addEventListener("DOMContentLoaded", () => {
+    const text =
+      "Ben Krogh is a product [BR] design leader who still [BR] loves to make things.";
+    const titleElement = document.getElementById("hero-title");
+
     // Create an array of characters
-    const textArray = text.split('');
+    const textArray = text.split("");
 
     let index = 0;
 
     function type() {
       if (index < textArray.length) {
-        if (textArray[index] === '[' && textArray[index + 1] === 'B' && textArray[index + 2] === 'R' && textArray[index + 3] === ']') {
-          titleElement.innerHTML += '<br>'; // Insert line break
+        if (
+          titleElement &&
+          textArray[index] === "[" &&
+          textArray[index + 1] === "B" &&
+          textArray[index + 2] === "R" &&
+          textArray[index + 3] === "]"
+        ) {
+          titleElement.innerHTML += "<br>"; // Insert line break
           index += 4; // Skip the [BR] marker
-        } else {
+        } else if (titleElement) {
           titleElement.innerHTML += textArray[index]; // Append the next character
           index++;
         }
@@ -149,17 +163,17 @@ const projects = [
   .custom-cursor-area {
     cursor: none !important;
   }
-  
+
   .custom-cursor-area #custom-cursor {
     display: none !important;
   }
-  
+
   /* Ensure all interactive elements within maintain the custom cursor */
   .custom-cursor-area a,
   .custom-cursor-area button {
     cursor: none !important;
   }
-  
+
   /* Reset cursor for touch devices */
   @media (hover: none) {
     .custom-cursor-area,
