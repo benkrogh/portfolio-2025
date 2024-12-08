@@ -3,7 +3,7 @@
 import '../styles/fonts.css';
 import '../styles/global.css';
 import { ViewTransitions } from 'astro:transitions';
-import Navigation from '../components/Navigation';
+import Navigation from '@/components/Navigation';
 
 interface Props {
   title: string;
@@ -28,44 +28,6 @@ console.log('Layout currentPath:', currentPath); // Debug log
 	<body>
 		<Navigation client:load currentPath={currentPath} />
 		<slot />
-		
-		<script>
-			let lastScrollY = window.scrollY;
-			let scrollTimeout;
-			
-			function updateScrollDirection() {
-				const scrollY = window.scrollY;
-				const direction = scrollY > lastScrollY ? "down" : "up";
-				const isAtTop = scrollY <= 0;
-				
-				// Only update if there's a real change
-				if (scrollY !== lastScrollY) {
-					document.documentElement.dataset.scrollDirection = direction;
-					document.documentElement.dataset.atTop = isAtTop.toString();
-					lastScrollY = scrollY;
-				}
-			}
-			
-			// Set initial state
-			updateScrollDirection();
-			
-			// Throttled scroll handler
-			window.addEventListener('scroll', () => {
-				clearTimeout(scrollTimeout);
-				scrollTimeout = setTimeout(updateScrollDirection, 10);
-			}, { passive: true });
-		</script>
+	
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		padding: 0;
-		background-color: #FCFAF7;
-		width: 100%;
-		height: 100%;
-		overflow-x: hidden;
-	}
-</style>
