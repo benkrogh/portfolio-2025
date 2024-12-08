@@ -9,23 +9,22 @@ interface NavigationProps {
 const Navigation = ({ currentPath: initialPath }: NavigationProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const $currentPath = useStore(currentPath);
+  const [lastScrollY, setLastScrollY] = useState(0); // Track last scroll position
 
   useEffect(() => {
     console.log("Navigation component mounted");
     currentPath.set(initialPath);
-    
-    let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      // Show nav if scrolling up or at the top, hide if scrolling down
-      const shouldBeVisible = currentScrollY < lastScrollY || currentScrollY < 100;
-      setIsVisible(shouldBeVisible);
+      const isScrollingDown = currentScrollY > lastScrollY;
 
-      // Console logs for debugging
-      console.log(`Current Scroll Y: ${currentScrollY}, Last Scroll Y: ${lastScrollY}, Is Visible: ${shouldBeVisible}`);
+      // Only update visibility if there's a significant scroll (more than 10px)
+      if (Math.abs(currentScrollY - lastScrollY) > 10) {
+        setIsVisible(!isScrollingDown);
+      }
 
-      lastScrollY = currentScrollY;
+      setLastScrollY(currentScrollY); // Update last scroll position
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -35,7 +34,7 @@ const Navigation = ({ currentPath: initialPath }: NavigationProps) => {
       window.removeEventListener('scroll', handleScroll);
       console.log("Scroll event listener removed");
     };
-  }, [initialPath]);
+  }, [initialPath, lastScrollY]); // Add lastScrollY to dependencies
 
   return (
     <>
