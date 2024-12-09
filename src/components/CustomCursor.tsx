@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import throttle from "lodash.throttle";
 
 interface CursorState {
   x: number;
@@ -14,16 +15,13 @@ export default function CustomCursor() {
   });
 
   useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      const scrollX = window.scrollX || window.pageXOffset;
-      const scrollY = window.scrollY || window.pageYOffset;
-
+    const onMouseMove = throttle((e: MouseEvent) => {
       setCursor((prev) => ({
         ...prev,
-        x: e.clientX + scrollX,
-        y: e.clientY + scrollY,
+        x: e.clientX,
+        y: e.clientY,
       }));
-    };
+    }, 16);
 
     const handleHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -72,6 +70,7 @@ export default function CustomCursor() {
         transform: `translate3d(${cursor.x - (cursor.isHovering ? 16 : 5)}px, ${cursor.y - (cursor.isHovering ? 16 : 5)}px, 0)`,
         WebkitBackfaceVisibility: "hidden",
         WebkitPerspective: 1000,
+        zIndex: 9999,
       }}
     >
       <div
