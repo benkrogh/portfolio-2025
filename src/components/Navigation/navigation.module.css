@@ -18,3 +18,8 @@
   opacity: 0;
   pointer-events: none;
 }
+
+/* Add smooth transition for link hover states */
+.headerNav a {
+  transition: all 0.2s ease-in-out;
+}
