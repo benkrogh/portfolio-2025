@@ -29,11 +29,6 @@
 html,
 body {
   background-color: #fcfaf7;
-  /* When disabled, the custom cursor breaks */
-  /* When enabled, the navigation won't show/hide */
-  /* overflow-x: hidden; */
-  width: 100%;
-  height: 100%;
   /* Global custom cursor styles */
   cursor: none !important;
 }
