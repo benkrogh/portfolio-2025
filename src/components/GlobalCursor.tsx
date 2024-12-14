@@ -2,6 +2,10 @@ import { useEffect } from "react";
 
 export default function GlobalCursor() {
   useEffect(() => {
+    // Check if we're on mobile/small screen
+    const isMobile = window.innerWidth < 768; // 768px is Tailwind's md breakpoint
+    if (isMobile) return; // Don't initialize cursor on mobile
+
     // First, clean up any existing cursors from previous page loads
     const existingCursors = document.querySelectorAll("#custom-cursor");
     existingCursors.forEach((cursor) => cursor.remove());
@@ -34,10 +38,21 @@ export default function GlobalCursor() {
       el.addEventListener("mouseleave", removeHoverClass);
     });
 
+    // Add resize listener to remove cursor if window is resized to mobile
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        cursor.style.display = 'none';
+      } else {
+        cursor.style.display = 'block';
+      }
+    };
+
     window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
+      window.removeEventListener("resize", handleResize);
       elements.forEach((el) => {
         el.removeEventListener("mouseenter", addHoverClass);
         el.removeEventListener("mouseleave", removeHoverClass);

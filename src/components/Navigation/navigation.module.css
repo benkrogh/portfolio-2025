@@ -18,6 +18,11 @@
   min-height: 72px !important;
 }
 
+/* Add specific styling for the navigation links container */
+.headerNav nav > div {
+  gap: 0.5rem !important;
+}
+
 .hidden {
   transform: translateY(-100%);
   opacity: 0;
@@ -27,4 +32,9 @@
 /* Add smooth transition for link hover states */
 .headerNav a {
   transition: all 0.2s ease-in-out;
+}
+
+/* Add hover state style */
+.headerNav a:hover:not(.active) {
+  background-color: #524D47 !important;
 }

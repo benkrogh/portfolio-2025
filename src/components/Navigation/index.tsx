@@ -27,13 +27,15 @@ const Navigation = ({ currentPath }: NavigationProps) => {
             />
           </a>
           
-          <div className="flex items-center gap-6 text-[0.938rem] font-medium z-10">
+          <div 
+            className={`flex items-center text-[0.938rem] font-medium z-10`}
+          >
             <a
               href="/"
               className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all ${
                 currentPath === "/" 
                   ? "bg-white text-[#1C1C1C]" 
-                  : "text-white hover:bg-white/10"
+                  : "text-white"
               }`}
             >
               <span className="inline-block w-2 h-2 rounded-full bg-red-500"></span>

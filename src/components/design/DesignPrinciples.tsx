@@ -1,4 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+
+// Add icons for expand/collapse
+const ExpandIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 4L12 20M4 12L20 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+);
+
+const CloseIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+);
 
 const designPrinciples = [
   {
@@ -40,39 +53,113 @@ const designPrinciples = [
 
 export default function DesignPrinciples() {
   const [hoveredPrinciple, setHoveredPrinciple] = useState<number | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState<{ x: number; y: number | null }>({ x: 0, y: null });
+  const [isExpanded, setIsExpanded] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Initialize mouse position when component mounts
+  useEffect(() => {
+    if (containerRef.current) {
+      const containerBounds = containerRef.current.getBoundingClientRect();
+      setMousePosition({
+        x: containerBounds.width / 2,
+        y: null // We'll set this to null initially to prevent the card from showing
+      });
+    }
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    const viewportWidth = window.innerWidth;
+    if (!containerRef.current) return;
+    
+    const containerBounds = containerRef.current.getBoundingClientRect();
     const cardWidth = 446;
     
-    let xPos = e.clientX;
-    if (xPos + cardWidth/2 > viewportWidth) {
-      xPos = viewportWidth - cardWidth - 16;
+    const xPos = e.clientX - containerBounds.left;
+    const yPos = e.clientY - containerBounds.top;
+    
+    let finalX = xPos;
+    if (xPos + cardWidth/2 > containerBounds.width) {
+      finalX = containerBounds.width - cardWidth - 16;
     } else if (xPos - cardWidth/2 < 0) {
-      xPos = cardWidth/2 + 16;
+      finalX = cardWidth/2 + 16;
     }
 
     setMousePosition({ 
-      x: xPos,
-      y: e.clientY + 32
+      x: finalX,
+      y: yPos + 32
     });
   };
 
   return (
-    <div className="relative" onMouseMove={handleMouseMove}>
+    <div className="relative" ref={containerRef} onMouseMove={handleMouseMove}>
       <div
         style={{
           backgroundColor: "#EC6A5C",
           borderRadius: "24px",
         }}
-        className="w-full max-w-[1320px] mx-auto px-12 p-14"
+        className="w-full max-w-[1320px] mx-auto p-8 sm:p-12"
       >
+        {/* Mobile View */}
+        <div className="md:hidden">
+          <div className="flex justify-between items-center">
+            <span
+              className="GeistMono text-base"
+              style={{ 
+                color: "#521710",
+                letterSpacing: "-0.02em"
+              }}
+            >
+              SEVEN DESIGN PRINCIPLES:
+            </span>
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-[#521710] hover:text-white transition-colors duration-500"
+            >
+              {isExpanded ? <CloseIcon /> : <ExpandIcon />}
+            </button>
+          </div>
+
+          {/* Mobile Expanded View with smooth transition */}
+          <div 
+            className={`grid transition-[grid-template-rows] duration-500 ease-out ${
+              isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+            }`}
+          >
+            <div className="overflow-hidden">
+              <div className="mt-6">
+                {designPrinciples.map((principle) => (
+                  <div 
+                    key={principle.id}
+                    className="mb-4 last:mb-0"
+                  >
+                    <div
+                      className="text-base"
+                      style={{ 
+                        color: "#521710",
+                        letterSpacing: "-0.02em"
+                      }}
+                    >
+                      {String(principle.id).padStart(2, "0")}.{principle.title}
+                    </div>
+                    <p className="mt-2 text-sm text-[#521710]/80">
+                      {principle.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop View */}
         <span
-          className="GeistMono text-2xl inline line-height-1.4"
-          style={{ color: "#521710" }}
+          className="GeistMono text-2xl inline line-height-1.4 hidden md:inline"
+          style={{ 
+            color: "#521710",
+            letterSpacing: "-0.02em"
+          }}
         >
-          SEVEN DESIGN PRINCIPLES:
+          SEVEN DESIGN PRINCIPLES:{" "}
           {designPrinciples.map((principle) => (
             <React.Fragment key={principle.id}>
               <span
@@ -80,6 +167,7 @@ export default function DesignPrinciples() {
                 style={{
                   color: "#521710",
                   transition: "color 400ms ease-in-out",
+                  letterSpacing: "-0.02em"
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = "#FFFFFF";
@@ -90,23 +178,23 @@ export default function DesignPrinciples() {
                   setHoveredPrinciple(null);
                 }}
               >
-                {String(principle.id).padStart(2, "0")}. {principle.title}
+                {String(principle.id).padStart(2, "0")}.{principle.title}
               </span>{" "}
             </React.Fragment>
           ))}
         </span>
       </div>
 
-      {/* Hover Card */}
+      {/* Hover Card (Desktop Only) */}
       <div
-        className={`fixed bg-black text-white rounded-xl py-4 px-3 text-sm w-[446px] z-50 transition-all duration-300 ease-out`}
+        className={`absolute bg-black text-white rounded-xl py-3 px-4 text-sm w-[446px] z-50 transition-all duration-300 ease-out hidden md:block`}
         style={{
           left: `${mousePosition.x}px`,
-          top: `${mousePosition.y}px`,
+          top: mousePosition.y ? `${mousePosition.y}px` : '0',
           transform: `translate(-50%, 0) scale(${hoveredPrinciple ? 1 : 0.97})`,
-          opacity: hoveredPrinciple ? 1 : 0,
+          opacity: hoveredPrinciple && mousePosition.y !== null ? 1 : 0,
           pointerEvents: 'none',
-          visibility: hoveredPrinciple ? 'visible' : 'hidden',
+          visibility: hoveredPrinciple && mousePosition.y !== null ? 'visible' : 'hidden',
         }}
       >
         {designPrinciples.find(p => p.id === hoveredPrinciple)?.description}

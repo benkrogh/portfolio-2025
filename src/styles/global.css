@@ -70,3 +70,17 @@ body {
     transition-duration: 300ms;
   }
 }
+
+/* Add this to your global styles */
+@media (max-width: 768px) {
+  * {
+    cursor: auto !important; /* Force system cursor on mobile */
+  }
+}
+
+/* Keep the existing styles for larger screens */
+@media (min-width: 769px) {
+  * {
+    cursor: none;
+  }
+}

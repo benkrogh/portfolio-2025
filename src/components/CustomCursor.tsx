@@ -81,7 +81,7 @@ export default function CustomCursor() {
   return (
     <div
       id="cursor"
-      className="fixed pointer-events-none z-[9999] will-change-transform"
+      className="fixed pointer-events-none z-[9999] will-change-transform hidden md:block"
       style={{
         position: "fixed",
         top: 0,
