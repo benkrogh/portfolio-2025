@@ -17,7 +17,7 @@ module.exports = {
         mono: ["GeistMono", "Menlo", "monospace"],
       },
       borderRadius: {
-        "3xl": "32px",
+        "3xl": "24px",
       },
       height: {
         72: "288px", // 72 = 18rem = 288px

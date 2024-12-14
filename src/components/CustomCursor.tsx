@@ -27,7 +27,7 @@ export default function CustomCursor() {
         ...prev,
         x: e.clientX,
         y: e.clientY,
-        isNav: isDarkBg || prev.isNav
+        isNav: isDarkBg ? true : prev.isNav
       }));
     }, 16);
 
@@ -99,11 +99,11 @@ export default function CustomCursor() {
           ${
             cursor.isHovering
               ? cursor.isNav
-                ? "w-8 h-8 bg-white text-black rounded-full"
-                : "w-8 h-8 bg-black text-white rounded-full"
+                ? "w-8 h-8 bg-white text-black rounded-[24px]"
+                : "w-8 h-8 bg-black text-white rounded-[24px]"
               : cursor.isNav
-                ? "w-[10px] h-[10px] bg-white rounded-full"
-                : "w-[10px] h-[10px] bg-black rounded-full"
+                ? "w-[10px] h-[10px] bg-white rounded-[24px]"
+                : "w-[10px] h-[10px] bg-black rounded-[24px]"
           }
         `}
       >

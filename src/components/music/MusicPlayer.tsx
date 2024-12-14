@@ -245,7 +245,7 @@ const MusicPlayer = () => {
       <div
         style={{
           backgroundColor: "#EDE9E5",
-          borderRadius: "32px",
+          borderRadius: "24px",
           height: "144px",
         }}
         className="w-full max-w-[1320px] mx-auto relative overflow-hidden"

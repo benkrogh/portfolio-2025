@@ -16,7 +16,7 @@ export default function DesignPrinciples() {
       <div
         style={{
           backgroundColor: "#EC6A5C",
-          borderRadius: "32px",
+          borderRadius: "24px",
         }}
         className="w-full max-w-[1320px] mx-auto px-12 p-14"
       >
