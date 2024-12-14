@@ -5,6 +5,7 @@ interface CursorState {
   x: number;
   y: number;
   isHovering: boolean;
+  isNav?: boolean;
 }
 
 export default function CustomCursor() {
@@ -12,14 +13,21 @@ export default function CustomCursor() {
     x: 0,
     y: 0,
     isHovering: false,
+    isNav: false,
   });
 
   useEffect(() => {
     const onMouseMove = throttle((e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const navArea = target.closest(`[class*="headerNav"]`);
+      const footerArea = target.closest("footer");
+      const isDarkBg = navArea || footerArea;
+
       setCursor((prev) => ({
         ...prev,
         x: e.clientX,
         y: e.clientY,
+        isNav: isDarkBg || prev.isNav
       }));
     }, 16);
 
@@ -27,17 +35,28 @@ export default function CustomCursor() {
       const target = e.target as HTMLElement;
       const projectCard = target.closest("[data-project]");
       const blogCard = target.closest("[data-blog-card]");
+      const navLink = target.closest(".headerNav a");
+      const footerLink = target.closest("footer a");
+      const isDarkBg = navLink || footerLink;
       const projectGrid = document.querySelector(".project-grid-area");
 
       if ((projectCard && projectGrid?.contains(target)) || blogCard) {
         setCursor((prev) => ({
           ...prev,
           isHovering: true,
+          isNav: false,
+        }));
+      } else if (isDarkBg) {
+        setCursor((prev) => ({
+          ...prev,
+          isHovering: true,
+          isNav: true,
         }));
       } else {
         setCursor((prev) => ({
           ...prev,
           isHovering: false,
+          isNav: false,
         }));
       }
     };
@@ -79,12 +98,16 @@ export default function CustomCursor() {
           transition-all duration-300 ease-out
           ${
             cursor.isHovering
-              ? "w-8 h-8 bg-black text-white rounded-full"
-              : "w-[10px] h-[10px] bg-black rounded-full"
+              ? cursor.isNav
+                ? "w-8 h-8 bg-white text-black rounded-full"
+                : "w-8 h-8 bg-black text-white rounded-full"
+              : cursor.isNav
+                ? "w-[10px] h-[10px] bg-white rounded-full"
+                : "w-[10px] h-[10px] bg-black rounded-full"
           }
         `}
       >
-        {cursor.isHovering && <span className="text-white">→</span>}
+        {cursor.isHovering && <span className={cursor.isNav ? "text-black" : "text-white"}>→</span>}
       </div>
     </div>
   );

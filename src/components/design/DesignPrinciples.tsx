@@ -21,7 +21,7 @@ export default function DesignPrinciples() {
         className="w-full max-w-[1320px] mx-auto px-12 p-14"
       >
         <span
-          className="GeistMono text-2xl inline"
+          className="GeistMono text-2xl inline line-height-1.4"
           style={{ color: "#521710" }}
         >
           SEVEN DESIGN PRINCIPLES:

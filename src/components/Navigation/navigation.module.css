@@ -13,6 +13,11 @@
   pointer-events: auto;
 }
 
+.headerNav nav {
+  height: 72px !important;
+  min-height: 72px !important;
+}
+
 .hidden {
   transform: translateY(-100%);
   opacity: 0;
