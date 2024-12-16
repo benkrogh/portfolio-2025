@@ -4,6 +4,7 @@ import "../styles/fonts.css";
 import "../styles/global.css";
 import { ViewTransitions } from "astro:transitions";
 import Navigation from "@/components/Navigation";
+import CustomCursor from "@/components/CustomCursor";
 
 interface Props {
   title: string;
@@ -26,6 +27,7 @@ console.log("Layout currentPath:", currentPath); // Debug log
     <ViewTransitions />
   </head>
   <body>
+    <CustomCursor client:load />
     <Navigation client:load currentPath={currentPath} />
     <slot />
   </body>

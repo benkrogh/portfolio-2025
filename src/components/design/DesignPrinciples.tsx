@@ -97,7 +97,7 @@ export default function DesignPrinciples() {
           backgroundColor: "#EC6A5C",
           borderRadius: "24px",
         }}
-        className="w-full max-w-[1320px] mx-auto p-8 sm:p-12"
+        className="w-full max-w-[1320px] mx-auto mb-4 p-8 sm:p-12"
       >
         {/* Mobile View */}
         <div className="md:hidden">

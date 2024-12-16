@@ -32,9 +32,10 @@
 /* Add smooth transition for link hover states */
 .headerNav a {
   transition: all 0.2s ease-in-out;
+  cursor: none !important;
 }
 
-/* Add hover state style */
-.headerNav a:hover:not(.active) {
-  background-color: #524D47 !important;
-}
+/* Remove the conflicting hover style */
+/* .headerNav a:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.1);
+} */

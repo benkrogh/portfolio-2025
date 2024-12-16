@@ -28,14 +28,14 @@ const Navigation = ({ currentPath }: NavigationProps) => {
           </a>
           
           <div 
-            className={`flex items-center text-[0.938rem] font-medium z-10`}
+            className={`flex items-center text-[0.938rem] font-medium z-10 gap-2`}
           >
             <a
               href="/"
               className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all ${
                 currentPath === "/" 
-                  ? "bg-white text-[#1C1C1C]" 
-                  : "text-white"
+                  ? "bg-white text-[#1C1C1C] hover:bg-white/70" 
+                  : "text-white hover:bg-white/10"
               }`}
             >
               <span className="inline-block w-2 h-2 rounded-full bg-red-500"></span>
@@ -45,7 +45,7 @@ const Navigation = ({ currentPath }: NavigationProps) => {
               href="/about"
               className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all ${
                 currentPath === "/about" 
-                  ? "bg-white text-[#1C1C1C]" 
+                  ? "bg-white text-[#1C1C1C] hover:bg-white/70" 
                   : "text-white hover:bg-white/10"
               }`}
             >
@@ -56,7 +56,7 @@ const Navigation = ({ currentPath }: NavigationProps) => {
               href="/blog"
               className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all ${
                 currentPath === "/blog" 
-                  ? "bg-white text-[#1C1C1C]" 
+                  ? "bg-white text-[#1C1C1C] hover:bg-white/70" 
                   : "text-white hover:bg-white/10"
               }`}
             >

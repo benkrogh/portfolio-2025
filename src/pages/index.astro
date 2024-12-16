@@ -4,6 +4,7 @@ import DesignPrinciples from "@/components/design/DesignPrinciples";
 import MusicPlayer from "@/components/music/MusicPlayer";
 import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer.astro";
+import AnimatedTitle from "@/components/AnimatedTitle";
 
 const projects = [
   {
@@ -71,12 +72,10 @@ const projects = [
     <!-- Hero Section -->
     <header class="mb-6">
       <div class="w-full max-w-[1320px] mx-auto">
-        <h1
-          id="hero-title"
-          class="text-3xl font-mono mb-4 p-4 bg-[#EDE9E5] rounded-[24px] p-8 sm:p-12 w-full h-[288px] flex items-center"
-        >
-          <!-- Text will be animated here -->
-        </h1>
+        <AnimatedTitle 
+          client:only="react" 
+          text="Ben Krogh is a product [BR] design leader who still [BR] loves to make things."
+        />
       </div>
     </header>
 
@@ -121,42 +120,6 @@ const projects = [
     <Footer />
   </main>
 </Layout>
-
-<script>
-  // Wait for the DOM to fully load
-  document.addEventListener("DOMContentLoaded", () => {
-    const text =
-      "Ben Krogh is a product [BR] design leader who still [BR] loves to make things.";
-    const titleElement = document.getElementById("hero-title");
-
-    // Create an array of characters
-    const textArray = text.split("");
-
-    let index = 0;
-
-    function type() {
-      if (index < textArray.length) {
-        if (
-          titleElement &&
-          textArray[index] === "[" &&
-          textArray[index + 1] === "B" &&
-          textArray[index + 2] === "R" &&
-          textArray[index + 3] === "]"
-        ) {
-          titleElement.innerHTML += "<br>"; // Insert line break
-          index += 4; // Skip the [BR] marker
-        } else if (titleElement) {
-          titleElement.innerHTML += textArray[index]; // Append the next character
-          index++;
-        }
-        setTimeout(type, 50); // Adjust typing speed here
-      }
-    }
-
-    // Start typing animation after a short delay
-    setTimeout(type, 100); // Delay before starting the typing effect
-  });
-</script>
 
 <style>
   /* Override global cursor only in the custom cursor area */

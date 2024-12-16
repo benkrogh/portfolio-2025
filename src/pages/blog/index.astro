@@ -1,6 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { BlogCard } from "@/components/blog/BlogCard";
+import BlogCard from "@/components/blog/BlogCard";
+import AnimatedTitle from "@/components/AnimatedTitle";
+import Footer from "@/components/Footer.astro";
 import CustomCursor from "@/components/CustomCursor";
 
 // Add an array of colors to choose from
@@ -18,30 +20,25 @@ const formattedPosts = posts.map((post) => ({
   slug: post.url?.split("/").pop()?.replace(".md", "") || "",
   title: post.frontmatter.title,
   date: post.frontmatter.date,
-  // Randomly select a color from the array
-  color:
-    post.frontmatter.color || colors[Math.floor(Math.random() * colors.length)],
+  color: post.frontmatter.color || colors[Math.floor(Math.random() * colors.length)],
 }));
 ---
 
 <Layout title="Blog | My Portfolio">
   <CustomCursor client:load />
-  <div class="px-4 sm:px-8">
-    <div class="w-full max-w-[1320px] mx-auto my-12 sm:my-16">
-      <div class="bg-[#EDE9E5] rounded-[24px] p-8 sm:p-12 w-full relative">
-        <h1 class="text-5xl sm:text-5xl leading-relaxed">
-          /blog: My thoughts on<br />
-          design, music, and culture
-        </h1>
-      </div>
-
-      <div class="mt-8">
-        {
-          formattedPosts.map((post) => (
-            <BlogCard client:visible post={post} prefersReducedMotion={false} />
-          ))
-        }
-      </div>
+  <main class="max-w-[1320px] mx-auto px-4 py-8">
+    <AnimatedTitle 
+      client:only="react"
+      text="/blog: My thoughts on [BR] design, music, and culture"
+      className="text-3xl font-mono mb-6 font-light bg-[#EDE9E5] rounded-[24px] p-8 sm:p-12 w-full h-[288px] flex items-center"
+    />
+    
+    <div class="mt-4">
+      {formattedPosts.map((post) => (
+        <BlogCard client:load post={post} prefersReducedMotion={false} />
+      ))}
     </div>
-  </div>
+
+    <Footer />
+  </main>
 </Layout>

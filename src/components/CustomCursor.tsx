@@ -19,7 +19,7 @@ export default function CustomCursor() {
   useEffect(() => {
     const onMouseMove = throttle((e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const navArea = target.closest(`[class*="headerNav"]`);
+      const navArea = target.closest(`nav`);
       const footerArea = target.closest("footer");
       const isDarkBg = navArea || footerArea;
 
@@ -35,7 +35,7 @@ export default function CustomCursor() {
       const target = e.target as HTMLElement;
       const projectCard = target.closest("[data-project]");
       const blogCard = target.closest("[data-blog-card]");
-      const navLink = target.closest(".headerNav a");
+      const navLink = target.closest("nav a");
       const footerLink = target.closest("footer a");
       const isDarkBg = navLink || footerLink;
       const projectGrid = document.querySelector(".project-grid-area");

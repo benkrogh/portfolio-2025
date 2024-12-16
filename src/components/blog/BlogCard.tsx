@@ -7,7 +7,7 @@ interface BlogCardProps {
   prefersReducedMotion: boolean;
 }
 
-export const BlogCard = ({ post, prefersReducedMotion }: BlogCardProps) => {
+export default function BlogCard({ post, prefersReducedMotion }: BlogCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const bgColor = isHovered ? adjustColor(post.color, 10) : post.color;
 
@@ -18,7 +18,7 @@ export const BlogCard = ({ post, prefersReducedMotion }: BlogCardProps) => {
     >
       <div data-blog-card>
         <div
-          className="h-24 rounded-3xl m-4 p-8 flex justify-between items-center transition-colors duration-400"
+          className="h-24 rounded-3xl my-4 p-8 flex justify-between items-center transition-colors duration-400"
           style={{ backgroundColor: bgColor }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -45,4 +45,4 @@ export const BlogCard = ({ post, prefersReducedMotion }: BlogCardProps) => {
       </div>
     </a>
   );
-};
+}
