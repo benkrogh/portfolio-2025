@@ -5,6 +5,7 @@ import "../styles/global.css";
 import { ViewTransitions } from "astro:transitions";
 import Navigation from "@/components/Navigation";
 import CustomCursor from "@/components/CustomCursor";
+import SmoothScroll from "@/components/utils/SmoothScroll";
 
 interface Props {
   title: string;
@@ -12,7 +13,6 @@ interface Props {
 
 const { title } = Astro.props;
 const currentPath = Astro.url.pathname;
-console.log("Layout currentPath:", currentPath); // Debug log
 ---
 
 <!doctype html>
@@ -29,6 +29,9 @@ console.log("Layout currentPath:", currentPath); // Debug log
   <body>
     <CustomCursor client:load />
     <Navigation client:load currentPath={currentPath} />
-    <slot />
+    <SmoothScroll client:load />
+    <main data-lenis-prevent>
+      <slot />
+    </main>
   </body>
 </html>

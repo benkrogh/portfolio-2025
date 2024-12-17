@@ -3,10 +3,21 @@
 @tailwind utilities;
 
 @layer base {
+  ::selection {
+    background-color: #EC6A5C;
+    color: #FFFFFF;
+  }
+  
+  ::-moz-selection {
+    background-color: #EC6A5C;
+    color: #FFFFFF;
+  }
+
   html {
     font-family: "GeistMono", monospace;
-    scroll-behavior: smooth;
-    overscroll-behavior-y: none;
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   h1 {
     font-weight: 300;
@@ -83,4 +94,25 @@ body {
   * {
     cursor: none;
   }
+}
+
+/* Add these new Lenis-specific styles */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
