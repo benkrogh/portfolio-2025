@@ -1,6 +1,6 @@
 /* Navigation styles */
 .headerNav {
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -11,6 +11,8 @@
     transform 0.3s ease-in-out,
     opacity 0.3s ease-in-out;
   pointer-events: auto;
+  width: 100%;
+  background-color: transparent;
 }
 
 .headerNav nav {
@@ -18,7 +20,6 @@
   min-height: 72px !important;
 }
 
-/* Add specific styling for the navigation links container */
 .headerNav nav > div {
   gap: 0.5rem !important;
 }
@@ -29,13 +30,7 @@
   pointer-events: none;
 }
 
-/* Add smooth transition for link hover states */
 .headerNav a {
   transition: all 0.2s ease-in-out;
   cursor: none !important;
 }
-
-/* Remove the conflicting hover style */
-/* .headerNav a:hover:not(.active) {
-  background-color: rgba(255, 255, 255, 0.1);
-} */

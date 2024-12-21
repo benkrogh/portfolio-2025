@@ -248,7 +248,7 @@ const MusicPlayer = () => {
           borderRadius: "24px",
           height: "144px",
         }}
-        className="w-full max-w-[1320px] mx-auto relative overflow-hidden"
+        className="w-full max-w-[1500px] mx-auto relative overflow-hidden"
       >
         <canvas
           ref={canvasRef}

@@ -21,7 +21,9 @@
   }
   h1 {
     font-weight: 300;
-    margin-bottom: 124px;
+    margin-bottom: 0;
+    font-size: 3rem;
+    line-height: 1.2;
   }
 
   h1.blog-title {
@@ -34,6 +36,12 @@
     font-weight: 300;
     font-size: 1.5rem;
     line-height: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
   }
 }
 
