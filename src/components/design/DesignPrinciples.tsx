@@ -22,17 +22,17 @@ const designPrinciples = [
   {
     id: 2,
     title: "BE THOUGHTFUL FIRST, CLEVER LATER",
-    description: "Start with clarity and understanding. Ensure the core experience is intuitive and accessible before adding creative flourishes. Cleverness should enhance, not obstruct."
+    description: "Begin with clarity. Ensure the core experience is intuitive and accessible before adding creative flourishes. Cleverness should enhance a design, not obstruct it."
   },
   {
     id: 3,
-    title: "DESIGN WITH RESTRAINTS",
+    title: "DESIGN WITH CONSTRAINTS",
     description: "Constraints breed creativity. Working within limitations - whether technical, visual, or conceptual - often leads to more focused and innovative solutions."
   },
   {
     id: 4,
     title: "DESIGN SYSTEMS THAT INSPIRE TRUST",
-    description: "Consistency, reliability, and transparency in design build user confidence. Every interaction should reinforce that trust through predictable patterns and honest communication."
+    description: "Consistency in design details builds trust with your users. Every interaction should reinforce that trust through predictable patterns and honest communication."
   },
   {
     id: 5,
@@ -47,7 +47,7 @@ const designPrinciples = [
   {
     id: 7,
     title: "GOOD DESIGN IS REDUCTIVE",
-    description: "Simplicity is the ultimate sophistication. Continuously question what can be removed while preserving the essence of the experience. Less complexity often leads to better usability."
+    description: "Our world is full of clutter and noise that we navigate every day. Good design takes away the extra elements that distract and offer a clear and engaging experience that stands apart. As designers, we reduce what is necessary until all that remains is crucial."
   },
 ];
 
@@ -187,7 +187,7 @@ export default function DesignPrinciples() {
 
       {/* Hover Card (Desktop Only) */}
       <div
-        className={`absolute bg-black text-white rounded-xl py-3 px-4 text-sm w-[446px] z-50 transition-all duration-300 ease-out hidden md:block`}
+        className={`absolute bg-[#17120A] text-white rounded-xl py-3 px-4 text-sm w-[446px] z-50 transition-all duration-300 ease-out hidden md:block`}
         style={{
           left: `${mousePosition.x}px`,
           top: mousePosition.y ? `${mousePosition.y}px` : '0',
