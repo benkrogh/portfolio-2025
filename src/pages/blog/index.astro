@@ -26,12 +26,14 @@ const formattedPosts = posts.map((post) => ({
 
 <Layout title="Blog | My Portfolio">
   <CustomCursor client:load />
-  <main class="max-w-[1500px] mx-auto px-4 py-8">
-    <AnimatedTitle 
+  <main class="max-w-[1500px] mx-auto px-4 py-6">
+    <header class="h-[55vh] mb-6">
+      <AnimatedTitle 
       client:only="react"
-      text="/blog: My thoughts on [BR] design, music, and culture"
-      className="text-3xl font-mono mb-6 font-light bg-[#EDE9E5] rounded-[24px] p-8 sm:p-12 w-full h-[288px] flex items-center"
-    />
+        text="/blog: My thoughts on [BR] design, music, and culture"
+        className="text-3xl font-mono mb-6 font-light bg-[#EDE9E5] rounded-[24px] p-8 sm:p-12 w-full h-full flex items-center"
+      />
+    </header>
     
     <div class="mt-4">
       {formattedPosts.map((post) => (

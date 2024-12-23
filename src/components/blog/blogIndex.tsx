@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import AnimatedTitle from "../AnimatedTitle";
 
 const defaultPosts = [
   {
@@ -136,14 +137,15 @@ const BlogIndex = ({ posts = defaultPosts }: { posts?: Post[] }) => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="font-mono text-2xl mb-8">
-        /blog: My thoughts on
-        <br />
-        design, music, and culture
-      </h1>
+    <div className="max-w-3xl mx-auto pt-32">
+      <header className="min-h-[55vh] flex items-center justify-center px-4">
+        <AnimatedTitle 
+          text="/blog: My thoughts on[BR]design, music, and culture"
+          id="blog-title"
+        />
+      </header>
 
-      <div className="space-y-2">
+      <div className="px-4 space-y-2">
         {posts.map((post) => (
           <BlogPost
             key={post.slug}

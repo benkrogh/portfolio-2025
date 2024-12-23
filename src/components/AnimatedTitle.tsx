@@ -3,14 +3,16 @@ import { useEffect } from 'react';
 interface AnimatedTitleProps {
   text: string;
   className?: string;
+  id?: string;
 }
 
 export default function AnimatedTitle({ 
   text, 
-  className = "text-[32px] md:text-3xl font-mono bg-[#EDE9E5] rounded-[24px] w-full h-full flex items-center justify-center p-8 md:p-12" 
+  className = "text-[32px] md:text-3xl font-mono bg-[#EDE9E5] rounded-[24px] w-full h-[55vh] flex items-center p-8 md:p-12",
+  id = "animated-title"
 }: AnimatedTitleProps) {
   useEffect(() => {
-    const titleElement = document.getElementById("hero-title");
+    const titleElement = document.getElementById(id);
     
     if (titleElement) {
       titleElement.textContent = '';
@@ -37,11 +39,11 @@ export default function AnimatedTitle({
 
       type();
     }
-  }, [text]);
+  }, [text, id]);
 
   return (
     <h1
-      id="hero-title"
+      id={id}
       className={className}
     />
   );
