@@ -30,7 +30,7 @@ const currentPath = Astro.url.pathname;
     <CustomCursor client:load />
     <Navigation client:load currentPath={currentPath} />
     <SmoothScroll client:load />
-    <main data-lenis-prevent class="max-w-[1500px] mx-auto pt-[104px]">
+    <main class="custom-cursor-area max-w-[1500px] mx-auto pt-[104px]">
       <slot />
     </main>
   </body>

@@ -5,7 +5,7 @@ interface CursorState {
   x: number;
   y: number;
   isHovering: boolean;
-  isNav?: boolean;
+  isNav: boolean | 'footer';
 }
 
 export default function CustomCursor() {
@@ -21,13 +21,13 @@ export default function CustomCursor() {
       const target = e.target as HTMLElement;
       const navArea = target.closest(`nav`);
       const footerArea = target.closest("footer");
-      const isDarkBg = navArea || footerArea;
+      const isFooterNav = footerArea?.contains(navArea);
 
       setCursor((prev) => ({
         ...prev,
         x: e.clientX,
         y: e.clientY,
-        isNav: isDarkBg ? true : prev.isNav
+        isNav: footerArea ? 'footer' : navArea && !isFooterNav ? true : false
       }));
     }, 16);
 
@@ -35,18 +35,25 @@ export default function CustomCursor() {
       const target = e.target as HTMLElement;
       const projectCard = target.closest("[data-project]");
       const blogCard = target.closest("[data-blog-card]");
-      const navLink = target.closest("nav a");
-      const footerLink = target.closest("footer a");
-      const isDarkBg = navLink || footerLink;
+      const navArea = target.closest(`nav`);
+      const footerArea = target.closest("footer");
+      const isFooterNav = footerArea?.contains(navArea);
+      const isLink = target.closest("a");
       const projectGrid = document.querySelector(".project-grid-area");
 
-      if ((projectCard && projectGrid?.contains(target)) || blogCard) {
+      if (footerArea && isLink) {
+        setCursor((prev) => ({
+          ...prev,
+          isHovering: true,
+          isNav: 'footer',
+        }));
+      } else if ((projectCard && projectGrid?.contains(target)) || blogCard) {
         setCursor((prev) => ({
           ...prev,
           isHovering: true,
           isNav: false,
         }));
-      } else if (isDarkBg) {
+      } else if (navArea && !isFooterNav && isLink) {
         setCursor((prev) => ({
           ...prev,
           isHovering: true,
@@ -56,7 +63,7 @@ export default function CustomCursor() {
         setCursor((prev) => ({
           ...prev,
           isHovering: false,
-          isNav: false,
+          isNav: footerArea ? 'footer' : navArea && !isFooterNav ? true : false,
         }));
       }
     };
@@ -98,16 +105,24 @@ export default function CustomCursor() {
           transition-all duration-300 ease-out
           ${
             cursor.isHovering
-              ? cursor.isNav
-                ? "w-8 h-8 bg-white text-black rounded-[24px]"
-                : "w-8 h-8 bg-black text-white rounded-[24px]"
-              : cursor.isNav
-                ? "w-[10px] h-[10px] bg-white rounded-[24px]"
-                : "w-[10px] h-[10px] bg-black rounded-[24px]"
+              ? cursor.isNav === true
+                ? "w-8 h-8 bg-[#17120A] text-white rounded-[24px]"
+                : cursor.isNav === 'footer'
+                  ? "w-8 h-8 bg-white text-black rounded-[24px]"
+                  : "w-8 h-8 bg-black text-white rounded-[24px]"
+              : cursor.isNav === true
+                ? "w-[10px] h-[10px] bg-[#17120A] rounded-[24px]"
+                : cursor.isNav === 'footer'
+                  ? "w-[10px] h-[10px] bg-white rounded-[24px]"
+                  : "w-[10px] h-[10px] bg-black rounded-[24px]"
           }
         `}
       >
-        {cursor.isHovering && <span className={cursor.isNav ? "text-black" : "text-white"}>→</span>}
+        {cursor.isHovering && (
+          <span className={cursor.isNav === 'footer' ? "text-black" : "text-white"}>
+            →
+          </span>
+        )}
       </div>
     </div>
   );

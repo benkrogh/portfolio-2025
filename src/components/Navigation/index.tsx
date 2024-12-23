@@ -13,58 +13,60 @@ const Navigation = ({ currentPath }: NavigationProps) => {
     <div
       className={`${styles.headerNav} ${
         isNavVisible ? styles.visible : styles.hidden
-      }`}
+      } fixed w-full`}
     >
-      <div className="max-w-[1320px] mx-auto px-4 pt-8">
-        <nav 
-          className="flex items-center justify-between h-[72px] pl-8 pr-3 bg-[#1C1C1C] rounded-[24px]"
-        >
-          <a href="/" className="flex items-center">
-            <img
-              src="/images/BK.svg"
-              alt="BK Logo"
-              className="w-[34px] h-[16px]"
-            />
-          </a>
-          
-          <div 
-            className={`flex items-center text-[0.938rem] font-medium z-10 gap-2`}
+      <div className="w-full max-w-[1500px] mx-auto">
+        <div className="px-4 pt-8">
+          <nav 
+            className="flex items-center justify-between h-[72px] pl-8 pr-3 rounded-[24px] bg-[#FCF9F4]/20 backdrop-blur-[16px] z-[1000]"
           >
-            <a
-              href="/"
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all ${
-                currentPath === "/" 
-                  ? "bg-white text-[#1C1C1C] hover:bg-white/70" 
-                  : "text-white hover:bg-white/10"
-              }`}
-            >
-              <span className="inline-block w-2 h-2 rounded-full bg-red-500"></span>
-              projects
+            <a href="/" className="hover:opacity-80 transition-opacity">
+              <img
+                src="/images/BK-dark.svg"
+                alt="BK Logo"
+                className="w-[50px] h-[36px]"
+              />
             </a>
-            <a
-              href="/about"
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all ${
-                currentPath === "/about" 
-                  ? "bg-white text-[#1C1C1C] hover:bg-white/70" 
-                  : "text-white hover:bg-white/10"
-              }`}
+            
+            <div 
+              className={`flex items-center text-[0.938rem] font-medium z-10 gap-2`}
             >
-              <span className="inline-block w-2 h-2 rounded-full bg-blue-500"></span>
-              about
-            </a>
-            <a
-              href="/blog"
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all ${
-                currentPath === "/blog" 
-                  ? "bg-white text-[#1C1C1C] hover:bg-white/70" 
-                  : "text-white hover:bg-white/10"
-              }`}
-            >
-              <span className="inline-block w-2 h-2 rounded-full bg-green-500"></span>
-              blog
-            </a>
-          </div>
-        </nav>
+              <a
+                href="/"
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 ${
+                  currentPath === "/" 
+                    ? "bg-[#17120A] text-white hover:bg-[#17120A]/90 active" 
+                    : "text-[#17120A]"
+                }`}
+              >
+                <span className="inline-block w-2 h-2 rounded-full bg-red-500"></span>
+                projects
+              </a>
+              <a
+                href="/about"
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 ${
+                  currentPath === "/about" 
+                    ? "bg-[#17120A] text-white hover:bg-[#17120A]/90 active" 
+                    : "text-[#17120A]"
+                }`}
+              >
+                <span className="inline-block w-2 h-2 rounded-full bg-blue-500"></span>
+                about
+              </a>
+              <a
+                href="/blog"
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 ${
+                  currentPath === "/blog" 
+                    ? "bg-[#17120A] text-white hover:bg-[#17120A]/90 active" 
+                    : "text-[#17120A]"
+                }`}
+              >
+                <span className="inline-block w-2 h-2 rounded-full bg-green-500"></span>
+                blog
+              </a>
+            </div>
+          </nav>
+        </div>
       </div>
     </div>
   );

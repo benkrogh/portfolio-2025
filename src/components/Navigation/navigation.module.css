@@ -32,5 +32,8 @@
 
 .headerNav a {
   transition: all 0.2s ease-in-out;
-  cursor: none !important;
+}
+
+.headerNav:hover {
+  --cursor-color: #17120A;
 }

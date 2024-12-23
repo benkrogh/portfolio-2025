@@ -7,7 +7,7 @@ interface AnimatedTitleProps {
 
 export default function AnimatedTitle({ 
   text, 
-  className = "text-3xl font-mono bg-[#EDE9E5] rounded-[24px] w-full h-full flex items-center justify-center" 
+  className = "text-[32px] md:text-3xl font-mono bg-[#EDE9E5] rounded-[24px] w-full h-full flex items-center justify-center p-8 md:p-12" 
 }: AnimatedTitleProps) {
   useEffect(() => {
     const titleElement = document.getElementById("hero-title");
