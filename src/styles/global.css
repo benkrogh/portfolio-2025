@@ -139,3 +139,11 @@ html.lenis {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* Add to your existing global.css */
+.music-player-transition {
+  transition: 
+    transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out,
+    width 0.3s ease-in-out;
+}

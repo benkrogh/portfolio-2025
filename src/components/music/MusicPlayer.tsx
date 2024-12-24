@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { SkipBack, Play, Pause, SkipForward } from "lucide-react";
+import { SkipBack, Play, Pause, SkipForward, Expand, Minimize2 } from "lucide-react";
+import { usePlayerStore } from '@/stores/playerStore';
 
 interface Track {
   id: number;
@@ -23,9 +24,16 @@ const tracks: Track[] = [
 ];
 
 const MusicPlayer = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const { 
+    isExpanded, setIsExpanded, 
+    isInitialized, setIsInitialized, 
+    isVisible, setIsVisible,
+    isPlaying, setIsPlaying,
+    currentTime, setCurrentTime,
+    isHydrated
+  } = usePlayerStore();
+  
   const [progress, setProgress] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [audioAnalyser, setAudioAnalyser] = useState<AudioAnalyser | null>(
@@ -34,6 +42,8 @@ const MusicPlayer = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationFrameId = useRef<number>();
   const audioContextRef = useRef<AudioContext | null>(null);
+  const lastScrollY = useRef(0);
+  const isMounted = useRef(false);
 
   // const formatTime = (time: number): string => {
   //   const minutes = Math.floor(time / 60);
@@ -128,7 +138,9 @@ const MusicPlayer = () => {
   }, [audioAnalyser]);
 
   useEffect(() => {
-    if (!audioRef.current) {
+    if (!isHydrated) return;
+
+    if (!audioRef.current && isInitialized) {
       audioRef.current = new Audio(tracks[0].url);
       audioRef.current.preload = "auto";
 
@@ -137,15 +149,26 @@ const MusicPlayer = () => {
       });
 
       audioRef.current.addEventListener("loadedmetadata", () => {
-        setDuration(audioRef.current?.duration || 0);
+        if (isMounted.current) {
+          setDuration(audioRef.current?.duration || 0);
+          // Restore playback position
+          if (audioRef.current && currentTime > 0) {
+            audioRef.current.currentTime = currentTime;
+            if (isPlaying) {
+              audioRef.current.play().catch(console.error);
+            }
+          }
+        }
       });
     }
 
+    isMounted.current = true;
     const cleanup = setupAudioAnalyser();
 
     return () => {
       cleanup?.();
       if (audioRef.current) {
+        setCurrentTime(audioRef.current.currentTime);
         audioRef.current.pause();
         audioRef.current = null;
       }
@@ -155,24 +178,40 @@ const MusicPlayer = () => {
       if (audioContextRef.current) {
         audioContextRef.current.close();
       }
+      isMounted.current = false;
     };
-  }, [setupAudioAnalyser]);
+  }, [setupAudioAnalyser, currentTime, isPlaying, isHydrated, isInitialized]);
 
   useEffect(() => {
-    if (!audioRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
     const updateProgress = () => {
-      if (!audioRef.current) return;
-      setCurrentTime(audioRef.current.currentTime);
-      const value =
-        (audioRef.current.currentTime / audioRef.current.duration) * 100;
-      setProgress(value || 0);
+      if (!audio || !isMounted.current) return;
+      
+      const currentTimeValue = audio.currentTime;
+      const durationValue = audio.duration;
+      
+      if (isFinite(currentTimeValue) && isFinite(durationValue)) {
+        setCurrentTime(currentTimeValue);
+        const progressValue = (currentTimeValue / durationValue) * 100;
+        setProgress(isFinite(progressValue) ? progressValue : 0);
+      }
     };
 
-    audioRef.current.addEventListener("timeupdate", updateProgress);
-    return () =>
-      audioRef.current?.removeEventListener("timeupdate", updateProgress);
-  }, []);
+    audio.addEventListener("timeupdate", updateProgress);
+    
+    // Also update progress when duration changes
+    audio.addEventListener("durationchange", () => {
+      setDuration(audio.duration);
+      updateProgress();
+    });
+
+    return () => {
+      audio.removeEventListener("timeupdate", updateProgress);
+      audio.removeEventListener("durationchange", updateProgress);
+    };
+  }, [setCurrentTime]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -200,6 +239,12 @@ const MusicPlayer = () => {
 
   const togglePlay = async () => {
     try {
+      if (!audioRef.current && !isInitialized) {
+        audioRef.current = new Audio(tracks[0].url);
+        audioRef.current.preload = "auto";
+        setIsInitialized(true);
+      }
+
       if (!audioRef.current) {
         console.error("Audio element not initialized");
         return;
@@ -228,28 +273,75 @@ const MusicPlayer = () => {
   };
 
   const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!audioRef.current) return;
+    if (!audioRef.current || !isFinite(audioRef.current.duration)) return;
 
     const progressBar = e.currentTarget;
-    const clickPosition = e.clientX - progressBar.getBoundingClientRect().left;
-    const progressBarWidth = progressBar.offsetWidth;
+    const rect = progressBar.getBoundingClientRect();
+    const clickPosition = e.clientX - rect.left;
+    const progressBarWidth = rect.width;
     const percentage = clickPosition / progressBarWidth;
     const newTime = percentage * audioRef.current.duration;
 
-    audioRef.current.currentTime = newTime;
-    setProgress(percentage * 100);
+    if (isFinite(newTime)) {
+      audioRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+      setProgress(percentage * 100);
+    }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (!isExpanded) {
+        if (currentScrollY < lastScrollY.current || currentScrollY <= 0) {
+          // Scrolling up or at top
+          setIsVisible(true);
+        } else if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+          // Scrolling down and past threshold
+          setIsVisible(false);
+        }
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isExpanded, setIsVisible]);
+
+  if (!isHydrated) {
+    return null; // or a loading state if you prefer
+  }
+
   return (
-    <div className="mb-6">
+    <div 
+      className={`fixed transition-all duration-300 ease-in-out ${
+        isExpanded 
+          ? 'bottom-6 left-1/2 -translate-x-1/2 w-full max-w-[1200px] px-6'
+          : 'bottom-6 left-1/2 -translate-x-1/2 w-[400px]'
+      } z-40 ${!isVisible && !isExpanded ? 'translate-y-[150%]' : 'translate-y-0'}`}
+    >
       <div
         style={{
           backgroundColor: "#EDE9E5",
           borderRadius: "24px",
-          height: "144px",
+          height: isExpanded ? "115px" : "72px",
         }}
-        className="w-full max-w-[1500px] mx-auto relative overflow-hidden"
+        className="w-full relative overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
       >
+        {isExpanded && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsExpanded(false);
+            }}
+            className="absolute top-3 right-3 z-10 p-2 rounded-lg hover:bg-black/10"
+          >
+            <Minimize2 className="w-5 h-5" />
+          </button>
+        )}
+
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full opacity-75"
@@ -259,59 +351,101 @@ const MusicPlayer = () => {
             transition: "opacity 0.2s ease",
           }}
         />
+        
         <div className="h-full flex flex-col">
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-4 sm:px-8">
-            <div className="w-full flex flex-col sm:flex-row items-center gap-4 sm:gap-0 sm:justify-between">
-              <div className="flex items-center gap-4 sm:w-1/4">
-                <div className="w-12 h-12 bg-[#EC6A5C] rounded-lg" />
-                <div>
-                  <h3 className="font-medium text-gray-900">
-                    {tracks[0].title}
+          <div className={`absolute inset-x-0 ${isExpanded ? 'top-1/2 -translate-y-1/2 px-3 sm:px-6' : 'inset-y-0 px-4'}`}>
+            <div className={`w-full h-full flex ${isExpanded ? 'sm:flex-row' : 'flex-row'} items-center gap-4 justify-between`}>
+              <div className="flex items-center gap-4 flex-shrink-0">
+                <div className={`${isExpanded ? 'w-12 h-12' : 'w-8 h-8'} rounded-lg flex-shrink-0 overflow-hidden relative bg-[#EC6A5C] group`}>
+                  {!isInitialized ? (
+                    <img
+                      src="/images/placeholder-album.jpg"
+                      alt="Music placeholder"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-[#EC6A5C]" />
+                  )}
+                  {isInitialized && !isExpanded && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsExpanded(true);
+                      }}
+                      className="absolute inset-0 bg-black/0 hover:bg-black/20 opacity-0 group-hover:opacity-100 transition-all duration-200 flex items-center justify-center"
+                    >
+                      <Expand className="w-4 h-4 text-white" />
+                    </button>
+                  )}
+                </div>
+                <div className="min-w-0">
+                  <h3 className="font-medium text-gray-900 truncate max-w-[200px]">
+                    {isInitialized ? tracks[0].title : "Care for some music?"}
                   </h3>
-                  <p className="text-sm text-gray-500">{tracks[0].album}</p>
+                  {isExpanded && isInitialized && (
+                    <p className="text-sm text-gray-500 truncate">{tracks[0].album}</p>
+                  )}
+                  {!isInitialized && (
+                    <p className="text-sm text-gray-500">Click play to begin</p>
+                  )}
                 </div>
               </div>
-              <div className="flex items-center gap-8 sm:w-1/2 justify-center">
-                <button className="w-10 h-10 group relative flex items-center justify-center">
-                  <div
-                    className={`absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 ${isPlaying ? "group-hover:opacity-60" : ""}`}
-                  />
-                  <SkipBack className="w-5 h-5 sm:w-6 sm:h-6 relative" />
-                </button>
-                <button
-                  onClick={togglePlay}
-                  className="w-[50px] h-[50px] group relative flex items-center justify-center"
-                >
-                  <div
-                    className={`absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 ${isPlaying ? "group-hover:opacity-60" : ""}`}
-                  />
-                  {isPlaying ? (
-                    <Pause className="w-6 h-6 sm:w-[30px] sm:h-[30px] relative" />
-                  ) : (
-                    <Play className="w-6 h-6 sm:w-[30px] sm:h-[30px] relative" />
+
+              <div className={`${isExpanded ? 'flex-1 flex justify-center' : 'flex justify-end'}`}>
+                <div className={`flex items-center ${isExpanded ? 'gap-8' : 'gap-4'}`}>
+                  {isInitialized && (
+                    <button className={`group relative flex items-center justify-center ${
+                      isExpanded ? 'w-10 h-10' : 'w-8 h-8'
+                    }`}>
+                      <div className="absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
+                      <SkipBack className={`relative ${isExpanded ? 'w-5 h-5 sm:w-6 sm:h-6' : 'w-4 h-4'}`} />
+                    </button>
                   )}
-                </button>
-                <button className="w-10 h-10 group relative flex items-center justify-center">
-                  <div
-                    className={`absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 ${isPlaying ? "group-hover:opacity-60" : ""}`}
-                  />
-                  <SkipForward className="w-5 h-5 sm:w-6 sm:h-6 relative" />
-                </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      togglePlay();
+                    }}
+                    className={`group relative flex items-center justify-center ${
+                      isExpanded ? 'w-[40px] h-[40px]' : 'w-8 h-8'
+                    }`}
+                  >
+                    <div className="absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
+                    {isPlaying ? (
+                      <Pause className={`relative ${isExpanded ? 'w-6 h-6 sm:w-[30px] sm:h-[30px]' : 'w-5 h-5'}`} />
+                    ) : (
+                      <Play className={`relative ${isExpanded ? 'w-6 h-6 sm:w-[30px] sm:h-[30px]' : 'w-5 h-5'}`} />
+                    )}
+                  </button>
+                  {isInitialized && (
+                    <button className={`group relative flex items-center justify-center ${
+                      isExpanded ? 'w-10 h-10' : 'w-8 h-8'
+                    }`}>
+                      <div className="absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
+                      <SkipForward className={`relative ${isExpanded ? 'w-5 h-5 sm:w-6 sm:h-6' : 'w-4 h-4'}`} />
+                    </button>
+                  )}
+                </div>
               </div>
-              <div className="hidden sm:block sm:w-1/4" />
+
+              {isExpanded && <div className="flex-shrink-0 w-[80px]" />}
             </div>
           </div>
-          <div
-            className={`mt-auto h-1.5 sm:h-2 cursor-pointer ${
-              isPlaying ? "bg-[#EC6A5C]/10" : ""
-            }`}
-            onClick={handleProgressClick}
-          >
+          
+          {/* Progress bar */}
+          {isInitialized && (
             <div
-              className="h-full transition-all duration-200 bg-[#EC6A5C]"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
+              className={`mt-auto h-1.5 sm:h-2 cursor-pointer ${
+                isPlaying ? "bg-[#EC6A5C]/10" : ""
+              }`}
+              onClick={handleProgressClick}
+            >
+              <div
+                className="h-full transition-all duration-200 bg-[#EC6A5C]"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

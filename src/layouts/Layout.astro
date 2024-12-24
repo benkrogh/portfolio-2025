@@ -6,6 +6,7 @@ import { ViewTransitions } from "astro:transitions";
 import Navigation from "@/components/Navigation";
 import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/utils/SmoothScroll";
+import MusicPlayer from '../components/music/MusicPlayer';
 
 interface Props {
   title: string;
@@ -33,5 +34,6 @@ const currentPath = Astro.url.pathname;
     <main class="custom-cursor-area max-w-[1500px] mx-auto pt-[104px]">
       <slot />
     </main>
+    <MusicPlayer client:load />
   </body>
 </html>
