@@ -18,15 +18,17 @@ export default function BlogCard({ post, prefersReducedMotion }: BlogCardProps) 
     >
       <div data-blog-card>
         <div
-          className="h-24 rounded-3xl my-4 p-8 flex justify-between items-center transition-colors duration-400"
+          className="rounded-3xl my-2 md:my-4 p-4 md:p-8 flex flex-col md:flex-row md:justify-between md:items-center transition-colors duration-400"
           style={{ backgroundColor: bgColor }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div className="flex items-center">
-            <span className="text-[1.5rem] leading-[2rem]">{post.title}</span>
+          <div className="flex items-center mb-2 md:mb-0">
+            <span className="text-lg md:text-[1.5rem] leading-normal md:leading-[2rem]">
+              {post.title}
+            </span>
             <div
-              className={`ml-4 text-[1.5rem] leading-[2rem] transform inline-block ${
+              className={`ml-2 md:ml-4 text-lg md:text-[1.5rem] leading-normal md:leading-[2rem] transform inline-block ${
                 prefersReducedMotion
                   ? ""
                   : "transition-transform duration-400 ease-in-out"
@@ -38,7 +40,7 @@ export default function BlogCard({ post, prefersReducedMotion }: BlogCardProps) 
               →
             </div>
           </div>
-          <span className="text-[1.5rem] leading-[2rem]">
+          <span className="text-base md:text-[1.5rem] leading-normal md:leading-[2rem]">
             {formatDate(post.date)}
           </span>
         </div>

@@ -26,16 +26,17 @@ const formattedPosts = posts.map((post) => ({
 
 <Layout title="Blog | My Portfolio">
   <CustomCursor client:load />
-  <main class="max-w-[1500px] mx-auto px-4 py-6">
-    <header class="h-[55vh] mb-6">
+  <main class="max-w-[1500px] mx-auto px-4 py-4 md:py-6">
+    <header class="min-h-[300px] md:h-[55vh] mb-4 md:mb-6">
       <AnimatedTitle 
-      client:only="react"
+        client:only="react"
         text="/blog: My thoughts on [BR] design, music, and culture"
-        className="text-3xl font-mono mb-6 font-light bg-[#EDE9E5] rounded-[24px] p-8 sm:p-12 w-full h-full flex items-center"
+        className="text-xl md:text-3xl font-mono mb-4 md:mb-6 font-light bg-[#EDE9E5] rounded-[24px] p-6 md:p-12 w-full min-h-[300px] md:h-[55vh] flex items-center"
+        isHomepage={false}
       />
     </header>
     
-    <div class="mt-4">
+    <div class="mt-2 md:mt-4">
       {formattedPosts.map((post) => (
         <BlogCard client:load post={post} prefersReducedMotion={false} />
       ))}
