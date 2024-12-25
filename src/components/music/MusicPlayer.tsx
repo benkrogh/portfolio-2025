@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { SkipBack, Play, Pause, SkipForward, Expand, Minimize2 } from "lucide-react";
+import { SkipBack, Play, Pause, SkipForward, Expand, Minimize2, Info } from "lucide-react";
 import { usePlayerStore } from '@/stores/playerStore';
 
 interface Track {
@@ -44,6 +44,9 @@ const MusicPlayer = () => {
   const audioContextRef = useRef<AudioContext | null>(null);
   const lastScrollY = useRef(0);
   const isMounted = useRef(false);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [mousePosition, setMousePosition] = useState<{ x: number; y: number | null }>({ x: 0, y: null });
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // const formatTime = (time: number): string => {
   //   const minutes = Math.floor(time / 60);
@@ -51,13 +54,16 @@ const MusicPlayer = () => {
   //   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   // };
 
-  const setupAudioAnalyser = useCallback(() => {
-    if (!audioRef.current || audioContextRef.current) return;
+  const setupAudioAnalyser = useCallback(async () => {
+    if (!audioRef.current) return;
 
-    const handleClick = () => {
+    const initializeAudioContext = async () => {
       try {
-        audioContextRef.current = new (window.AudioContext ||
-          (window as any).webkitAudioContext)();
+        if (!audioContextRef.current) {
+          audioContextRef.current = new (window.AudioContext ||
+            (window as any).webkitAudioContext)();
+        }
+
         const source = audioContextRef.current.createMediaElementSource(
           audioRef.current!,
         );
@@ -71,15 +77,12 @@ const MusicPlayer = () => {
         const dataArray = new Uint8Array(bufferLength);
 
         setAudioAnalyser({ analyser, dataArray });
-
-        document.removeEventListener("click", handleClick);
       } catch (error) {
         console.error("Error setting up audio analyser:", error);
       }
     };
 
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
+    await initializeAudioContext();
   }, []);
 
   const animate = useCallback(() => {
@@ -137,39 +140,51 @@ const MusicPlayer = () => {
     draw();
   }, [audioAnalyser]);
 
+  const initializeAudio = useCallback(async () => {
+    if (audioRef.current) return audioRef.current; // Return existing audio if already initialized
+    
+    const audio = new Audio(tracks[0].url);
+    audio.preload = "auto";
+    
+    // Set up all event listeners before doing anything else
+    audio.addEventListener("play", () => setIsPlaying(true));
+    audio.addEventListener("pause", () => setIsPlaying(false));
+    audio.addEventListener("ended", () => setIsPlaying(false));
+    audio.addEventListener("error", (e) => {
+      console.error("Audio error:", e);
+      setIsPlaying(false);
+    });
+    audio.addEventListener("loadedmetadata", () => {
+      if (isMounted.current) {
+        setDuration(audio.duration || 0);
+        if (currentTime > 0) {
+          audio.currentTime = currentTime;
+        }
+      }
+    });
+
+    // Wait for audio to be loaded
+    await new Promise((resolve) => {
+      audio.addEventListener('loadeddata', resolve, { once: true });
+    });
+
+    audioRef.current = audio;
+    await setupAudioAnalyser();
+    return audio;
+  }, [currentTime, setupAudioAnalyser]);
+
   useEffect(() => {
     if (!isHydrated) return;
 
-    if (!audioRef.current && isInitialized) {
-      audioRef.current = new Audio(tracks[0].url);
-      audioRef.current.preload = "auto";
-
-      audioRef.current.addEventListener("error", (e) => {
-        console.error("Audio error:", e);
-      });
-
-      audioRef.current.addEventListener("loadedmetadata", () => {
-        if (isMounted.current) {
-          setDuration(audioRef.current?.duration || 0);
-          // Restore playback position
-          if (audioRef.current && currentTime > 0) {
-            audioRef.current.currentTime = currentTime;
-            if (isPlaying) {
-              audioRef.current.play().catch(console.error);
-            }
-          }
-        }
-      });
-    }
-
     isMounted.current = true;
-    const cleanup = setupAudioAnalyser();
 
     return () => {
-      cleanup?.();
       if (audioRef.current) {
-        setCurrentTime(audioRef.current.currentTime);
-        audioRef.current.pause();
+        const audio = audioRef.current;
+        setCurrentTime(audio.currentTime);
+        audio.pause();
+        audio.src = '';
+        audio.load();
         audioRef.current = null;
       }
       if (animationFrameId.current) {
@@ -177,10 +192,11 @@ const MusicPlayer = () => {
       }
       if (audioContextRef.current) {
         audioContextRef.current.close();
+        audioContextRef.current = null;
       }
       isMounted.current = false;
     };
-  }, [setupAudioAnalyser, currentTime, isPlaying, isHydrated, isInitialized]);
+  }, [isHydrated]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -239,53 +255,54 @@ const MusicPlayer = () => {
 
   const togglePlay = async () => {
     try {
-      if (!audioRef.current && !isInitialized) {
-        audioRef.current = new Audio(tracks[0].url);
-        audioRef.current.preload = "auto";
-        setIsInitialized(true);
-      }
-
-      if (!audioRef.current) {
-        console.error("Audio element not initialized");
-        return;
+      let audio = audioRef.current;
+      
+      if (!audio) {
+        // Initialize and get the audio element
+        audio = await initializeAudio();
+        if (!audio) return;
+        setIsInitialized(true); // Only set initialized after successful first play
       }
 
       if (isPlaying) {
-        audioRef.current.pause();
-        setIsPlaying(false);
+        audio.pause();
       } else {
-        const playPromise = audioRef.current.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              setIsPlaying(true);
-            })
-            .catch((error) => {
-              console.error("Playback failed:", error);
-              setIsPlaying(false);
-            });
+        if (audio.currentTime >= audio.duration) {
+          audio.currentTime = 0;
         }
+        await audio.play();
       }
     } catch (err) {
-      console.error("Playback error:", err);
+      console.error("Toggle play error:", err);
       setIsPlaying(false);
     }
   };
 
-  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!audioRef.current || !isFinite(audioRef.current.duration)) return;
+  const handleProgressClick = async (e: React.MouseEvent<HTMLDivElement>) => {
+    const audio = audioRef.current;
+    if (!audio || !isFinite(audio.duration)) return;
 
     const progressBar = e.currentTarget;
     const rect = progressBar.getBoundingClientRect();
-    const clickPosition = e.clientX - rect.left;
-    const progressBarWidth = rect.width;
-    const percentage = clickPosition / progressBarWidth;
-    const newTime = percentage * audioRef.current.duration;
+    const percentage = (e.clientX - rect.left) / rect.width;
+    const newTime = percentage * audio.duration;
 
     if (isFinite(newTime)) {
-      audioRef.current.currentTime = newTime;
-      setCurrentTime(newTime);
-      setProgress(percentage * 100);
+      try {
+        const wasPlaying = !audio.paused;
+        
+        // Set the new time
+        audio.currentTime = newTime;
+        setCurrentTime(newTime);
+        setProgress(percentage * 100);
+
+        // If it was playing, ensure it continues playing
+        if (wasPlaying) {
+          await audio.play();
+        }
+      } catch (error) {
+        console.error("Error seeking audio:", error);
+      }
     }
   };
 
@@ -310,15 +327,49 @@ const MusicPlayer = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isExpanded, setIsVisible]);
 
+  useEffect(() => {
+    if (containerRef.current) {
+      const containerBounds = containerRef.current.getBoundingClientRect();
+      setMousePosition({
+        x: containerBounds.width / 2,
+        y: null
+      });
+    }
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    
+    const containerBounds = containerRef.current.getBoundingClientRect();
+    const tooltipWidth = 300; // Adjust based on your content
+    
+    const xPos = e.clientX - containerBounds.left;
+    const yPos = e.clientY - containerBounds.top;
+    
+    let finalX = xPos;
+    if (xPos + tooltipWidth/2 > containerBounds.width) {
+      finalX = containerBounds.width - tooltipWidth - 16;
+    } else if (xPos - tooltipWidth/2 < 0) {
+      finalX = tooltipWidth/2 + 16;
+    }
+
+    setMousePosition({ 
+      x: finalX,
+      y: yPos - 16 // Offset above the cursor
+    });
+  };
+
   if (!isHydrated) {
     return null; // or a loading state if you prefer
   }
 
   return (
     <div 
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
       className={`fixed transition-all duration-300 ease-in-out ${
         isExpanded 
-          ? 'bottom-6 left-1/2 -translate-x-1/2 w-full max-w-[1200px] px-6'
+          ? 'bottom-6 left-1/2 -translate-x-1/2 w-full max-w-[1500px] px-6'
           : 'bottom-6 left-1/2 -translate-x-1/2 w-[400px]'
       } z-40 ${!isVisible && !isExpanded ? 'translate-y-[150%]' : 'translate-y-0'}`}
     >
@@ -326,7 +377,7 @@ const MusicPlayer = () => {
         style={{
           backgroundColor: "#EDE9E5",
           borderRadius: "24px",
-          height: isExpanded ? "115px" : "72px",
+          height: isExpanded ? "144px" : "72px",
         }}
         className="w-full relative overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
       >
@@ -336,7 +387,7 @@ const MusicPlayer = () => {
               e.stopPropagation();
               setIsExpanded(false);
             }}
-            className="absolute top-3 right-3 z-10 p-2 rounded-lg hover:bg-black/10"
+            className="absolute top-4 right-4 z-10 p-2 rounded-lg hover:bg-black/10"
           >
             <Minimize2 className="w-5 h-5" />
           </button>
@@ -353,7 +404,7 @@ const MusicPlayer = () => {
         />
         
         <div className="h-full flex flex-col">
-          <div className={`absolute inset-x-0 ${isExpanded ? 'top-1/2 -translate-y-1/2 px-3 sm:px-6' : 'inset-y-0 px-4'}`}>
+          <div className={`absolute inset-x-0 ${isExpanded ? 'top-1/2 -translate-y-1/2 px-4 sm:px-8' : 'inset-y-0 px-4'}`}>
             <div className={`w-full h-full flex ${isExpanded ? 'sm:flex-row' : 'flex-row'} items-center gap-4 justify-between`}>
               <div className="flex items-center gap-4 flex-shrink-0">
                 <div className={`${isExpanded ? 'w-12 h-12' : 'w-8 h-8'} rounded-lg flex-shrink-0 overflow-hidden relative bg-[#EC6A5C] group`}>
@@ -379,9 +430,19 @@ const MusicPlayer = () => {
                   )}
                 </div>
                 <div className="min-w-0">
-                  <h3 className="font-medium text-gray-900 truncate max-w-[200px]">
-                    {isInitialized ? tracks[0].title : "Care for some music?"}
-                  </h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-medium text-gray-900 truncate max-w-[200px]">
+                      {isInitialized ? tracks[0].title : "Care for some music?"}
+                    </h3>
+                    <div className="relative group" 
+                      onMouseEnter={() => setTooltipVisible(true)}
+                      onMouseLeave={() => setTooltipVisible(false)}
+                    >
+                      <Info 
+                        className="w-4 h-4 text-gray-500 hover:text-gray-700 transition-colors cursor-help" 
+                      />
+                    </div>
+                  </div>
                   {isExpanded && isInitialized && (
                     <p className="text-sm text-gray-500 truncate">{tracks[0].album}</p>
                   )}
@@ -407,7 +468,7 @@ const MusicPlayer = () => {
                       togglePlay();
                     }}
                     className={`group relative flex items-center justify-center ${
-                      isExpanded ? 'w-[40px] h-[40px]' : 'w-8 h-8'
+                      isExpanded ? 'w-[50px] h-[50px]' : 'w-8 h-8'
                     }`}
                   >
                     <div className="absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
@@ -428,7 +489,7 @@ const MusicPlayer = () => {
                 </div>
               </div>
 
-              {isExpanded && <div className="flex-shrink-0 w-[80px]" />}
+              {isExpanded && <div className="flex-shrink-0 w-[100px]" />}
             </div>
           </div>
           
@@ -447,6 +508,19 @@ const MusicPlayer = () => {
             </div>
           )}
         </div>
+      </div>
+
+      <div
+        className="fixed bg-[#17120A] text-white rounded-xl py-3 px-4 text-sm w-[300px] z-50 transition-all duration-300 ease-out pointer-events-none"
+        style={{
+          left: `${mousePosition.x}px`,
+          top: mousePosition.y ? `${mousePosition.y}px` : '0',
+          transform: `translate(-50%, -100%) scale(${tooltipVisible ? 1 : 0.97})`,
+          opacity: tooltipVisible && mousePosition.y !== null ? 1 : 0,
+          visibility: tooltipVisible && mousePosition.y !== null ? 'visible' : 'hidden',
+        }}
+      >
+        Enjoy this selection of songs I wrote and recorded in my home studio. ♥
       </div>
     </div>
   );
