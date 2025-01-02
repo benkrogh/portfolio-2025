@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CaseStudyHeader from '../../components/CaseStudyHeader';
+import CaseStudyHero from '../../components/CaseStudyHero';
+import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid } from '../../components/CaseStudyImages';
+import CaseStudyText from '../../components/CaseStudyText';
+
+const pageTitle = "Square Charge Case Study";
+---
+
+<Layout title={pageTitle}>
+  <main class="pt-0">
+    <div class="container mx-auto px-6">
+      <CaseStudyHeader 
+        client:load
+        title="Square Charge"
+        tags={["2021", "PRODUCT DESIGN", "DESIGN LEADERSHIP"]}
+        description="Leading design from concept to production for Square's first-ever desktop app for MacOS."
+      />
+    </div>
+
+    <CaseStudyHero 
+      client:load
+      imageSrc="/images/square-charge/hero.png"
+      alt="Square Charge hero image"
+    />
+    
+    <CaseStudyText client:load>
+      The concept for Square Charge came out of a design workshop: What if we had a faster way for our sellers to process payments on desktop?
+    </CaseStudyText>
+
+    <FullWidthImage 
+      client:load
+      src="/images/square-charge/full-width-1.png"
+      alt="Square Charge interface overview"
+    />
+
+    <TwoByTwoGrid 
+      client:load
+      images={[
+        { src: "/images/square-charge/grid-1.png", alt: "Feature detail 1" },
+        { src: "/images/square-charge/grid-2.png", alt: "Feature detail 2" }
+      ]}
+    />
+
+    <CaseStudyText client:load>
+      We focused on creating a minimal interface that would allow sellers to quickly enter payment amounts and process transactions with as few clicks as possible.
+    </CaseStudyText>
+
+    <AsymmetricGrid 
+      client:load
+      largeImage={{ src: "/images/square-charge/large.png", alt: "Main feature showcase" }}
+      smallImage={{ src: "/images/square-charge/small.png", alt: "Supporting detail" }}
+    />
+  </main>
+</Layout> 

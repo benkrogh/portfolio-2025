@@ -15,6 +15,8 @@ module.exports = {
       },
       fontFamily: {
         mono: ["GeistMono", "Menlo", "monospace"],
+        'geist': ['Geist', 'sans-serif'],
+        'geist-mono': ['Geist Mono', 'monospace'],
       },
       borderRadius: {
         "3xl": "24px",
@@ -47,7 +49,7 @@ module.exports = {
             // Headings
             h1: {
               color: theme("colors.gray.900"),
-              fontWeight: "300",
+              fontWeight: "400",
               fontSize: "2.5rem",
               fontFamily: theme("fontFamily.mono"),
               letterSpacing: "-0.02em",
