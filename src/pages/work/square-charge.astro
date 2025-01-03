@@ -27,7 +27,25 @@ const pageTitle = "Square Charge Case Study";
     
     <CaseStudyText client:load>
       The concept for Square Charge came out of a design workshop: What if we had a faster way for our sellers to process payments on desktop?
+      <CaseStudyText.Secondary>
+        This is a secondary paragraph with smaller text and a different color, nested under the main text with 32px spacing.
+      </CaseStudyText.Secondary>
     </CaseStudyText>
+
+    <CaseStudyText client:load secondary>
+      This is a secondary paragraph with smaller text and a different color.
+    </CaseStudyText>
+
+    <AsymmetricGrid 
+      client:load
+      largeImage={{ src: "/images/square-charge/dpos-concept.png", alt: "Main feature showcase" }}
+      smallImage={{ src: "/images/square-charge/small.png", alt: "Supporting detail" }}
+    />
+    
+    <CaseStudyText client:load>
+      I teamed up with some of our developers during a hack week to see if we could make it work using only public facing APIs... and we built a functioning app.
+    </CaseStudyText>
+
 
     <FullWidthImage 
       client:load
@@ -39,7 +57,7 @@ const pageTitle = "Square Charge Case Study";
       client:load
       images={[
         { src: "/images/square-charge/grid-1.png", alt: "Feature detail 1" },
-        { src: "/images/square-charge/grid-2.png", alt: "Feature detail 2" }
+        { src: "/images/square-charge/payment-flow.mp4", alt: "Feature detail 2" }
       ]}
     />
 
@@ -49,7 +67,7 @@ const pageTitle = "Square Charge Case Study";
 
     <AsymmetricGrid 
       client:load
-      largeImage={{ src: "/images/square-charge/large.png", alt: "Main feature showcase" }}
+      largeImage={{ src: "/images/square-charge/dpos-concept.png", alt: "Main feature showcase" }}
       smallImage={{ src: "/images/square-charge/small.png", alt: "Supporting detail" }}
     />
   </main>

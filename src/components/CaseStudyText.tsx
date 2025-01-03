@@ -15,13 +15,20 @@ const CaseStudyText: React.FC<CaseStudyTextProps> = ({ children }) => {
     >
       <div className="max-w-[1500px] mx-auto px-6">
         <div className="max-w-[660px] mx-auto">
-          <p className="font-geist-mono text-[32px] tracking-[-0.03em] [&:not(:last-child)]:mb-8">
+          <div className="font-geist-mono text-[32px] tracking-[-0.03em]">
             {children}
-          </p>
+          </div>
         </div>
       </div>
     </motion.div>
   );
 };
+
+// Define Secondary as a subcomponent directly
+CaseStudyText.Secondary = ({ children }: { children: React.ReactNode }) => (
+  <p className="font-geist-mono text-[22px] text-[#524D47] max-w-[546px] tracking-[-0.03em] mt-8">
+    {children}
+  </p>
+);
 
 export default CaseStudyText; 

@@ -1,40 +1,61 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-interface ImageProps {
+interface MediaProps {
   src?: string;
   alt: string;
 }
 
 interface TwoImageGridProps {
-  images: [ImageProps, ImageProps];
+  images: [MediaProps, MediaProps];
 }
 
 interface AsymmetricGridProps {
-  largeImage: ImageProps;
-  smallImage: ImageProps;
+  largeImage: MediaProps;
+  smallImage: MediaProps;
 }
 
-const fadeInUpAnimation = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 1, ease: "easeOut" }
+const isVideo = (src: string = '') => {
+  return src.match(/\.(mp4|webm|mov)$/i);
 };
 
-export const FullWidthImage: React.FC<ImageProps> = ({ src, alt }) => {
+const MediaElement: React.FC<MediaProps> = ({ src, alt }) => {
+  if (!src) {
+    return <div className="w-full h-full rounded-3xl bg-[#EDE9E5]" />;
+  }
+
+  if (isVideo(src)) {
+    return (
+      <video
+        src={src}
+        title={alt}
+        controls={false}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-full object-cover rounded-3xl"
+      />
+    );
+  }
+
+  return (
+    <img 
+      src={src} 
+      alt={alt} 
+      className="w-full h-full object-cover rounded-3xl"
+    />
+  );
+};
+
+export const FullWidthImage: React.FC<MediaProps> = ({ src, alt }) => {
   return (
     <motion.div 
       {...fadeInUpAnimation}
       className="max-w-[1500px] mx-auto px-6 mb-6"
     >
-      <div 
-        className="w-full aspect-[16/9] rounded-3xl bg-[#EDE9E5]"
-      >
-        {src && <img 
-          src={src} 
-          alt={alt} 
-          className="w-full h-full object-cover rounded-3xl"
-        />}
+      <div className="w-full aspect-[16/9] rounded-3xl bg-[#EDE9E5]">
+        <MediaElement src={src} alt={alt} />
       </div>
     </motion.div>
   );
@@ -46,16 +67,12 @@ export const TwoByTwoGrid: React.FC<TwoImageGridProps> = ({ images }) => {
       {...fadeInUpAnimation}
       className="max-w-[1500px] mx-auto px-6 mb-6 grid grid-cols-2 gap-6"
     >
-      {images.map((image, index) => (
+      {images.map((media, index) => (
         <div 
           key={index}
           className="aspect-square rounded-3xl bg-[#EDE9E5]"
         >
-          {image.src && <img 
-            src={image.src} 
-            alt={image.alt}
-            className="w-full h-full object-cover rounded-3xl"
-          />}
+          <MediaElement src={media.src} alt={media.alt} />
         </div>
       ))}
     </motion.div>
@@ -69,19 +86,17 @@ export const AsymmetricGrid: React.FC<AsymmetricGridProps> = ({ largeImage, smal
       className="max-w-[1500px] mx-auto px-6 mb-6 grid grid-cols-3 gap-6"
     >
       <div className="col-span-2 aspect-[4/3] rounded-3xl bg-[#EDE9E5]">
-        {largeImage.src && <img 
-          src={largeImage.src} 
-          alt={largeImage.alt}
-          className="w-full h-full object-cover rounded-3xl"
-        />}
+        <MediaElement src={largeImage.src} alt={largeImage.alt} />
       </div>
       <div className="aspect-[3/4] rounded-3xl bg-[#EDE9E5]">
-        {smallImage.src && <img 
-          src={smallImage.src} 
-          alt={smallImage.alt}
-          className="w-full h-full object-cover rounded-3xl"
-        />}
+        <MediaElement src={smallImage.src} alt={smallImage.alt} />
       </div>
     </motion.div>
   );
+};
+
+const fadeInUpAnimation = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 1, ease: "easeOut" }
 }; 
