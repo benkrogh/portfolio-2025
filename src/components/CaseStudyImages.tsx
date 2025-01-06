@@ -65,7 +65,7 @@ export const TwoByTwoGrid: React.FC<TwoImageGridProps> = ({ images }) => {
   return (
     <motion.div 
       {...fadeInUpAnimation}
-      className="max-w-[1500px] mx-auto px-6 mb-6 grid grid-cols-2 gap-6"
+      className="max-w-[1500px] mx-auto px-6 mb-6 grid grid-cols-1 sm:grid-cols-2 gap-6"
     >
       {images.map((media, index) => (
         <div 
@@ -83,12 +83,12 @@ export const AsymmetricGrid: React.FC<AsymmetricGridProps> = ({ largeImage, smal
   return (
     <motion.div 
       {...fadeInUpAnimation}
-      className="max-w-[1500px] mx-auto px-6 mb-6 grid grid-cols-3 gap-6"
+      className="max-w-[1500px] mx-auto px-6 mb-6 grid grid-cols-1 sm:grid-cols-3 gap-6"
     >
-      <div className="col-span-2 aspect-[4/3] rounded-3xl bg-[#EDE9E5]">
+      <div className="sm:col-span-2 aspect-[4/3] rounded-3xl bg-[#EDE9E5]">
         <MediaElement src={largeImage.src} alt={largeImage.alt} />
       </div>
-      <div className="aspect-[3/4] rounded-3xl bg-[#EDE9E5]">
+      <div className="aspect-[4/3] sm:aspect-[3/4] rounded-3xl bg-[#EDE9E5]">
         <MediaElement src={smallImage.src} alt={smallImage.alt} />
       </div>
     </motion.div>
