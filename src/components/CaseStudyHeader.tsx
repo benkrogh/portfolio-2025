@@ -10,7 +10,7 @@ interface CaseStudyHeaderProps {
 const CaseStudyHeader: React.FC<CaseStudyHeaderProps> = ({ title, tags, description }) => {
   return (
     <header className="min-h-screen flex flex-col justify-center -mt-[104px] pt-[104px]">
-      <div className="-mt-24">
+      <div className="max-w-[1500px] mx-auto -mt-24">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -30,7 +30,7 @@ const CaseStudyHeader: React.FC<CaseStudyHeaderProps> = ({ title, tags, descript
           {tags.map((tag, index) => (
             <div 
               key={index}
-              className="h-[28px] sm:h-[36px] px-3 sm:px-4 rounded-[10px] bg-[#fcfaf7] dark:bg-black
+              className="h-[28px] sm:h-[36px] px-3 sm:px-4 rounded-[10px] bg-[#fcfaf7] 
                        border border-[#D6D2CB] flex items-center"
             >
               <span className="font-geist-mono text-[13px] sm:text-[15px]">{tag}</span>
