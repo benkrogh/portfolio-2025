@@ -23,18 +23,30 @@ const companies = [
     logo: "/images/logos/microsoft.png"
   },
   {
-    name: "Bose",
-    logo: "/images/logos/bose.png"
+    name: "Square",
+    logo: "/images/logos/square.png"
+  },
+  {
+    name: "Zoom",
+    logo: "/images/logos/zoom.png"
   },
   {
     name: "BitTorrent",
     logo: "/images/logos/bittorrent.png"
+  },
+  {
+    name: "Bose",
+    logo: "/images/logos/bose.png"
+  },
+  {
+    name: "AMC",
+    logo: "/images/logos/amc.png"
   }
 ];
 
 const testimonials = [
   {
-    quote: "With your guidance, I found my voice and the courage to share my ideas. Thanks for getting me unstuck, keeping it real and sharing your wisdom. I've grown so much under your leadership and I'll always be grateful.",
+    quote: "Under Ben’s guidance, I found my voice and the courage to share my ideas. His unwavering support provided clarity while also keeping me grounded. I’ve grown immensely under his leadership and will always be grateful!",
     author: "Delma Brocales",
     role: "Product Designer, Square",
     avatar: "/images/avatars/delma.png",
@@ -112,28 +124,30 @@ const testimonials = [
     </div>
 
     <!-- Companies Section -->
-    <div class="min-h-[75vh] py-24 bg-[#F6F6F6]">
+    <section class="min-h-[75vh] py-24">
       <div class="max-w-[1500px] mx-auto px-6">
         <ScrollFadeIn client:load>
-          <div class="max-w-[660px] mx-auto mb-16">
-            <h2 class="font-geist-mono text-[32px] tracking-[-0.03em]">
-              I've had the privilege of designing products for some amazing companies
+          <div class="max-w-[660px] mx-auto">
+            <h2 class="font-geist-mono text-[32px] tracking-[-0.03em] mb-20">
+              I've had the privilege of designing products for some amazing companies:
             </h2>
           </div>
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-16 max-w-[1200px] mx-auto">
-            {companies.map((company) => (
-              <div class="flex flex-col items-center justify-center">
-                <img 
-                  src={company.logo} 
-                  alt={`${company.name} logo`}
-                  class="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300"
-                />
-              </div>
-            ))}
+          <div class="companies-container">
+            <div class="companies-row">
+              {companies.map((company) => (
+                <div class="company-item">
+                  <img 
+                    src={company.logo} 
+                    alt={`${company.name} logo`}
+                    class="w-[100px] max-w-[100px] h-auto opacity-80 hover:opacity-100 transition-opacity duration-300 object-contain"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </ScrollFadeIn>
       </div>
-    </div>
+    </section>
 
     <!-- Testimonials Section -->
     <div class="min-h-[75vh] py-24">
@@ -241,5 +255,57 @@ const testimonials = [
     font-size: 28px !important;
     line-height: 1.3 !important;
     font-weight: 400 !important;
+  }
+
+  /* Add specific styles for companies grid */
+  .companies-container {
+    background-color: #EDE9E5;
+    border-radius: 24px;
+    padding: 40px 30px;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+
+  .companies-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    align-items: center;
+    justify-items: center;
+  }
+
+  .company-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .company-item img {
+    width: 100px;
+    max-width: 100px;
+    height: auto;
+  }
+
+  @media (min-width: 768px) {
+    .companies-container {
+      padding: 40px 60px;
+    }
+
+    .companies-row {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 60px;
+      justify-content: space-between;
+    }
+
+    .company-item {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  /* Ensure h2 margins aren't being overridden */
+  h2 {
+    margin-bottom: 5rem !important; /* 20 * 4px = 80px = 5rem */
   }
 </style> 
