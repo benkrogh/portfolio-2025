@@ -5,11 +5,8 @@ export default function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      smoothTouch: false, // Disable smooth scrolling on touch devices
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
+      wheelMultiplier: 1,
       touchMultiplier: 2,
       infinite: false,
     });
@@ -40,8 +37,8 @@ export default function SmoothScroll() {
       
       e.preventDefault();
       
-      // Scroll to the element using Lenis
-      lenis.scrollTo(element, {
+      // Cast element to HTMLElement to satisfy TypeScript
+      lenis.scrollTo(element as HTMLElement, {
         offset: -50, // Adjust this value based on your header height
         duration: 1.2,
       });
