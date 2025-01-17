@@ -4,6 +4,7 @@ import CaseStudyHeader from '../../components/CaseStudyHeader';
 import CaseStudyHero from '../../components/CaseStudyHero';
 import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid } from '../../components/CaseStudyImages';
 import CaseStudyText from '../../components/CaseStudyText';
+import Footer from '../../components/Footer.astro';
 
 const pageTitle = "Square Charge Case Study";
 ---
@@ -42,7 +43,6 @@ const pageTitle = "Square Charge Case Study";
       I teamed up with some of our developers during a hack week to see if we could make it work using only public facing APIs... and we built a functioning app.
     </CaseStudyText>
 
-
     <FullWidthImage 
       client:load
       src="/images/square-charge/full-width-1.png"
@@ -67,4 +67,6 @@ const pageTitle = "Square Charge Case Study";
       smallImage={{ src: "/images/square-charge/small.png", alt: "Supporting detail" }}
     />
   </main>
+  
+  <Footer />
 </Layout> 

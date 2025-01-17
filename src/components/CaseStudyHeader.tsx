@@ -9,8 +9,8 @@ interface CaseStudyHeaderProps {
 
 const CaseStudyHeader: React.FC<CaseStudyHeaderProps> = ({ title, tags, description }) => {
   return (
-    <header className="min-h-screen flex flex-col justify-center -mt-[104px] pt-[104px]">
-      <div className="max-w-[1500px] mx-auto -mt-24">
+    <header className="min-h-screen flex flex-col -mt-[104px] pt-[104px]">
+      <div className="max-w-[1500px] mt-[20vh]">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
