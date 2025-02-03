@@ -23,6 +23,12 @@ const tracks: Track[] = [
   },
 ];
 
+// Create a global audio context and persistent refs outside the component
+let persistentAudioRef: HTMLAudioElement | null = null;
+let persistentAudioContext: AudioContext | null = null;
+let persistentSourceNode: MediaElementAudioSourceNode | null = null;
+let persistentAnalyserNode: AnalyserNode | null = null;
+
 const MusicPlayer = () => {
   const { 
     isExpanded, setIsExpanded, 
@@ -59,24 +65,31 @@ const MusicPlayer = () => {
 
     const initializeAudioContext = async () => {
       try {
-        if (!audioContextRef.current) {
-          audioContextRef.current = new (window.AudioContext ||
+        // Reuse existing audio context if available
+        if (!persistentAudioContext) {
+          persistentAudioContext = new (window.AudioContext ||
             (window as any).webkitAudioContext)();
         }
 
-        const source = audioContextRef.current.createMediaElementSource(
-          audioRef.current!,
-        );
-        const analyser = audioContextRef.current.createAnalyser();
+        // Only create new nodes if they don't exist
+        if (!persistentSourceNode || !persistentAnalyserNode) {
+          persistentSourceNode = persistentAudioContext.createMediaElementSource(
+            audioRef.current!
+          );
+          persistentAnalyserNode = persistentAudioContext.createAnalyser();
 
-        analyser.fftSize = 256;
-        source.connect(analyser);
-        analyser.connect(audioContextRef.current.destination);
+          persistentAnalyserNode.fftSize = 256;
+          persistentSourceNode.connect(persistentAnalyserNode);
+          persistentAnalyserNode.connect(persistentAudioContext.destination);
+        }
 
-        const bufferLength = analyser.frequencyBinCount;
+        const bufferLength = persistentAnalyserNode.frequencyBinCount;
         const dataArray = new Uint8Array(bufferLength);
 
-        setAudioAnalyser({ analyser, dataArray });
+        setAudioAnalyser({ 
+          analyser: persistentAnalyserNode, 
+          dataArray 
+        });
       } catch (error) {
         console.error("Error setting up audio analyser:", error);
       }
@@ -141,27 +154,46 @@ const MusicPlayer = () => {
   }, [audioAnalyser]);
 
   const initializeAudio = useCallback(async () => {
-    if (audioRef.current) return audioRef.current; // Return existing audio if already initialized
+    // Use the persistent audio reference
+    if (persistentAudioRef) {
+      audioRef.current = persistentAudioRef;
+      await setupAudioAnalyser();
+      return persistentAudioRef;
+    }
     
     const audio = new Audio(tracks[0].url);
     audio.preload = "auto";
     
-    // Set up all event listeners before doing anything else
-    audio.addEventListener("play", () => setIsPlaying(true));
-    audio.addEventListener("pause", () => setIsPlaying(false));
-    audio.addEventListener("ended", () => setIsPlaying(false));
-    audio.addEventListener("error", (e) => {
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+    const handleError = (e: ErrorEvent) => {
       console.error("Audio error:", e);
       setIsPlaying(false);
-    });
-    audio.addEventListener("loadedmetadata", () => {
+    };
+    const handleMetadata = () => {
       if (isMounted.current) {
         setDuration(audio.duration || 0);
         if (currentTime > 0) {
           audio.currentTime = currentTime;
         }
       }
-    });
+    };
+
+    // Set up all event listeners
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("pause", handlePause);
+    audio.addEventListener("ended", handlePause);
+    audio.addEventListener("error", handleError);
+    audio.addEventListener("loadedmetadata", handleMetadata);
+
+    // Store cleanup function with the audio element
+    audio.cleanup = () => {
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("pause", handlePause);
+      audio.removeEventListener("ended", handlePause);
+      audio.removeEventListener("error", handleError);
+      audio.removeEventListener("loadedmetadata", handleMetadata);
+    };
 
     // Wait for audio to be loaded
     await new Promise((resolve) => {
@@ -169,6 +201,7 @@ const MusicPlayer = () => {
     });
 
     audioRef.current = audio;
+    persistentAudioRef = audio;
     await setupAudioAnalyser();
     return audio;
   }, [currentTime, setupAudioAnalyser]);
@@ -177,26 +210,26 @@ const MusicPlayer = () => {
     if (!isHydrated) return;
 
     isMounted.current = true;
+    
+    // If we have a persistent audio reference, set up the analyser
+    if (persistentAudioRef) {
+      audioRef.current = persistentAudioRef;
+      setupAudioAnalyser();
+      
+      // Update state based on current audio state
+      setIsPlaying(!persistentAudioRef.paused);
+      setIsInitialized(true);
+      setCurrentTime(persistentAudioRef.currentTime);
+      setDuration(persistentAudioRef.duration);
+    }
 
     return () => {
-      if (audioRef.current) {
-        const audio = audioRef.current;
-        setCurrentTime(audio.currentTime);
-        audio.pause();
-        audio.src = '';
-        audio.load();
-        audioRef.current = null;
-      }
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
-      if (audioContextRef.current) {
-        audioContextRef.current.close();
-        audioContextRef.current = null;
-      }
       isMounted.current = false;
     };
-  }, [isHydrated]);
+  }, [isHydrated, setupAudioAnalyser]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -258,10 +291,9 @@ const MusicPlayer = () => {
       let audio = audioRef.current;
       
       if (!audio) {
-        // Initialize and get the audio element
         audio = await initializeAudio();
         if (!audio) return;
-        setIsInitialized(true); // Only set initialized after successful first play
+        setIsInitialized(true);
       }
 
       if (isPlaying) {
@@ -269,6 +301,10 @@ const MusicPlayer = () => {
       } else {
         if (audio.currentTime >= audio.duration) {
           audio.currentTime = 0;
+        }
+        // Resume the audio context if it was suspended
+        if (persistentAudioContext?.state === 'suspended') {
+          await persistentAudioContext.resume();
         }
         await audio.play();
       }
@@ -359,6 +395,24 @@ const MusicPlayer = () => {
     });
   };
 
+  const handleContainerClick = async (e: React.MouseEvent) => {
+    // If not initialized, clicking anywhere should initialize and play
+    if (!isInitialized) {
+      e.stopPropagation();
+      await togglePlay();
+      return;
+    }
+
+    // If initialized but in minimized state, expand only if clicking the album art area
+    if (!isExpanded) {
+      const target = e.target as HTMLElement;
+      const isAlbumArea = target.closest('.album-area');
+      if (isAlbumArea) {
+        setIsExpanded(true);
+      }
+    }
+  };
+
   if (!isHydrated) {
     return null; // or a loading state if you prefer
   }
@@ -367,19 +421,26 @@ const MusicPlayer = () => {
     <div 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className={`fixed transition-all duration-300 ease-in-out ${
-        isExpanded 
-          ? 'bottom-6 left-1/2 -translate-x-1/2 w-full max-w-[1500px] px-6'
-          : 'bottom-6 left-1/2 -translate-x-1/2 w-[400px]'
-      } z-40 ${!isVisible && !isExpanded ? 'translate-y-[150%]' : 'translate-y-0'}`}
+      onClick={handleContainerClick}
+      className={`fixed 
+        bottom-6 left-1/2 -translate-x-1/2
+        transition-all duration-300 ease-in-out
+        ${isExpanded 
+          ? 'w-[1125px] px-6'
+          : 'w-[400px]'
+        }
+        z-40
+        ${!isVisible && !isExpanded ? 'translate-y-[150%]' : 'translate-y-0'}
+      `}
     >
       <div
         style={{
           backgroundColor: "#EDE9E5",
           borderRadius: "24px",
-          height: isExpanded ? "144px" : "72px",
+          height: isExpanded ? "108px" : "72px",
         }}
-        className="w-full relative overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+        className="w-full relative overflow-hidden shadow-lg hover:shadow-xl 
+          transition-all duration-300 ease-in-out"
       >
         {isExpanded && (
           <button
@@ -407,7 +468,9 @@ const MusicPlayer = () => {
           <div className={`absolute inset-x-0 ${isExpanded ? 'top-1/2 -translate-y-1/2 px-4 sm:px-8' : 'inset-y-0 px-4'}`}>
             <div className={`w-full h-full flex ${isExpanded ? 'sm:flex-row' : 'flex-row'} items-center gap-4 justify-between`}>
               <div className="flex items-center gap-4 flex-shrink-0">
-                <div className={`${isExpanded ? 'w-12 h-12' : 'w-8 h-8'} rounded-lg flex-shrink-0 overflow-hidden relative bg-[#EC6A5C] group`}>
+                <div className={`album-area ${
+                  isExpanded ? 'w-16 h-16' : 'w-8 h-8'
+                } rounded-lg flex-shrink-0 overflow-hidden relative bg-[#EC6A5C] group`}>
                   {!isInitialized ? (
                     <img
                       src="/images/placeholder-album.jpg"

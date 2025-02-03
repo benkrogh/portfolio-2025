@@ -1,7 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import DesignPrinciples from "@/components/design/DesignPrinciples";
-import MusicPlayer from "@/components/music/MusicPlayer";
 import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer.astro";
 import AnimatedTitle from "@/components/AnimatedTitle";
@@ -23,7 +22,7 @@ const projects = [
     title: "eBay Today",
     date: "Created 11.24",
     image: "/images/homepage/ebay.png",
-    url: "/projects/ebay-today",
+    url: "/work/ebay-today",
   },
   {
     title: "Project Four",
@@ -35,26 +34,26 @@ const projects = [
     title: "Project Five",
     date: "Created 11.24",
     image: "/images/homepage/bazaar.png",
-    url: "/projects/project-five",
+    url: "/work/bazaar",
   },
   {
     title: "Project Six",
     date: "Created 11.24",
     image: "/projects/placeholder-6.png",
     gradient: "from-teal-400 to-cyan-500",
-    url: "/projects/project-six",
+    url: "/work/project-six",
   },
   {
     title: "Project Seven",
     date: "Created 11.24",
     image: "/projects/placeholder-7.png",
-    url: "/projects/project-seven",
+    url: "/work/project-seven",
   },
   {
     title: "Project Eight",
     date: "Created 11.24",
     image: "/projects/placeholder-8.png",
-    url: "/projects/project-eight",
+    url: "/work/project-eight",
   },
 ];
 ---
@@ -107,8 +106,6 @@ const projects = [
         ))
       }
     </section>
-    <!-- Music Player -->
-    <MusicPlayer client:load />
 
     <!-- Design Principles Section -->
     <DesignPrinciples client:load />

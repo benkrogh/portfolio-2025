@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CaseStudyHeader from '../../components/CaseStudyHeader';
+import CaseStudyHero from '../../components/CaseStudyHero';
+import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid } from '../../components/CaseStudyImages';
+import CaseStudyText from '../../components/CaseStudyText';
+import Footer from '../../components/Footer.astro';
+
+const pageTitle = "Apple Music Case Study";
+---
+
+<Layout title={pageTitle}>
+  <main class="pt-0">
+    <div class="container mx-auto px-6">
+      <CaseStudyHeader 
+        client:load
+        title="Apple Music"
+        tags={["2023", "PRODUCT DESIGN", "DESIGN SYSTEMS"]}
+        description="Redesigning key experiences in Apple Music to help users discover and enjoy music more easily."
+      />
+    </div>
+
+    <CaseStudyHero 
+      client:load
+      imageSrc="/images/apple-music/hero.png"
+      alt="Apple Music interface showcase"
+    />
+    
+    <CaseStudyText client:load>
+      Working with the Apple Music team to reimagine how users interact with their music library and discover new content.
+      <CaseStudyText.Secondary>
+        The challenge was to maintain familiarity while introducing powerful new features and improving overall usability.
+      </CaseStudyText.Secondary>
+    </CaseStudyText>
+
+    <AsymmetricGrid 
+      client:load
+      largeImage={{ src: "/images/apple-music/main-concept.png", alt: "Main interface concept" }}
+      smallImage={{ src: "/images/apple-music/detail.png", alt: "Interface detail" }}
+    />
+    
+    <CaseStudyText client:load>
+      Through careful iteration and user testing, we developed a more intuitive and engaging music experience.
+    </CaseStudyText>
+
+    <FullWidthImage 
+      client:load
+      src="/images/apple-music/overview.png"
+      alt="Full interface overview"
+    />
+  </main>
+  
+  <Footer />
+</Layout> 

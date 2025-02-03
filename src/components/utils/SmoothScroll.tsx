@@ -4,9 +4,9 @@ import Lenis from '@studio-freight/lenis';
 export default function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
-      wheelMultiplier: 1,
+      duration: 0.8,
+      easing: (t: number) => 1 - Math.pow(1 - t, 3),
+      wheelMultiplier: 1.2,
       touchMultiplier: 2,
       infinite: false,
     });
@@ -37,10 +37,11 @@ export default function SmoothScroll() {
       
       e.preventDefault();
       
-      // Cast element to HTMLElement to satisfy TypeScript
+      // Updated scroll behavior for anchor links
       lenis.scrollTo(element as HTMLElement, {
-        offset: -50, // Adjust this value based on your header height
-        duration: 1.2,
+        offset: -50,
+        duration: 1,
+        easing: (t: number) => 1 - Math.pow(1 - t, 4),
       });
     };
 

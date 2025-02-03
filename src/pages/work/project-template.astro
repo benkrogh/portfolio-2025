@@ -1,0 +1,66 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CaseStudyHeader from '../../components/CaseStudyHeader';
+import CaseStudyHero from '../../components/CaseStudyHero';
+import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid } from '../../components/CaseStudyImages';
+import CaseStudyText from '../../components/CaseStudyText';
+import Footer from '../../components/Footer.astro';
+
+const pageTitle = "Project Name Case Study";
+---
+
+<Layout title={pageTitle}>
+  <main class="pt-0">
+    <div class="container mx-auto px-6">
+      <CaseStudyHeader 
+        client:load
+        title="Project Name"
+        tags={["YEAR", "CATEGORY", "ROLE"]}
+        description="A brief description of the project and your role in it. This should be compelling and set up the story."
+      />
+    </div>
+
+    <CaseStudyHero 
+      client:load
+      imageSrc="/images/project-name/hero.png"
+      alt="Project hero image"
+    />
+    
+    <CaseStudyText client:load>
+      Opening statement about the project's challenge or opportunity.
+      <CaseStudyText.Secondary>
+        Additional context or supporting information about the project's background.
+      </CaseStudyText.Secondary>
+    </CaseStudyText>
+
+    <AsymmetricGrid 
+      client:load
+      largeImage={{ src: "/images/project-name/concept.png", alt: "Main concept showcase" }}
+      smallImage={{ src: "/images/project-name/detail.png", alt: "Supporting detail" }}
+    />
+    
+    <CaseStudyText client:load>
+      Description of the approach or solution implemented.
+    </CaseStudyText>
+
+    <FullWidthImage 
+      client:load
+      src="/images/project-name/overview.png"
+      alt="Project overview"
+    />
+
+    <TwoByTwoGrid 
+      client:load
+      images={[
+        { src: "/images/project-name/detail-1.png", alt: "Feature detail 1" },
+        { src: "/images/project-name/detail-2.png", alt: "Feature detail 2" }
+      ]}
+    />
+
+    <CaseStudyText client:load>
+      Closing thoughts or results of the project.
+    </CaseStudyText>
+  </main>
+  
+  <Footer />
+</Layout> 
