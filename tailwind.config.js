@@ -63,7 +63,7 @@ module.exports = {
             },
             h3: {
               color: theme("colors.gray.900"),
-              fontWeight: "300",
+              fontWeight: "400",
               fontSize: "1.375rem",
               letterSpacing: "-0.02em",
               marginTop: "1.5em",

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 interface MediaProps {
   src?: string;
   alt: string;
+  caption?: string;
 }
 
 interface TwoImageGridProps {
@@ -48,7 +49,7 @@ const MediaElement: React.FC<MediaProps> = ({ src, alt }) => {
   );
 };
 
-export const FullWidthImage: React.FC<MediaProps> = ({ src, alt }) => {
+export const FullWidthImage: React.FC<MediaProps> = ({ src, alt, caption }) => {
   return (
     <motion.div 
       {...fadeInUpAnimation}
@@ -57,6 +58,11 @@ export const FullWidthImage: React.FC<MediaProps> = ({ src, alt }) => {
       <div className="w-full aspect-[16/9] rounded-3xl bg-[#EDE9E5]">
         <MediaElement src={src} alt={alt} />
       </div>
+      {caption && (
+        <div className="text-center mt-6">
+          <span className="font-geist-mono text-[15px]">{caption}</span>
+        </div>
+      )}
     </motion.div>
   );
 };
@@ -91,6 +97,30 @@ export const AsymmetricGrid: React.FC<AsymmetricGridProps> = ({ largeImage, smal
       <div className="aspect-[4/3] sm:aspect-[3/4] rounded-3xl bg-[#EDE9E5]">
         <MediaElement src={smallImage.src} alt={smallImage.alt} />
       </div>
+    </motion.div>
+  );
+};
+
+export const ContentImage: React.FC<MediaProps> = ({ src, alt, caption }) => {
+  return (
+    <motion.div 
+      {...fadeInUpAnimation}
+      className="max-w-[1500px] mx-auto px-6 mb-6"
+    >
+      <div className="w-full rounded-[24px] overflow-hidden bg-[#EDE9E5]">
+        <img 
+          src={src} 
+          alt={alt} 
+          className="w-full h-auto"
+        />
+      </div>
+      {caption && (
+        <div className="flex justify-center mt-6">
+          <span className="font-geist-mono text-[15px] text-[#524D47] max-w-[400px] text-left">
+            {caption}
+          </span>
+        </div>
+      )}
     </motion.div>
   );
 };
