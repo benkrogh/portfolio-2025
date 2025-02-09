@@ -7,125 +7,128 @@ import CaseStudyText from '../../components/CaseStudyText';
 import Footer from '../../components/Footer.astro';
 import GoalCard from '../../components/GoalCard';
 import CustomerQuote from '../../components/CustomerQuote';
+import PasswordProtection from '../../components/PasswordProtection';
 
 const pageTitle = "Square Charge Case Study";
 ---
 
 <Layout title={pageTitle}>
-  <main class="pt-0">
-    <div class="container mx-auto px-6">
-      <CaseStudyHeader 
+  <PasswordProtection client:load>
+    <main class="pt-0">
+      <div class="container mx-auto px-6">
+        <CaseStudyHeader 
+          client:load
+          title="Square Charge"
+          tags={["2021", "PRODUCT DESIGN", "DESIGN LEADERSHIP"]}
+          description="Leading design from concept to production for Square's first-ever desktop app for MacOS."
+        />
+      </div>
+
+      <CaseStudyHero 
         client:load
-        title="Square Charge"
-        tags={["2021", "PRODUCT DESIGN", "DESIGN LEADERSHIP"]}
-        description="Leading design from concept to production for Square's first-ever desktop app for MacOS."
+        imageSrc="/images/square-charge/hero.png"
+        alt="Square Charge hero image"
       />
-    </div>
+      
+      <CaseStudyText client:load>
+        The concept for Square Charge came out of a design workshop: What if we had a faster way for our sellers to process payments on desktop?
+        <CaseStudyText.Secondary>
+          I worked with my team to create a set of designs that cast a vision for a desktop product that had a companion menu bar app.
+        </CaseStudyText.Secondary>
+      </CaseStudyText>
 
-    <CaseStudyHero 
-      client:load
-      imageSrc="/images/square-charge/hero.png"
-      alt="Square Charge hero image"
-    />
-    
-    <CaseStudyText client:load>
-      The concept for Square Charge came out of a design workshop: What if we had a faster way for our sellers to process payments on desktop?
-      <CaseStudyText.Secondary>
-        I worked with my team to create a set of designs that cast a vision for a desktop product that had a companion menu bar app.
-      </CaseStudyText.Secondary>
-    </CaseStudyText>
-
-     <ContentImage 
-      client:load
-      src="/images/square-charge/workshop-concept.png"
-      caption="The designs that came out of the workshop: a desktop based Point of Sale app, and a companion menu bar app."
-      alt="Square Charge interface overview"
-    />   
-
-    <CaseStudyText client:load>
-      We had some compelling concepts, but there were still a lot of questions around how feasible it would be to build.
-      <CaseStudyText.Secondary>
-        I teamed up with some of our developers during a hack week to see if we could make it work using only public facing APIs... and we built a functioning app.
-      </CaseStudyText.Secondary>
-    </CaseStudyText>
-
-    <ContentImage 
-      client:load
-      src="/images/square-charge/hackweek.png"
-      caption="The design of the proof of concept app: Basic functionality to key in an amount, and selecting a payment method."
-      alt="Square Charge interface overview"
-    />
-    
-    <CaseStudyText client:load>
-      Our team won the hack week, and it was time to start working on getting this ready for prime time. We knew there was a customer need based on data and CS requests, but we also created some goals:
-    </CaseStudyText>
-
-    <div class="max-w-[1500px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
-      <GoalCard 
+       <ContentImage 
         client:load
-        number="1" 
-        text="Refine the Virtual Terminal UI to only essential elements."
-      />
-      <GoalCard 
+        src="/images/square-charge/workshop-concept.png"
+        caption="The designs that came out of the workshop: a desktop based Point of Sale app, and a companion menu bar app."
+        alt="Square Charge interface overview"
+      />   
+
+      <CaseStudyText client:load>
+        We had some compelling concepts, but there were still a lot of questions around how feasible it would be to build.
+        <CaseStudyText.Secondary>
+          I teamed up with some of our developers during a hack week to see if we could make it work using only public facing APIs... and we built a functioning app.
+        </CaseStudyText.Secondary>
+      </CaseStudyText>
+
+      <ContentImage 
         client:load
-        number="2" 
-        text="Reduce friction for Virtual Terminal sellers to process payments faster."
+        src="/images/square-charge/hackweek.png"
+        caption="The design of the proof of concept app: Basic functionality to key in an amount, and selecting a payment method."
+        alt="Square Charge interface overview"
       />
-      <GoalCard 
+      
+      <CaseStudyText client:load>
+        Our team won the hack week, and it was time to start working on getting this ready for prime time. We knew there was a customer need based on data and CS requests, but we also created some goals:
+      </CaseStudyText>
+
+      <div class="max-w-[1500px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+        <GoalCard 
+          client:load
+          number="1" 
+          text="Refine the Virtual Terminal UI to only essential elements."
+        />
+        <GoalCard 
+          client:load
+          number="2" 
+          text="Reduce friction for Virtual Terminal sellers to process payments faster."
+        />
+        <GoalCard 
+          client:load
+          number="3" 
+          text="Support a keyboard based workflow for ultra fast payments."
+        />
+      </div>
+
+      <AsymmetricGrid 
         client:load
-        number="3" 
-        text="Support a keyboard based workflow for ultra fast payments."
+        largeImage={{ src: "/images/square-charge/dpos-concept.png", alt: "Main feature showcase" }}
+        smallImage={{ src: "/images/square-charge/small.png", alt: "Supporting detail" }}
       />
-    </div>
-
-    <AsymmetricGrid 
-      client:load
-      largeImage={{ src: "/images/square-charge/dpos-concept.png", alt: "Main feature showcase" }}
-      smallImage={{ src: "/images/square-charge/small.png", alt: "Supporting detail" }}
-    />
 
 
-    <FullWidthImage 
-      client:load
-      src="/images/square-charge/full-width-1.png"
-      alt="Square Charge interface overview"
-    />
-
-    <TwoByTwoGrid 
-      client:load
-      images={[
-        { src: "/images/square-charge/grid-1.png", alt: "Feature detail 1" },
-        { src: "/images/square-charge/payment-flow.mp4", alt: "Feature detail 2" }
-      ]}
-    />
-
-    <CaseStudyText client:load>
-      We focused on creating a minimal interface that would allow sellers to quickly enter payment amounts and process transactions with as few clicks as possible.
-    </CaseStudyText>
-
-    <div class="max-w-[1500px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
-      <CustomerQuote 
+      <FullWidthImage 
         client:load
-        quote="I've never had such an efficient experience processing payments. I process nearly 200 payments and I am working my way through them more quickly than ever."
-        author="Buffy"
-        company="Trashy Women Rubbish Removal"
-        variant="dark"
+        src="/images/square-charge/full-width-1.png"
+        alt="Square Charge interface overview"
       />
-      <CustomerQuote 
-        client:load
-        quote="I have also been very happy with the app! It is a very convenient and simple way to charge without having to navigate the website"
-        author="Maggie"
-        company="California Women's Therapy"
-        variant="light"
-      />
-    </div>
 
-    <AsymmetricGrid 
-      client:load
-      largeImage={{ src: "/images/square-charge/dpos-concept.png", alt: "Main feature showcase" }}
-      smallImage={{ src: "/images/square-charge/small.png", alt: "Supporting detail" }}
-    />
-  </main>
+      <TwoByTwoGrid 
+        client:load
+        images={[
+          { src: "/images/square-charge/grid-1.png", alt: "Feature detail 1" },
+          { src: "/images/square-charge/payment-flow.mp4", alt: "Feature detail 2" }
+        ]}
+      />
+
+      <CaseStudyText client:load>
+        We focused on creating a minimal interface that would allow sellers to quickly enter payment amounts and process transactions with as few clicks as possible.
+      </CaseStudyText>
+
+      <div class="max-w-[1500px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
+        <CustomerQuote 
+          client:load
+          quote="I've never had such an efficient experience processing payments. I process nearly 200 payments and I am working my way through them more quickly than ever."
+          author="Buffy"
+          company="Trashy Women Rubbish Removal"
+          variant="dark"
+        />
+        <CustomerQuote 
+          client:load
+          quote="I have also been very happy with the app! It is a very convenient and simple way to charge without having to navigate the website"
+          author="Maggie"
+          company="California Women's Therapy"
+          variant="light"
+        />
+      </div>
+
+      <AsymmetricGrid 
+        client:load
+        largeImage={{ src: "/images/square-charge/dpos-concept.png", alt: "Main feature showcase" }}
+        smallImage={{ src: "/images/square-charge/small.png", alt: "Supporting detail" }}
+      />
+    </main>
+  </PasswordProtection>
   
   <Footer />
 </Layout> 
