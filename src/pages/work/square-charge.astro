@@ -8,6 +8,7 @@ import Footer from '../../components/Footer.astro';
 import GoalCard from '../../components/GoalCard';
 import CustomerQuote from '../../components/CustomerQuote';
 import PasswordProtection from '../../components/PasswordProtection';
+import CaseStudyVideo from '../../components/CaseStudyVideo';
 
 const pageTitle = "Square Charge Case Study";
 ---
@@ -80,16 +81,32 @@ const pageTitle = "Square Charge Case Study";
         />
       </div>
 
-      <AsymmetricGrid 
-        client:load
-        largeImage={{ src: "/images/square-charge/dpos-concept.png", alt: "Main feature showcase" }}
-        smallImage={{ src: "/images/square-charge/small.png", alt: "Supporting detail" }}
-      />
-
+      <CaseStudyText client:load>
+        We focused on creating a minimal interface that would allow sellers to quickly enter payment amounts and process transactions with as few clicks as possible.
+      </CaseStudyText>
 
       <FullWidthImage 
         client:load
-        src="/images/square-charge/full-width-1.png"
+        src="/images/square-charge/clean-hero.png"
+        alt="Square Charge interface overview"
+      />
+
+      <ContentImage 
+        client:load
+        src="/images/square-charge/addcustomer.png"
+        caption="Add a customer flow: Sellers could add customers to access saved contact and payment information to complete the transaction."
+        alt="Square Charge interface overview"
+      />
+
+      <FullWidthImage 
+        client:load
+        src="/images/square-charge/createcustomer.png"
+        alt="Square Charge interface overview"
+      />
+
+      <FullWidthImage 
+        client:load
+        src="/images/square-charge/paymentflow.png"
         alt="Square Charge interface overview"
       />
 
@@ -101,8 +118,15 @@ const pageTitle = "Square Charge Case Study";
         ]}
       />
 
+      <CaseStudyVideo 
+        client:load
+        src="/images/square-charge/squarecharge-publicweb.mp4"
+        deviceFrame="desktop"
+        caption="The payment flow was designed to be quick and efficient, with keyboard shortcuts for power users."
+      />
+
       <CaseStudyText client:load>
-        We focused on creating a minimal interface that would allow sellers to quickly enter payment amounts and process transactions with as few clicks as possible.
+        We released the app after receiving a 6.87 CSAT score in beta. Sellers really loved Square Charge!
       </CaseStudyText>
 
       <div class="max-w-[1500px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6 mb-24">
