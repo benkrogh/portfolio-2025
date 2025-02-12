@@ -11,11 +11,11 @@ const CaseStudyText: React.FC<CaseStudyTextProps> = ({ children }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: "easeOut" }}
-      className="min-h-[75vh] flex items-center py-24"
+      className="min-h-[60vh] sm:min-h-[75vh] flex items-center py-16 sm:py-24"
     >
       <div className="max-w-[1500px] mx-auto px-6">
         <div className="max-w-[660px] mx-auto">
-          <div className="font-geist-mono text-[32px] tracking-[-0.03em]">
+          <div className="font-geist-mono text-[24px] sm:text-[28px] md:text-[32px] tracking-[-0.03em]">
             {children}
           </div>
         </div>
@@ -26,7 +26,7 @@ const CaseStudyText: React.FC<CaseStudyTextProps> = ({ children }) => {
 
 // Define Secondary as a subcomponent directly
 CaseStudyText.Secondary = ({ children }: { children: React.ReactNode }) => (
-  <p className="font-geist-mono text-[22px] text-[#524D47] max-w-[546px] tracking-[-0.03em] mt-8">
+  <p className="font-geist-mono text-[18px] sm:text-[20px] md:text-[22px] text-[#524D47] max-w-[546px] tracking-[-0.03em] mt-6 sm:mt-8">
     {children}
   </p>
 );

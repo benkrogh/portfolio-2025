@@ -6,26 +6,28 @@ const links = [
 ];
 ---
 
-<footer class="w-full max-w-[1500px] mx-auto py-2 pb-8">
-  <div
-    class="bg-[#17120A] text-white rounded-[24px] p-8 sm:p-12 flex justify-between items-center"
-  >
-    <div class="font-mono text-[#A39F98] text-sm">
-      © Ben Krogh 2009 - present. Coded with ❤️ using Cursor.
+<footer class="w-full mx-auto pt-4 py-2 pb-8 px-4">
+  <div class="max-w-[1500px] mx-auto">
+    <div
+      class="bg-[#17120A] text-white rounded-[24px] p-8 sm:p-12 flex justify-between items-center"
+    >
+      <div class="font-mono text-[#A39F98] text-sm">
+        © Ben Krogh 2009 - present. Coded with ❤️ using Cursor.
+      </div>
+      <nav>
+        <ul class="font-mono text-base flex flex-col items-end gap-2">
+          {
+            links.map((link) => (
+              <li>
+                <a href={link.url} class="hover:opacity-70 transition-opacity">
+                  {link.text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
     </div>
-    <nav>
-      <ul class="font-mono text-base flex flex-col items-end gap-2">
-        {
-          links.map((link) => (
-            <li>
-              <a href={link.url} class="hover:opacity-70 transition-opacity">
-                {link.text}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
   </div>
 </footer>
 

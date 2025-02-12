@@ -63,7 +63,7 @@ const pageTitle = "Square Charge Case Study";
         Our team won the hack week, and it was time to start working on getting this ready for prime time. We knew there was a customer need based on data and CS requests, but we also created some goals:
       </CaseStudyText>
 
-      <div class="max-w-[1500px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
+      <div class="max-w-[1500px] mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-24">
         <GoalCard 
           client:load
           number="1" 
@@ -110,19 +110,18 @@ const pageTitle = "Square Charge Case Study";
         alt="Square Charge interface overview"
       />
 
-      <TwoByTwoGrid 
-        client:load
-        images={[
-          { src: "/images/square-charge/grid-1.png", alt: "Feature detail 1" },
-          { src: "/images/square-charge/payment-flow.mp4", alt: "Feature detail 2" }
-        ]}
-      />
+      <CaseStudyText client:load>
+        As we got closer to launch, we needed to create a set of marketing materials to help get the word out about the new app.
+        <CaseStudyText.Secondary>
+          I worked with our creative team to provide creative direction for the app's marketing materials and public website, as well as motion design and video work for help articles.
+        </CaseStudyText.Secondary>
+      </CaseStudyText>
 
       <CaseStudyVideo 
         client:load
         src="/images/square-charge/squarecharge-publicweb.mp4"
         deviceFrame="desktop"
-        caption="The payment flow was designed to be quick and efficient, with keyboard shortcuts for power users."
+        caption="The public website for Square Charge, highlighting how fast and easy it is to process payments."
       />
 
       <CaseStudyText client:load>
@@ -146,12 +145,6 @@ const pageTitle = "Square Charge Case Study";
         />
       </div>
 
-      <AsymmetricGrid 
-        client:load
-        largeImage={{ src: "/images/square-charge/dpos-concept.png", alt: "Main feature showcase" }}
-        smallImage={{ src: "/images/square-charge/small.png", alt: "Supporting detail" }}
-      />
-    </main>
   </PasswordProtection>
   
   <Footer />

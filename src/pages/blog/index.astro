@@ -26,7 +26,7 @@ const formattedPosts = posts.map((post) => ({
 
 <Layout title="Blog | My Portfolio">
   <CustomCursor client:load />
-  <main class="max-w-[1500px] mx-auto px-4 py-4 md:py-6">
+  <main class="max-w-[1500px] mx-auto px-4 pt-4 md:pt-6">
     <header class="min-h-[300px] md:h-[55vh] mb-4 md:mb-6">
       <AnimatedTitle 
         client:only="react"
@@ -41,7 +41,7 @@ const formattedPosts = posts.map((post) => ({
         <BlogCard client:load post={post} prefersReducedMotion={false} />
       ))}
     </div>
-
-    <Footer />
   </main>
+
+  <Footer />
 </Layout>

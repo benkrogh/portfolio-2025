@@ -22,7 +22,7 @@ const isVideo = (src: string = '') => {
 
 const MediaElement: React.FC<MediaProps> = ({ src, alt }) => {
   if (!src) {
-    return <div className="w-full h-full rounded-3xl bg-[#EDE9E5]" />;
+    return <div className="w-full h-full rounded-2xl sm:rounded-3xl bg-[#EDE9E5]" />;
   }
 
   if (isVideo(src)) {
@@ -35,7 +35,7 @@ const MediaElement: React.FC<MediaProps> = ({ src, alt }) => {
         loop
         muted
         playsInline
-        className="w-full h-full object-cover rounded-3xl"
+        className="w-full h-full object-cover rounded-2xl sm:rounded-3xl"
       />
     );
   }
@@ -44,7 +44,7 @@ const MediaElement: React.FC<MediaProps> = ({ src, alt }) => {
     <img 
       src={src} 
       alt={alt} 
-      className="w-full h-full object-cover rounded-3xl"
+      className="w-full h-full object-cover rounded-2xl sm:rounded-3xl"
     />
   );
 };
@@ -55,7 +55,7 @@ export const FullWidthImage: React.FC<MediaProps> = ({ src, alt, caption }) => {
       {...fadeInUpAnimation}
       className="max-w-[1500px] mx-auto px-6 mb-6"
     >
-      <div className="w-full aspect-[16/9] rounded-3xl bg-[#EDE9E5]">
+      <div className="w-full aspect-[16/9] rounded-2xl sm:rounded-3xl bg-[#EDE9E5]">
         <MediaElement src={src} alt={alt} />
       </div>
       {caption && (
@@ -76,7 +76,7 @@ export const TwoByTwoGrid: React.FC<TwoImageGridProps> = ({ images }) => {
       {images.map((media, index) => (
         <div 
           key={index}
-          className="aspect-square rounded-3xl bg-[#EDE9E5]"
+          className="aspect-square rounded-2xl sm:rounded-3xl bg-[#EDE9E5]"
         >
           <MediaElement src={media.src} alt={media.alt} />
         </div>
@@ -91,10 +91,10 @@ export const AsymmetricGrid: React.FC<AsymmetricGridProps> = ({ largeImage, smal
       {...fadeInUpAnimation}
       className="max-w-[1500px] mx-auto px-6 mb-6 grid grid-cols-1 sm:grid-cols-3 gap-6"
     >
-      <div className="sm:col-span-2 aspect-[4/3] rounded-3xl bg-[#EDE9E5]">
+      <div className="sm:col-span-2 aspect-[4/3] rounded-2xl sm:rounded-3xl bg-[#EDE9E5]">
         <MediaElement src={largeImage.src} alt={largeImage.alt} />
       </div>
-      <div className="aspect-[4/3] sm:aspect-[3/4] rounded-3xl bg-[#EDE9E5]">
+      <div className="aspect-[4/3] sm:aspect-[3/4] rounded-2xl sm:rounded-3xl bg-[#EDE9E5]">
         <MediaElement src={smallImage.src} alt={smallImage.alt} />
       </div>
     </motion.div>
@@ -107,7 +107,7 @@ export const ContentImage: React.FC<MediaProps> = ({ src, alt, caption }) => {
       {...fadeInUpAnimation}
       className="max-w-[1500px] mx-auto px-6 mb-6"
     >
-      <div className="w-full rounded-[24px] overflow-hidden bg-[#EDE9E5]">
+      <div className="w-full rounded-2xl sm:rounded-[24px] overflow-hidden bg-[#EDE9E5]">
         <img 
           src={src} 
           alt={alt} 

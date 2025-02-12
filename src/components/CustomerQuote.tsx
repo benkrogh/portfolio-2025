@@ -21,12 +21,12 @@ const CustomerQuote: React.FC<CustomerQuoteProps> = ({
   return (
     <motion.div 
       {...fadeInUpAnimation}
-      className={`p-8 rounded-[24px] ${bgColor} h-[320px] relative`}
+      className={`p-6 sm:p-8 rounded-[24px] ${bgColor} min-h-[280px] sm:min-h-[300px] md:h-[320px] relative flex flex-col`}
     >
-      <h2 className={`font-geist-mono text-[26px] tracking-[-0.03em] leading-tight ${textColor}`}>
+      <h2 className={`font-geist-mono text-[24px] sm:text-[28px] md:text-[32px] tracking-[-0.03em] leading-tight ${textColor} mb-8 sm:mb-0`}>
         "{quote}"
       </h2>
-      <h3 className={`font-geist-mono text-[22px] tracking-[-0.02em] ${authorColor} absolute bottom-8 left-8`}>
+      <h3 className={`font-geist-mono text-[16px] sm:text-[18px] md:text-[20px] tracking-[-0.02em] ${authorColor} mt-auto pt-4`}>
         -{author}, {company}
       </h3>
     </motion.div>
