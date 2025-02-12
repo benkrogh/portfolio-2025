@@ -16,11 +16,11 @@ const Navigation = ({ currentPath }: NavigationProps) => {
       } fixed w-full`}
     >
       <div className="w-full max-w-[1500px] mx-auto">
-        <div className="px-4 pt-8">
+        <div className="px-6">
           <nav 
-            className="flex items-center justify-between h-[72px] pl-8 pr-3 rounded-[24px] bg-[#FCF9F4]/20 backdrop-blur-[16px] z-[1000]"
+            className="flex items-center h-[72px] pl-4 sm:pl-8 pr-3 rounded-[24px] bg-[#FCF9F4]/20 backdrop-blur-[16px] z-[1000]"
           >
-            <a href="/" className="hover:opacity-80 transition-opacity">
+            <a href="/" className="hidden sm:block hover:opacity-80 transition-opacity">
               <img
                 src="/images/BK-dark.svg"
                 alt="BK Logo"
@@ -29,11 +29,11 @@ const Navigation = ({ currentPath }: NavigationProps) => {
             </a>
             
             <div 
-              className={`flex items-center text-[0.938rem] font-medium z-10 gap-2`}
+              className={`flex items-center text-[0.938rem] font-medium z-10 gap-1.5 w-full sm:w-auto justify-center sm:justify-start sm:ml-auto`}
             >
               <a
                 href="/"
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 ${
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 ${
                   currentPath === "/" 
                     ? "bg-[#17120A] text-white hover:bg-[#17120A]/90 active" 
                     : "text-[#17120A]"
@@ -44,7 +44,7 @@ const Navigation = ({ currentPath }: NavigationProps) => {
               </a>
               <a
                 href="/about"
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 ${
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 ${
                   currentPath === "/about" 
                     ? "bg-[#17120A] text-white hover:bg-[#17120A]/90 active" 
                     : "text-[#17120A]"
@@ -55,7 +55,7 @@ const Navigation = ({ currentPath }: NavigationProps) => {
               </a>
               <a
                 href="/blog"
-                className={`flex items-center gap-2 px-4 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 ${
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 ${
                   currentPath === "/blog" 
                     ? "bg-[#17120A] text-white hover:bg-[#17120A]/90 active" 
                     : "text-[#17120A]"

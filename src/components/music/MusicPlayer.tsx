@@ -403,11 +403,13 @@ const MusicPlayer = () => {
       return;
     }
 
-    // If initialized but in minimized state, expand only if clicking the album art area
+    // If initialized but in minimized state, expand only if clicking the album art area AND on larger screens
     if (!isExpanded) {
       const target = e.target as HTMLElement;
       const isAlbumArea = target.closest('.album-area');
-      if (isAlbumArea) {
+      // Only allow expansion on screens sm and up
+      const isLargeScreen = window.innerWidth >= 640; // sm breakpoint
+      if (isAlbumArea && isLargeScreen) {
         setIsExpanded(true);
       }
     }
@@ -423,11 +425,11 @@ const MusicPlayer = () => {
       onMouseMove={handleMouseMove}
       onClick={handleContainerClick}
       className={`fixed 
-        bottom-6 left-1/2 -translate-x-1/2
+        bottom-4 sm:bottom-6 left-4 right-4 sm:left-1/2 sm:-translate-x-1/2
         transition-all duration-300 ease-in-out
         ${isExpanded 
-          ? 'w-[1125px] px-6'
-          : 'w-[400px]'
+          ? 'sm:w-[90vw] md:w-[85vw] lg:w-[1125px] max-w-[1125px]'
+          : 'sm:w-[400px] sm:left-1/2'
         }
         z-40
         ${!isVisible && !isExpanded ? 'translate-y-[150%]' : 'translate-y-0'}
@@ -436,11 +438,10 @@ const MusicPlayer = () => {
       <div
         style={{
           backgroundColor: "#EDE9E5",
-          borderRadius: "24px",
-          height: isExpanded ? "108px" : "72px",
         }}
-        className="w-full relative overflow-hidden shadow-lg hover:shadow-xl 
-          transition-all duration-300 ease-in-out"
+        className={`w-full relative overflow-hidden shadow-lg hover:shadow-xl 
+          transition-all duration-300 ease-in-out rounded-[24px]
+          h-[72px] ${isExpanded ? 'sm:h-[108px]' : ''}`}
       >
         {isExpanded && (
           <button
@@ -448,7 +449,7 @@ const MusicPlayer = () => {
               e.stopPropagation();
               setIsExpanded(false);
             }}
-            className="absolute top-4 right-4 z-10 p-2 rounded-lg hover:bg-black/10"
+            className="absolute top-4 right-4 z-10 p-2 rounded-lg hover:bg-black/10 hidden sm:flex"
           >
             <Minimize2 className="w-5 h-5" />
           </button>
@@ -465,7 +466,7 @@ const MusicPlayer = () => {
         />
         
         <div className="h-full flex flex-col">
-          <div className={`absolute inset-x-0 ${isExpanded ? 'top-1/2 -translate-y-1/2 px-4 sm:px-8' : 'inset-y-0 px-4'}`}>
+          <div className={`absolute inset-x-0 ${isExpanded ? 'sm:top-1/2 sm:-translate-y-1/2 px-4 sm:px-8' : 'inset-y-0 px-4'}`}>
             <div className={`w-full h-full flex ${isExpanded ? 'sm:flex-row' : 'flex-row'} items-center gap-4 justify-between`}>
               <div className="flex items-center gap-4 flex-shrink-0">
                 <div className={`album-area ${
@@ -486,7 +487,7 @@ const MusicPlayer = () => {
                         e.stopPropagation();
                         setIsExpanded(true);
                       }}
-                      className="absolute inset-0 bg-black/0 hover:bg-black/20 opacity-0 group-hover:opacity-100 transition-all duration-200 flex items-center justify-center"
+                      className="absolute inset-0 bg-black/0 hover:bg-black/20 opacity-0 group-hover:opacity-100 transition-all duration-200 hidden sm:flex items-center justify-center"
                     >
                       <Expand className="w-4 h-4 text-white" />
                     </button>

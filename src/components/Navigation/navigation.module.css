@@ -13,6 +13,7 @@
   pointer-events: auto;
   width: 100%;
   background-color: transparent;
+  padding-top: 2rem;
 }
 
 .headerNav nav {
