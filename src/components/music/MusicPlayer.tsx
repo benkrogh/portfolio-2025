@@ -7,6 +7,8 @@ interface Track {
   title: string;
   album: string;
   url: string;
+  artwork: string;
+  color: string; // For the background color when playing
 }
 
 interface AudioAnalyser {
@@ -18,9 +20,26 @@ const tracks: Track[] = [
   {
     id: 1,
     title: "700 Years",
-    album: "Local Album",
-    url: "/music/test-song.mp3",
+    album: "Patchwork",
+    url: "/music/700-years.mp3",
+    artwork: "/images/music/700years.jpg", // Add your artwork images
   },
+  {
+    id: 2,
+    title: "Quigley",
+    album: "Three Wayne May",
+    url: "/music/Quigley.mp3",
+    artwork: "/images/music/Quigley.jpg",
+    color: "#5C8CEC", // Different color for each song
+  },
+  {
+    id: 3,
+    title: "Things People Say",
+    album: "Things People Say",
+    url: "/music/thingspeoplesay.mp3",
+    artwork: "/images/music/thingspeoplesay.jpg",
+    color: "#5C8CEC", // Different color for each song
+  },  // Add more tracks as needed
 ];
 
 // Create a global audio context and persistent refs outside the component
@@ -53,6 +72,7 @@ const MusicPlayer = () => {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number | null }>({ x: 0, y: null });
   const containerRef = useRef<HTMLDivElement>(null);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
   // const formatTime = (time: number): string => {
   //   const minutes = Math.floor(time / 60);
@@ -154,14 +174,13 @@ const MusicPlayer = () => {
   }, [audioAnalyser]);
 
   const initializeAudio = useCallback(async () => {
-    // Use the persistent audio reference
     if (persistentAudioRef) {
       audioRef.current = persistentAudioRef;
       await setupAudioAnalyser();
       return persistentAudioRef;
     }
     
-    const audio = new Audio(tracks[0].url);
+    const audio = new Audio(tracks[currentTrackIndex].url);
     audio.preload = "auto";
     
     const handlePlay = () => setIsPlaying(true);
@@ -204,7 +223,7 @@ const MusicPlayer = () => {
     persistentAudioRef = audio;
     await setupAudioAnalyser();
     return audio;
-  }, [currentTime, setupAudioAnalyser]);
+  }, [currentTrackIndex, setupAudioAnalyser]);
 
   useEffect(() => {
     if (!isHydrated) return;
@@ -415,6 +434,28 @@ const MusicPlayer = () => {
     }
   };
 
+  const playNextTrack = async () => {
+    const nextIndex = (currentTrackIndex + 1) % tracks.length;
+    setCurrentTrackIndex(nextIndex);
+    if (audioRef.current) {
+      audioRef.current.src = tracks[nextIndex].url;
+      if (isPlaying) {
+        await audioRef.current.play();
+      }
+    }
+  };
+
+  const playPreviousTrack = async () => {
+    const prevIndex = currentTrackIndex === 0 ? tracks.length - 1 : currentTrackIndex - 1;
+    setCurrentTrackIndex(prevIndex);
+    if (audioRef.current) {
+      audioRef.current.src = tracks[prevIndex].url;
+      if (isPlaying) {
+        await audioRef.current.play();
+      }
+    }
+  };
+
   if (!isHydrated) {
     return null; // or a loading state if you prefer
   }
@@ -470,8 +511,8 @@ const MusicPlayer = () => {
             <div className={`w-full h-full flex ${isExpanded ? 'sm:flex-row' : 'flex-row'} items-center gap-4 justify-between`}>
               <div className="flex items-center gap-4 flex-shrink-0">
                 <div className={`album-area ${
-                  isExpanded ? 'w-16 h-16' : 'w-8 h-8'
-                } rounded-lg flex-shrink-0 overflow-hidden relative bg-[#EC6A5C] group`}>
+                  isExpanded ? 'w-16 h-16' : 'w-10 h-10'
+                } rounded-lg flex-shrink-0 overflow-hidden relative bg-[${tracks[currentTrackIndex].color}] group`}>
                   {!isInitialized ? (
                     <img
                       src="/images/placeholder-album.jpg"
@@ -479,7 +520,14 @@ const MusicPlayer = () => {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full bg-[#EC6A5C]" />
+                    <>
+                      <img
+                        src={tracks[currentTrackIndex].artwork}
+                        alt={tracks[currentTrackIndex].title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className={`absolute inset-0 bg-[${tracks[currentTrackIndex].color}] mix-blend-color`} />
+                    </>
                   )}
                   {isInitialized && !isExpanded && (
                     <button
@@ -496,7 +544,7 @@ const MusicPlayer = () => {
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <h3 className="font-medium text-gray-900 truncate max-w-[200px]">
-                      {isInitialized ? tracks[0].title : "Care for some music?"}
+                      {isInitialized ? tracks[currentTrackIndex].title : "Care for some music?"}
                     </h3>
                     <div className="relative group" 
                       onMouseEnter={() => setTooltipVisible(true)}
@@ -508,7 +556,7 @@ const MusicPlayer = () => {
                     </div>
                   </div>
                   {isExpanded && isInitialized && (
-                    <p className="text-sm text-gray-500 truncate">{tracks[0].album}</p>
+                    <p className="text-sm text-gray-500 truncate">{tracks[currentTrackIndex].album}</p>
                   )}
                   {!isInitialized && (
                     <p className="text-sm text-gray-500">Click play to begin</p>
@@ -518,14 +566,18 @@ const MusicPlayer = () => {
 
               <div className={`${isExpanded ? 'flex-1 flex justify-center' : 'flex justify-end'}`}>
                 <div className={`flex items-center ${isExpanded ? 'gap-8' : 'gap-4'}`}>
-                  {isInitialized && (
-                    <button className={`group relative flex items-center justify-center ${
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      playPreviousTrack();
+                    }}
+                    className={`group relative flex items-center justify-center ${
                       isExpanded ? 'w-10 h-10' : 'w-8 h-8'
-                    }`}>
-                      <div className="absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
-                      <SkipBack className={`relative ${isExpanded ? 'w-5 h-5 sm:w-6 sm:h-6' : 'w-4 h-4'}`} />
-                    </button>
-                  )}
+                    }`}
+                  >
+                    <div className="absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
+                    <SkipBack className={`relative ${isExpanded ? 'w-5 h-5 sm:w-6 sm:h-6' : 'w-4 h-4'}`} />
+                  </button>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -542,14 +594,18 @@ const MusicPlayer = () => {
                       <Play className={`relative ${isExpanded ? 'w-6 h-6 sm:w-[30px] sm:h-[30px]' : 'w-5 h-5'}`} />
                     )}
                   </button>
-                  {isInitialized && (
-                    <button className={`group relative flex items-center justify-center ${
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      playNextTrack();
+                    }}
+                    className={`group relative flex items-center justify-center ${
                       isExpanded ? 'w-10 h-10' : 'w-8 h-8'
-                    }`}>
-                      <div className="absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
-                      <SkipForward className={`relative ${isExpanded ? 'w-5 h-5 sm:w-6 sm:h-6' : 'w-4 h-4'}`} />
-                    </button>
-                  )}
+                    }`}
+                  >
+                    <div className="absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
+                    <SkipForward className={`relative ${isExpanded ? 'w-5 h-5 sm:w-6 sm:h-6' : 'w-4 h-4'}`} />
+                  </button>
                 </div>
               </div>
 
