@@ -16,7 +16,17 @@ export default function CustomCursor() {
     isNav: false,
   });
 
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
+    setMounted(true);
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+
+  useEffect(() => {
+    if (isTouchDevice) return;
+
     const onMouseMove = throttle((e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const navArea = target.closest(`nav`);
@@ -75,15 +85,9 @@ export default function CustomCursor() {
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseover", handleHover);
     };
-  }, []);
+  }, [isTouchDevice]);
 
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
+  if (!mounted || isTouchDevice) return null;
 
   return (
     <div
