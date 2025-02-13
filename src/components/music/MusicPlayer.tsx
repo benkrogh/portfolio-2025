@@ -8,7 +8,6 @@ interface Track {
   album: string;
   url: string;
   artwork: string;
-  color: string; // For the background color when playing
 }
 
 interface AudioAnalyser {
@@ -22,7 +21,7 @@ const tracks: Track[] = [
     title: "700 Years",
     album: "Patchwork",
     url: "/music/700-years.mp3",
-    artwork: "/images/music/700years.jpg", // Add your artwork images
+    artwork: "/images/music/700years.jpg",
   },
   {
     id: 2,
@@ -30,7 +29,6 @@ const tracks: Track[] = [
     album: "Three Wayne May",
     url: "/music/Quigley.mp3",
     artwork: "/images/music/Quigley.jpg",
-    color: "#5C8CEC", // Different color for each song
   },
   {
     id: 3,
@@ -38,7 +36,6 @@ const tracks: Track[] = [
     album: "Things People Say",
     url: "/music/thingspeoplesay.mp3",
     artwork: "/images/music/thingspeoplesay.jpg",
-    color: "#5C8CEC", // Different color for each song
   },  // Add more tracks as needed
 ];
 
@@ -512,7 +509,7 @@ const MusicPlayer = () => {
               <div className="flex items-center gap-4 flex-shrink-0">
                 <div className={`album-area ${
                   isExpanded ? 'w-16 h-16' : 'w-10 h-10'
-                } rounded-lg flex-shrink-0 overflow-hidden relative bg-[${tracks[currentTrackIndex].color}] group`}>
+                } rounded-lg flex-shrink-0 overflow-hidden relative group`}>
                   {!isInitialized ? (
                     <img
                       src="/images/placeholder-album.jpg"
@@ -520,14 +517,11 @@ const MusicPlayer = () => {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <>
-                      <img
-                        src={tracks[currentTrackIndex].artwork}
-                        alt={tracks[currentTrackIndex].title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className={`absolute inset-0 bg-[${tracks[currentTrackIndex].color}] mix-blend-color`} />
-                    </>
+                    <img
+                      src={tracks[currentTrackIndex].artwork}
+                      alt={tracks[currentTrackIndex].title}
+                      className="w-full h-full object-cover"
+                    />
                   )}
                   {isInitialized && !isExpanded && (
                     <button
