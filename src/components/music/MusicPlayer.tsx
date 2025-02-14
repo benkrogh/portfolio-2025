@@ -195,26 +195,11 @@ const MusicPlayer = () => {
       }
     };
 
-    // Set up all event listeners
     audio.addEventListener("play", handlePlay);
     audio.addEventListener("pause", handlePause);
     audio.addEventListener("ended", handlePause);
     audio.addEventListener("error", handleError);
     audio.addEventListener("loadedmetadata", handleMetadata);
-
-    // Store cleanup function with the audio element
-    audio.cleanup = () => {
-      audio.removeEventListener("play", handlePlay);
-      audio.removeEventListener("pause", handlePause);
-      audio.removeEventListener("ended", handlePause);
-      audio.removeEventListener("error", handleError);
-      audio.removeEventListener("loadedmetadata", handleMetadata);
-    };
-
-    // Wait for audio to be loaded
-    await new Promise((resolve) => {
-      audio.addEventListener('loadeddata', resolve, { once: true });
-    });
 
     audioRef.current = audio;
     persistentAudioRef = audio;
@@ -467,7 +452,7 @@ const MusicPlayer = () => {
         transition-all duration-300 ease-in-out
         ${isExpanded 
           ? 'sm:w-[90vw] md:w-[85vw] lg:w-[1125px] max-w-[1125px]'
-          : 'sm:w-[400px] sm:left-1/2'
+          : 'sm:w-[400px] md:w-[450px] lg:w-[500px] sm:left-1/2'
         }
         z-40
         ${!isVisible && !isExpanded ? 'translate-y-[150%]' : 'translate-y-0'}
@@ -537,7 +522,7 @@ const MusicPlayer = () => {
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <h3 className="font-medium text-gray-900 truncate max-w-[200px]">
+                    <h3 className="font-medium text-gray-900 truncate max-w-[200px] sm:max-w-[250px] md:max-w-[300px]">
                       {isInitialized ? tracks[currentTrackIndex].title : "Care for some music?"}
                     </h3>
                     <div className="relative group" 
