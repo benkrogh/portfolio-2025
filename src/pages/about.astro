@@ -4,7 +4,7 @@ import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer.astro";
 import AnimatedTitle from "@/components/AnimatedTitle";
 import ScrollFadeIn from "@/components/ScrollFadeIn";
-
+import DesignPrinciples from "@/components/design/DesignPrinciples";
 const companies = [
   {
     name: "eBay",
@@ -46,7 +46,7 @@ const companies = [
 
 const testimonials = [
   {
-    quote: "Under Ben’s guidance, I found my voice and the courage to share my ideas. His unwavering support provided clarity while also keeping me grounded. I’ve grown immensely under his leadership and will always be grateful!",
+    quote: "Under Ben's guidance, I found my voice and the courage to share my ideas. His unwavering support provided clarity while also keeping me grounded. I've grown immensely under his leadership and will always be grateful!",
     author: "Delma Brocales",
     role: "Product Designer, Square",
     avatar: "/images/avatars/delma.png",
@@ -92,7 +92,7 @@ const testimonials = [
 
 <Layout title="About | Ben Krogh">
   <CustomCursor client:load />
-  <main class="custom-cursor-area">
+  <main class="custom-cursor-area max-w-[1500px] mx-auto px-4">
     <!-- Hero Section -->
     <header class="h-[55vh] mb-6 mt-6">
       <div class="w-full h-full max-w-[1500px] font-light mx-auto flex items-center px-4">
@@ -188,9 +188,12 @@ const testimonials = [
       </div>
     </div>
 
-    <!-- Footer -->
-    <Footer />
+    <!-- Design Principles Section -->
+    <DesignPrinciples client:load />
   </main>
+
+  <!-- Footer moved outside of main -->
+  <Footer />
 </Layout>
 
 <style>

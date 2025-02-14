@@ -57,7 +57,7 @@ export default function CaseStudyVideo({ src, caption, deviceFrame = 'none' }: C
         </video>
       </div>
       {caption && (
-        <p className="text-gray-500 text-sm mt-4 text-center max-w-2xl mx-auto">
+        <p className="font-geist-mono text-[15px] text-[#524D47] max-w-[400px] text-center mx-auto mt-4">
           {caption}
         </p>
       )}

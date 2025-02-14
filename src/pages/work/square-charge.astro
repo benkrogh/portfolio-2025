@@ -10,6 +10,7 @@ import CustomerQuote from '../../components/CustomerQuote';
 import PasswordProtection from '../../components/PasswordProtection';
 import CaseStudyVideo from '../../components/CaseStudyVideo';
 import ScrollFadeIn from '../../components/ScrollFadeIn';
+import TextWithImage from '../../components/TextWithImage';
 
 const pageTitle = "Square Charge Case Study";
 ---
@@ -107,6 +108,16 @@ const pageTitle = "Square Charge Case Study";
       </ScrollFadeIn>
 
       <ScrollFadeIn client:load>
+        <TextWithImage
+          client:load
+          headline="Quick feedback"
+          text="We wanted to ensure we were building the best experience for our customers, so we added an option within the app that sent an email directly to our product team for fast updates."
+          imageSrc="/images/square-charge/feedback-settings.png"
+          imageAlt="Square Charge feedback settings interface"
+        />
+      </ScrollFadeIn>
+      
+      <ScrollFadeIn client:load>
         <ContentImage 
           client:load
           src="/images/square-charge/addcustomer.png"
@@ -133,24 +144,6 @@ const pageTitle = "Square Charge Case Study";
 
       <ScrollFadeIn client:load>
         <CaseStudyText client:load>
-          As we got closer to launch, we needed to create a set of marketing materials to help get the word out about the new app.
-          <CaseStudyText.Secondary>
-            I worked with our creative team to provide creative direction for the app's marketing materials and public website, as well as motion design and video work for help articles.
-          </CaseStudyText.Secondary>
-        </CaseStudyText>
-      </ScrollFadeIn>
-
-      <ScrollFadeIn client:load>
-        <CaseStudyVideo 
-          client:load
-          src="/images/square-charge/squarecharge-publicweb.mp4"
-          deviceFrame="desktop"
-          caption="The public website for Square Charge, highlighting how fast and easy it is to process payments."
-        />
-      </ScrollFadeIn>
-
-      <ScrollFadeIn client:load>
-        <CaseStudyText client:load>
           We released the app after receiving a 6.87 CSAT score in beta. Sellers really loved Square Charge!
         </CaseStudyText>
 
@@ -170,6 +163,24 @@ const pageTitle = "Square Charge Case Study";
             variant="light"
           />
         </div>
+      </ScrollFadeIn>
+
+      <ScrollFadeIn client:load>
+        <CaseStudyText client:load>
+          As we got closer to launch, we needed to create a set of marketing materials to help get the word out about the new app.
+          <CaseStudyText.Secondary>
+            I worked with our creative team to provide creative direction for the app's marketing materials and public website, as well as motion design and video work for help articles.
+          </CaseStudyText.Secondary>
+        </CaseStudyText>
+      </ScrollFadeIn>
+
+      <ScrollFadeIn client:load>
+        <CaseStudyVideo 
+          client:load
+          src="/images/square-charge/squarecharge-publicweb.mp4"
+          deviceFrame="desktop"
+          caption="The public website for Square Charge, highlighting how fast and easy it is to process payments."
+        />
       </ScrollFadeIn>
 
     </PasswordProtection>
