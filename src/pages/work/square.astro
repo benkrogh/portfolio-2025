@@ -1,0 +1,91 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CaseStudyHeader from '../../components/CaseStudyHeader';
+import CaseStudyHero from '../../components/CaseStudyHero';
+import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid, ContentImage } from '../../components/CaseStudyImages';
+import CaseStudyText from '../../components/CaseStudyText';
+import CaseStudyVideo from '../../components/CaseStudyVideo';
+import ScrollFadeIn from '../../components/ScrollFadeIn';
+import Footer from '../../components/Footer.astro';
+
+const pageTitle = "Square Projects Case Study";
+---
+
+<Layout title={pageTitle}>
+  <main class="pt-0">
+    <div class="container mx-auto px-6">
+      <CaseStudyHeader 
+        client:load
+        title="Square"
+        tags={["2022-24", "PRODUCT DESIGN", "DESIGN LEADERSHIP"]}
+        description="Scaling and inspiring high performing teams as an organizational leader."
+      />
+    </div>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyHero 
+        client:load
+        imageSrc="/images/square/hero.png"
+        alt="Square projects overview"
+      />
+    </ScrollFadeIn>
+    
+    <ScrollFadeIn client:load>
+      <CaseStudyText client:load>
+        As a Design Director at Square, I scaled and led the design teams focused on foundational tools for our sellers: Catalog, Inventory, and Fulfillment workflows. 
+        <CaseStudyText.Secondary>
+          As part of the core leadership for an organization of nearly 200 people, I worked with product and engineering to prioritize roadmaps, 
+        review team health, and cast vision for where we were headed. I also scaled the team from 2 to 8 designers and 
+          established process for our team to increase craft and quality.
+        </CaseStudyText.Secondary>
+      </CaseStudyText>
+    </ScrollFadeIn>
+  
+    <ScrollFadeIn client:load>
+      <ContentImage 
+        client:load
+        src="/images/square/terminal.png"
+        alt="Square project detail 1"
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyText client:load>
+        Over the course of 3 years, I led several large initiatives from migrations to design system updates.
+        <CaseStudyText.Secondary>
+          This page highlights just a few of the artifacts from various projects, but each one has it’s own story connected that I would be happy to walk through on a call. 
+        </CaseStudyText.Secondary>
+      </CaseStudyText>
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyVideo 
+        client:load
+        src="/images/square/pcsummit.mp4"
+        alt="Square project video"
+        deviceFrame="desktop"
+        caption="I led the redesign of Square's Item Sheet, rebuilt in react from the ground up."
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyVideo 
+        client:load
+        src="/images/square/itemsheet.mp4"
+        alt="Square project video"
+        deviceFrame="desktop"
+        caption="I led the redesign of Square's Item Sheet, rebuilt in react from the ground up."
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <ContentImage 
+        client:load
+        src="/images/square/image-1.png"
+        alt="Square project detail 1"
+      />
+    </ScrollFadeIn>
+  </main>
+  
+  <Footer />
+</Layout> 

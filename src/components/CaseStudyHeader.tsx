@@ -15,7 +15,7 @@ const CaseStudyHeader: React.FC<CaseStudyHeaderProps> = ({ title, tags, descript
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="font-geist font-regular text-[56px] sm:text-[72px] md:text-[96px] lg:text-[120px] 
+          className="font-geist-sans text-[56px] sm:text-[72px] md:text-[96px] lg:text-[120px] 
                      tracking-[-0.03em] mb-4 sm:mb-6"
         >
           {title}
