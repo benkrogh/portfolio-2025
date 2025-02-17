@@ -19,6 +19,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
+    color: #17120A;
   }
   h1 {
     margin-bottom: 0;

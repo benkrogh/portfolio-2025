@@ -16,7 +16,7 @@ const ScrollFadeIn = ({ children, className = "" }: ScrollFadeInProps) => {
       ref={ref}
       initial={{ opacity: 0, y: 20 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
       className={className}
     >
       {children}

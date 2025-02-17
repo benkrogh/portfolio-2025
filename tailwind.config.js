@@ -12,6 +12,7 @@ module.exports = {
         "accent-blue": "#77B7EA",
         "accent-green": "#A8D5B1",
         "dark-brown": "#521710",
+        "text-primary": "#17120A",
       },
       fontFamily: {
         mono: ["GeistMono", "Menlo", "monospace"],
@@ -45,29 +46,33 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            color: theme("colors.gray.900"),
+            color: "#17120A",
             // Headings
             h1: {
-              color: theme("colors.gray.900"),
+              color: "#17120A",
               fontWeight: "400",
               fontSize: "2.5rem",
               fontFamily: theme("fontFamily.mono"),
               letterSpacing: "-0.02em",
+              lineHeight: 1.2,
             },
             h2: {
-              color: theme("colors.gray.900"),
+              color: "#17120A",
               fontWeight: "400",
               fontSize: "2rem",
               marginTop: "2em",
               marginBottom: "1em",
+              letterSpacing: "-0.02em",
+              lineHeight: 1.2,              
             },
             h3: {
-              color: theme("colors.gray.900"),
+              color: "#17120A",
               fontWeight: "400",
               fontSize: "1.375rem",
               letterSpacing: "-0.02em",
               marginTop: "1.5em",
               marginBottom: "1.0em",
+              lineHeight: 1.2,
             },
             // Paragraphs
             p: {

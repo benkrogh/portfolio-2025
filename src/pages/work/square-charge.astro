@@ -32,7 +32,18 @@ const pageTitle = "Square Charge Case Study";
         imageSrc="/images/square-charge/hero.png"
         alt="Square Charge hero image"
       />
-      
+
+      <ScrollFadeIn client:load>
+        <CaseStudyText client:load>
+          Virtual Terminal was a product approaching $100M in annual revenue, but it was a pain to use on desktop.
+          <CaseStudyText.Secondary>
+            Our highest growth customer segments using Virtual Terminal were using it paired with other software, but had to navigate 
+            our slow dashboard website to access it. The performance was slow, session length was short, and they didn't need most of
+            the features of our full dashboard site.
+          </CaseStudyText.Secondary>
+        </CaseStudyText>
+      </ScrollFadeIn>
+
       <ScrollFadeIn client:load>
         <CaseStudyText client:load>
           The concept for Square Charge came out of a design workshop: What if we had a faster way for our sellers to process payments on desktop?
@@ -116,7 +127,7 @@ const pageTitle = "Square Charge Case Study";
           imageAlt="Square Charge feedback settings interface"
         />
       </ScrollFadeIn>
-      
+
       <ScrollFadeIn client:load>
         <ContentImage 
           client:load

@@ -2,8 +2,10 @@
 import Layout from '../../layouts/Layout.astro';
 import CaseStudyHeader from '../../components/CaseStudyHeader';
 import CaseStudyHero from '../../components/CaseStudyHero';
-import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid } from '../../components/CaseStudyImages';
+import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid, ContentImage } from '../../components/CaseStudyImages';
 import CaseStudyText from '../../components/CaseStudyText';
+import ScrollFadeIn from '../../components/ScrollFadeIn';
+import CaseStudyVideo from '../../components/CaseStudyVideo';
 import Footer from '../../components/Footer.astro';
 
 const pageTitle = "eBay Today Case Study";
@@ -14,30 +16,75 @@ const pageTitle = "eBay Today Case Study";
     <div class="container mx-auto px-6">
       <CaseStudyHeader 
         client:load
-        title="eBay Today"
-        tags={["2024", "PRODUCT DESIGN", "MOBILE"]}
-        description="Reimagining the daily shopping experience for millions of eBay users."
+        title="eBay"
+        tags={["2020", "PRODUCT DESIGN", "MOBILE", "PROTOTYPING"]}
+        description="Shopping Channels: A browsing experience tailored for the enthusiasts."
       />
     </div>
 
     <CaseStudyHero 
       client:load
-      imageSrc="/images/homepage/ebay.png"
+      imageSrc="/images/ebay/hero.png"
       alt="eBay Today interface showcase"
     />
-    
-    <CaseStudyText client:load>
-      eBay Today represents a fresh approach to discovery shopping, bringing curated collections and trending items to the forefront.
-      <CaseStudyText.Secondary>
-        The challenge was to create a dynamic, personalized experience that would keep users coming back daily.
-      </CaseStudyText.Secondary>
-    </CaseStudyText>
 
-    <AsymmetricGrid 
-      client:load
-      largeImage={{ src: "/images/ebay-today/main-concept.png", alt: "Main interface concept" }}
-      smallImage={{ src: "/images/ebay-today/detail.png", alt: "Interface detail" }}
-    />
+    <ScrollFadeIn client:load>
+      <CaseStudyText client:load>
+        While working on the Mobile Growth team at eBay, the team wanted to explore what an experience might look like 
+        in eBay's native apps that catered to enthusiast buyers. 
+        <CaseStudyText.Secondary>
+        We were able to leverage previous hack week explorations to create a feed-like browsing experience filled with fresh content, 
+        all curated by eBay experts. I designed this experience and worked with engineers on implementing the components that could be 
+          re-used across the app.
+        </CaseStudyText.Secondary>
+      </CaseStudyText>
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <ContentImage 
+        client:load
+        src="/images/ebay/channelsview.png"
+        alt="eBay Today interface showcase"
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <ContentImage 
+        client:load
+        src="/images/ebay/components.png"
+        alt="eBay Today interface showcase"
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyVideo 
+        client:load
+        src="/images/ebay/Sneaker Channel Angled.mp4"
+        deviceFrame="desktop"
+        alt="eBay Today interface showcase"
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyVideo 
+        client:load
+        src="/images/ebay/Watch Channel Dark - angle Framed.mp4"
+        deviceFrame="desktop"
+        alt="eBay Today interface showcase"
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyText client:load>
+        eBay launched Channels for both Sneaker and Watch enthusiast segments in 2021. 
+        <CaseStudyText.Secondary>
+        Being able to design experiences for eBay's enthusiast buyer community was a great opportunity, and my 
+        hope is that this is just the beginning for Channels in eBay's mobile apps. For more information, 
+        <a href="https://community.ebay.com/t5/Watches/Enjoy-our-eBay-Channels-Experience-for-the-Latest-Watch-Content/td-p/32003845" target="_blank">check out the press release from eBay.</a>  
+        </CaseStudyText.Secondary>
+      </CaseStudyText>
+    </ScrollFadeIn>
+
   </main>
   
   <Footer />
