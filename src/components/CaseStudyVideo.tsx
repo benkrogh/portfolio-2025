@@ -43,7 +43,7 @@ export default function CaseStudyVideo({ src, caption, deviceFrame = 'none' }: C
   };
 
   return (
-    <div className="max-w-[1500px] mx-auto px-6 mb-24">
+    <div className="max-w-[1500px] mx-auto mt-24 mb-24">
       <div className={`mx-auto ${frameClasses[deviceFrame]}`}>
         <video
           ref={videoRef}
