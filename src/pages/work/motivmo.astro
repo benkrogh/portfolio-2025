@@ -1,0 +1,128 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CaseStudyHeader from '../../components/CaseStudyHeader';
+import CaseStudyHero from '../../components/CaseStudyHero';
+import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid, ContentImage } from '../../components/CaseStudyImages';
+import CaseStudyText from '../../components/CaseStudyText';
+import CaseStudyVideo from '../../components/CaseStudyVideo';
+import ScrollFadeIn from '../../components/ScrollFadeIn';
+import Footer from '../../components/Footer.astro';
+import CustomerQuote from '../../components/CustomerQuote';
+
+const pageTitle = "Motivmo Case Study";
+---
+
+<Layout title={pageTitle}>
+  <main class="pt-0">
+    <div class="container mx-auto px-6">
+      <CaseStudyHeader 
+        client:load
+        title="Motivmo"
+        tags={["2021-22", "PRODUCT DESIGN", "MOBILE APP"]}
+        description="Designing a fitness motivation app that connects users with their community."
+      />
+    </div>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyHero 
+        client:load
+        imageSrc="/images/motivmo/hero.png"
+        alt='Motivmo app overview'
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <TwoByTwoGrid 
+        client:load
+        images={[
+          { src: "/images/motivmo/logo-1.png", alt: 'Motivmo app overview' },
+          { src: "/images/motivmo/logo-2.png", alt: 'Motivmo app overview' },
+        ]}
+      />
+    </ScrollFadeIn>
+    
+    <ScrollFadeIn client:load>
+      <CaseStudyText client:load>
+        Motivmo is a fitness platform designed to help users stay motivated through community challenges and personalized goal tracking.
+        <CaseStudyText.Secondary>
+          I led the product design effort to reimagine how people connect with their fitness communities, creating an experience that balances social engagement with personal achievement.
+        </CaseStudyText.Secondary>
+      </CaseStudyText>
+    </ScrollFadeIn>
+  
+    <ScrollFadeIn client:load>
+      <ContentImage 
+        client:load
+        src="/images/motivmo/overview.png"
+        alt='Motivmo app interface overview'
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyText client:load>
+        The challenge was to create a platform that would keep users engaged with their fitness goals long-term.
+        <CaseStudyText.Secondary>
+          Research showed that social accountability and visible progress were key factors in maintaining motivation. Our solution focused on building these elements into every aspect of the experience.
+        </CaseStudyText.Secondary>
+      </CaseStudyText>
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyVideo 
+        client:load
+        src="/images/motivmo/dashboard.mp4"
+        alt='Motivmo dashboard interaction'
+        deviceFrame='mobile'
+        caption='The personalized dashboard adapts to user activity and highlights community engagement.'
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <FullWidthImage 
+        client:load
+        src="/images/motivmo/challenges.png"
+        alt='Motivmo challenges interface'
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyText client:load>
+        User testing revealed that achievement visualization was critical for sustained engagement.
+        <CaseStudyText.Secondary>
+          We developed a system of micro-rewards and progress indicators that celebrate both individual achievements and contributions to group challenges.
+        </CaseStudyText.Secondary>
+      </CaseStudyText>
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyVideo 
+        client:load
+        src="/images/motivmo/activity.mp4"
+        alt='Motivmo activity tracking'
+        deviceFrame='mobile'
+        caption='The activity tracking interface makes progress visible and shareable with the community.'
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <div class="max-w-[1500px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <CustomerQuote 
+          client:load
+          quote="Motivmo completely changed how I approach my fitness routine. The community challenges keep me accountable in ways my old fitness apps never did."
+          author="Sarah K."
+          company="Beta User"
+          variant="dark"
+        />
+        <CustomerQuote 
+          client:load
+          quote="The design team at Motivmo created something that feels both personal and communal. It's the perfect balance of social motivation without the pressure."
+          author="Michael T."
+          company="Fitness Coach"
+          variant="light"
+        />
+      </div>
+    </ScrollFadeIn>
+  </main>
+  
+  <Footer />
+</Layout> 

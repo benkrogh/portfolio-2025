@@ -8,11 +8,12 @@ import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/utils/SmoothScroll";
 import MusicPlayer from '../components/music/MusicPlayer';
 
-interface Props {
+export interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const { title, description = "Ben Krogh's portfolio showcasing product design work" } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -20,11 +21,17 @@ const currentPath = Astro.url.pathname;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    
+    <!-- Favicon links -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
     <ViewTransitions />
   </head>
   <body>

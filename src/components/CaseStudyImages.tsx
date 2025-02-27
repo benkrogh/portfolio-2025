@@ -71,7 +71,7 @@ export const TwoByTwoGrid: React.FC<TwoImageGridProps> = ({ images }) => {
   return (
     <motion.div 
       {...fadeInUpAnimation}
-      className="max-w-[1500px] mx-auto px-6 mb-6 grid grid-cols-1 sm:grid-cols-2 gap-6"
+      className="max-w-[1500px] mx-auto px-6 py-12 mb-6 grid grid-cols-1 sm:grid-cols-2 gap-6"
     >
       {images.map((media, index) => (
         <div 

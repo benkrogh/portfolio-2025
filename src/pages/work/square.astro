@@ -7,6 +7,7 @@ import CaseStudyText from '../../components/CaseStudyText';
 import CaseStudyVideo from '../../components/CaseStudyVideo';
 import ScrollFadeIn from '../../components/ScrollFadeIn';
 import Footer from '../../components/Footer.astro';
+import CustomerQuote from '../../components/CustomerQuote';
 
 const pageTitle = "Square Projects Case Study";
 ---
@@ -26,7 +27,7 @@ const pageTitle = "Square Projects Case Study";
       <CaseStudyHero 
         client:load
         imageSrc="/images/square/hero.png"
-        alt="Square projects overview"
+        alt='Square projects overview'
       />
     </ScrollFadeIn>
     
@@ -45,7 +46,7 @@ const pageTitle = "Square Projects Case Study";
       <ContentImage 
         client:load
         src="/images/square/terminal.png"
-        alt="Square project detail 1"
+        alt='Square project detail 1'
       />
     </ScrollFadeIn>
 
@@ -53,7 +54,7 @@ const pageTitle = "Square Projects Case Study";
       <CaseStudyText client:load>
         Over the course of 3 years, I led several large initiatives from migrations to design system updates.
         <CaseStudyText.Secondary>
-          This page highlights just a few of the artifacts from various projects, but each one has it’s own story connected that I would be happy to walk through on a call. 
+          This page highlights just a few of the artifacts from various projects, but each one has it's own story connected that I would be happy to walk through on a call. 
         </CaseStudyText.Secondary>
       </CaseStudyText>
     </ScrollFadeIn>
@@ -62,9 +63,9 @@ const pageTitle = "Square Projects Case Study";
       <CaseStudyVideo 
         client:load
         src="/images/square/pcsummit.mp4"
-        alt="Square project video"
-        deviceFrame="desktop"
-        caption="I led the redesign of Square's Item Sheet, rebuilt in react from the ground up."
+        alt='Square project video'
+        deviceFrame='desktop'
+        caption='I led the redesign of Square's Item Sheet, rebuilt in react from the ground up.'
       />
     </ScrollFadeIn>
 
@@ -72,25 +73,25 @@ const pageTitle = "Square Projects Case Study";
       <FullWidthImage 
         client:load
         src="/images/square/webspos-checkout.png"
-        alt="Square Charge interface overview"
-        />
-      </ScrollFadeIn>
+        alt='Square Charge interface overview'
+      />
+    </ScrollFadeIn>
 
-      <ScrollFadeIn client:load>
-        <FullWidthImage 
-          client:load
-          src="/images/square/catalog-mobile.png"
-          alt="Square Charge interface overview"
-        />
-      </ScrollFadeIn>
+    <ScrollFadeIn client:load>
+      <FullWidthImage 
+        client:load
+        src="/images/square/catalog-mobile.png"
+        alt='Square Charge interface overview'
+      />
+    </ScrollFadeIn>
 
     <ScrollFadeIn client:load>
       <CaseStudyVideo 
         client:load
         src="/images/square/itemsheet.mp4"
-        alt="Square project video"
-        deviceFrame="desktop"
-        caption="I led the redesign of Square's Item Sheet, rebuilt in react from the ground up."
+        alt='Square project video'
+        deviceFrame='desktop'
+        caption={'I led the redesign of Square\'s Item Sheet, rebuilt in react from the ground up.'}
       />
     </ScrollFadeIn>
 
@@ -98,19 +99,31 @@ const pageTitle = "Square Projects Case Study";
       <CaseStudyVideo 
         client:load
         src="/images/square/overlapvideo.mp4"
-        alt="Square project video"
-        deviceFrame="desktop"
-        caption="Summary and takeaways from a design onsite that brought two teams together for a shared vision."
+        alt='Square project video'
+        deviceFrame='desktop'
+        caption='Summary and takeaways from a design onsite that brought two teams together for a shared vision.'
       />
     </ScrollFadeIn>
 
-    <ScrollFadeIn client:load>
-      <ContentImage 
-        client:load
-        src="/images/square/image-1.png"
-        alt="Square project detail 1"
-      />
-    </ScrollFadeIn>
+      <ScrollFadeIn client:load>
+
+        <div class="max-w-[1500px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <CustomerQuote 
+            client:load
+            quote="I was recently reflecting about my time here. I realized that all the things that I've learned at Square that made me change and grow professionally is due to feedback and guidance you've given me. It's made me a better designer and a better person in general."
+            author="Senior Designer"
+            company="Direct team"
+            variant="dark"
+          />
+          <CustomerQuote 
+            client:load
+            quote="I’ve really appreciated the plain humility of how you lead and care for the folks around you, and especially in the way you named the unspoken or scary things in a group space… it was a model for me."
+            author="Senior UX Researcher"
+            company="Partner team"
+            variant="light"
+          />
+        </div>
+      </ScrollFadeIn>
   </main>
   
   <Footer />
