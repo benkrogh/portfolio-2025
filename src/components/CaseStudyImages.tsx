@@ -49,21 +49,20 @@ const MediaElement: React.FC<MediaProps> = ({ src, alt }) => {
   );
 };
 
-export const FullWidthImage: React.FC<MediaProps> = ({ src, alt, caption }) => {
+export const FullWidthImage = ({ src, alt, caption }: MediaProps) => {
   return (
-    <motion.div 
-      {...fadeInUpAnimation}
-      className="max-w-[1500px] mx-auto px-6 mb-6"
-    >
-      <div className="w-full aspect-[16/9] rounded-2xl sm:rounded-3xl bg-[#EDE9E5]">
-        <MediaElement src={src} alt={alt} />
+    <div className="max-w-[1500px] mx-auto px-6 my-12">
+      <div className="relative">
+        <img 
+          src={src} 
+          alt={alt || "Case study image"} 
+          className="w-full rounded-[24px] object-cover" 
+        />
+        {caption && (
+          <p className="text-sm text-gray-500 mt-2">{caption}</p>
+        )}
       </div>
-      {caption && (
-        <div className="text-center mt-6">
-          <span className="font-geist-mono text-[15px]">{caption}</span>
-        </div>
-      )}
-    </motion.div>
+    </div>
   );
 };
 

@@ -21,6 +21,7 @@ const CaseStudyText: CaseStudyTextComponent = ({ children }) => {
     >
       <div className="max-w-[1500px] mx-auto px-6">
         <div className="max-w-[660px] mx-auto">
+          {/* Primary text styling */}
           <div className="font-geist-mono text-[24px] sm:text-[28px] md:text-[32px] tracking-[-0.03em] [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-1">
             {children}
           </div>
@@ -30,11 +31,25 @@ const CaseStudyText: CaseStudyTextComponent = ({ children }) => {
   );
 };
 
-// Define Secondary as a subcomponent directly
-CaseStudyText.Secondary = ({ children }: { children: React.ReactNode }) => (
-  <p className="font-geist-mono text-[18px] sm:text-[20px] md:text-[22px] text-[#524D47] max-w-[546px] tracking-[-0.03em] mt-6 sm:mt-8 [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-1">
-    {children}
-  </p>
-);
+// Define Secondary as a subcomponent
+CaseStudyText.Secondary = ({ children }: { children: React.ReactNode }) => {
+  if (typeof children === 'string') {
+    return (
+      <p className="font-geist-mono text-[18px] sm:text-[20px] md:text-[22px] text-[#524D47] max-w-[546px] tracking-[-0.03em] mt-6 sm:mt-8 [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-1">
+        {children}
+      </p>
+    );
+  }
+  
+  return (
+    <div className="space-y-6">
+      {React.Children.map(children, (child) => (
+        <p className="font-geist-mono text-[18px] sm:text-[20px] md:text-[22px] text-[#524D47] max-w-[546px] tracking-[-0.03em] mt-6 sm:mt-8 [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-1">
+          {child}
+        </p>
+      ))}
+    </div>
+  );
+};
 
 export default CaseStudyText; 
