@@ -8,11 +8,13 @@ import CaseStudyVideo from '../../components/CaseStudyVideo';
 import ScrollFadeIn from '../../components/ScrollFadeIn';
 import Footer from '../../components/Footer.astro';
 import CustomerQuote from '../../components/CustomerQuote';
+import PasswordProtection from '../../components/PasswordProtection';
 
 const pageTitle = "Square Projects Case Study";
 ---
 
 <Layout title={pageTitle}>
+  <PasswordProtection client:load>
   <main class="pt-0">
     <div class="container mx-auto px-6">
       <CaseStudyHeader 
