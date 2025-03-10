@@ -22,7 +22,7 @@ const CaseStudyText: CaseStudyTextComponent = ({ children }) => {
       <div className="max-w-[1500px] mx-auto px-6">
         <div className="max-w-[660px] mx-auto">
           {/* Primary text styling */}
-          <div className="font-geist-mono text-[24px] sm:text-[28px] md:text-[32px] tracking-[-0.03em] [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-1">
+          <div className="font-geist-mono text-[24px] sm:text-[28px] md:text-[32px] leading-snug tracking-[-0.03em] [&_a]:underline [&_a]:underline-offset-4 [&_a]:decoration-1">
             {children}
           </div>
         </div>

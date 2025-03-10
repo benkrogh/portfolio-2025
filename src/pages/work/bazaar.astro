@@ -5,7 +5,7 @@ import CaseStudyHero from '../../components/CaseStudyHero';
 import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid } from '../../components/CaseStudyImages';
 import CaseStudyText from '../../components/CaseStudyText';
 import Footer from '../../components/Footer.astro';
-
+import ScrollFadeIn from '../../components/ScrollFadeIn';
 const pageTitle = "Bazaar Case Study";
 ---
 
@@ -15,8 +15,8 @@ const pageTitle = "Bazaar Case Study";
       <CaseStudyHeader 
         client:load
         title="Bazaar"
-        tags={["2023", "E-COMMERCE", "UX DESIGN"]}
-        description="Creating a modern marketplace platform that connects artisans with conscious consumers."
+        tags={["2017", "E-COMMERCE", "UX DESIGN"]}
+        description="Designing a wholesale marketplace from the ground up, from brand to product."
       />
     </div>
 
@@ -25,9 +25,20 @@ const pageTitle = "Bazaar Case Study";
       imageSrc="/images/bazaar/hero.png"
       alt="Bazaar platform showcase"
     />
+
+    <ScrollFadeIn client:load>
+      <TwoByTwoGrid 
+        client:load
+        images={[
+          { src: "/images/bazaar/logo-1.avif", alt: 'Bazaar logo over light background' },
+          { src: "/images/bazaar/logo-2.avif", alt: 'Bazaar logo over dark background' },
+        ]}
+      />
+    </ScrollFadeIn>
     
     <CaseStudyText client:load>
-      Bazaar was conceived as a bridge between traditional craftsmanship and modern e-commerce.
+      Bodega and convenience store owners don’t have access to modern tools.
+While consumers enjoy streamlined ecommerce experiences and easy to use apps, most bodega owners in New York City spend much of their time acquiring their inventory at large, cash-only warehouses. 
       <CaseStudyText.Secondary>
         Our goal was to create a platform that preserves cultural heritage while providing artisans with tools for success in the digital age.
       </CaseStudyText.Secondary>
