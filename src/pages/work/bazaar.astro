@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import CaseStudyHeader from '../../components/CaseStudyHeader';
 import CaseStudyHero from '../../components/CaseStudyHero';
-import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid } from '../../components/CaseStudyImages';
+import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid, ContentImage } from '../../components/CaseStudyImages';
 import CaseStudyText from '../../components/CaseStudyText';
 import Footer from '../../components/Footer.astro';
 import ScrollFadeIn from '../../components/ScrollFadeIn';
@@ -44,12 +44,31 @@ While consumers enjoy streamlined ecommerce experiences and easy to use apps, mo
       </CaseStudyText.Secondary>
     </CaseStudyText>
 
-    <AsymmetricGrid 
-      client:load
-      largeImage={{ src: "/images/bazaar/main-concept.png", alt: "Main interface concept" }}
-      smallImage={{ src: "/images/bazaar/detail.png", alt: "Interface detail" }}
-    />
-  </main>
+      <ScrollFadeIn client:load>
+        <ContentImage 
+          client:load
+          src="/images/bazaar/styles-1.avif"
+        />
+      </ScrollFadeIn>
   
+      <ScrollFadeIn client:load>
+        <ContentImage 
+          client:load
+          src="/images/bazaar/styles-2.avif"
+        />
+      </ScrollFadeIn>
+      
+    <ScrollFadeIn client:load>
+      <CaseStudyText client:load>
+        Bazaar has to be approachable and easy to use for business owners who aren’t tech savvy. 
+        <CaseStudyText.Secondary>
+          We created an onboarding system that was easy for business owners to complete, with a setup wizard that continued to guide them through finalizing details for their business.
+        </CaseStudyText.Secondary>
+     <CaseStudyText.Secondary>
+        We knew that time and efficiency was important, so many of the setup questions were all about saving the business owner time. We also ensured they knew how to use the main functionality with a brief breakdown of the interface.
+      </CaseStudyText.Secondary>
+      </CaseStudyText>
+    </ScrollFadeIn>
+  </main>
   <Footer />
 </Layout> 
