@@ -16,7 +16,7 @@ module.exports = {
       },
       fontFamily: {
         mono: ["GeistMono", "Menlo", "monospace"],
-        'geist-sans': ['Geist', 'sans-serif'],
+        'geist-sans': ['Geist', 'system-ui', 'sans-serif'],
         'geist-mono': ['Geist Mono', 'monospace'],
       },
       borderRadius: {
