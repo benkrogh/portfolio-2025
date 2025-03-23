@@ -106,7 +106,7 @@ export const ContentImage: React.FC<MediaProps> = ({ src, alt, caption }) => {
       {...fadeInUpAnimation}
       className="max-w-[1500px] mx-auto px-6 mb-6"
     >
-      <div className="w-full rounded-2xl sm:rounded-[24px] overflow-hidden bg-[#EDE9E5]">
+      <div className="w-full rounded-2xl sm:rounded-[24px] overflow-hidden">
         <img 
           src={src} 
           alt={alt} 

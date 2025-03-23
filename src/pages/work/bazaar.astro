@@ -6,6 +6,7 @@ import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid, ContentImage } from '../.
 import CaseStudyText from '../../components/CaseStudyText';
 import Footer from '../../components/Footer.astro';
 import ScrollFadeIn from '../../components/ScrollFadeIn';
+import CaseStudyVideo from '../../components/CaseStudyVideo';
 const pageTitle = "Bazaar Case Study";
 ---
 
@@ -57,7 +58,7 @@ While consumers enjoy streamlined ecommerce experiences and easy to use apps, mo
           src="/images/bazaar/styles-2.avif"
         />
       </ScrollFadeIn>
-      
+
     <ScrollFadeIn client:load>
       <CaseStudyText client:load>
         Bazaar has to be approachable and easy to use for business owners who aren’t tech savvy. 
@@ -69,6 +70,91 @@ While consumers enjoy streamlined ecommerce experiences and easy to use apps, mo
       </CaseStudyText.Secondary>
       </CaseStudyText>
     </ScrollFadeIn>
+
+      <ScrollFadeIn client:load>
+        <ContentImage 
+          client:load
+          src="/images/bazaar/signup.avif"
+        />
+      </ScrollFadeIn>
+  
+    <ScrollFadeIn client:load>
+      <CaseStudyVideo 
+        client:load
+        src="/images/bazaar/signup-flow.mov"
+        alt='Bazaar onboarding video'
+        deviceFrame='desktop'
+        caption='Summary and takeaways from a design onsite that brought two teams together for a shared vision.'
+      />
+    </ScrollFadeIn>
+  
+      <ScrollFadeIn client:load>
+        <ContentImage 
+          client:load
+          src="/images/bazaar/onboarding.avif"
+        />
+      </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyText client:load>
+        Search: Way easier than walking the aisles of a wholesale warehouse. 
+        <CaseStudyText.Secondary>
+          When it came to finding products the business owners needed, we knew it had to be quick and easy. Rather than reinventing the wheel, we modeled Bazaar’s search after standard eCommerce patterns. The result was a search that business owner’s didn’t have to learn how to use, and allowed them to find what they needed quickly.
+        </CaseStudyText.Secondary>
+      </CaseStudyText>
+    </ScrollFadeIn>
+
+     <ScrollFadeIn client:load>
+      <ContentImage 
+        client:load
+         src="/images/bazaar/search-1.avif"
+       />
+    </ScrollFadeIn>
+
+     <ScrollFadeIn client:load>
+      <ContentImage 
+        client:load
+         src="/images/bazaar/search-2.avif"
+       />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <CaseStudyText client:load>
+        Once business owners found the products they wanted, adding them to their cart worked as expected.
+        <CaseStudyText.Secondary>
+          When they viewed their cart and checked out, a few features were added that catered to small business owners. The cart itself broke out which businesses their products were shipping from, and shoppers were able to link their bank accounts to pay for their orders.
+        </CaseStudyText.Secondary>
+      </CaseStudyText>
+    </ScrollFadeIn>
+
+     <ScrollFadeIn client:load>
+      <ContentImage 
+        client:load
+         src="/images/bazaar/checkout-1.avif"
+       />
+    </ScrollFadeIn>
+
+     <ScrollFadeIn client:load>
+      <ContentImage 
+        client:load
+         src="/images/bazaar/checkout-2.avif"
+       />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <ContentImage  
+        client:load
+          src="/images/bazaar/checkout-3.avif"
+      />
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <ContentImage
+        client:load
+          src="/images/bazaar/checkout-4.avif"
+      />
+    </ScrollFadeIn>
+    
   </main>
   <Footer />
 </Layout> 
