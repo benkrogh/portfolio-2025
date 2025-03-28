@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from "react";
 import AnimatedTitle from "../AnimatedTitle";
+import { getPostColor, adjustColor, TEXT_COLOR } from "@/utils/colorUtils";
 
 const defaultPosts = [
   {
     slug: "coffee-and-favorites",
     title: "Coffee & my favorite things",
     date: "2024-11-25",
-    color: "#EC6A5C",
+    color: getPostColor(0),
   },
   {
     slug: "ios-app-with-claude",
     title: "Making an iOS app with Claude",
     date: "2024-11-12",
-    color: "#E69D72",
+    color: getPostColor(1),
   },
   {
     slug: "favorite-albums",
     title: "My favorite albums of 2024",
     date: "2024-10-05",
-    color: "#77B7EA",
+    color: getPostColor(2),
   },
   {
     slug: "ai-thoughts",
     title: "What's the deal with AI, anyway?",
     date: "2024-09-23",
-    color: "#A8D5B1",
+    color: getPostColor(3),
   },
 ];
 
@@ -68,15 +69,6 @@ const formatDate = (dateString: string): string => {
     .replace(/\//g, ".");
 };
 
-const adjustColor = (hex: string, percent: number): string => {
-  const num = parseInt(hex.replace("#", ""), 16);
-  const amt = Math.round(2.55 * percent);
-  const R = Math.min(255, (num >> 16) + amt);
-  const G = Math.min(255, ((num >> 8) & 0x00ff) + amt);
-  const B = Math.min(255, (num & 0x0000ff) + amt);
-  return `#${((1 << 24) | (R << 16) | (G << 8) | B).toString(16).slice(1)}`;
-};
-
 const BlogPost = ({
   post,
   prefersReducedMotion,
@@ -96,7 +88,10 @@ const BlogPost = ({
     >
       <div
         className="h-24 rounded-3xl p-4 flex justify-between items-center transition-colors duration-200"
-        style={{ backgroundColor: bgColor }}
+        style={{ 
+          backgroundColor: bgColor,
+          color: TEXT_COLOR
+        }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

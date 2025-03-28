@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import type { Post } from "@/types/blog";
-import { formatDate, adjustColor } from "@/utils/blogUtils";
+import { formatDate } from "@/utils/blogUtils";
+import { adjustColor, TEXT_COLOR } from "@/utils/colorUtils";
 
 interface BlogCardProps {
   post: Post;
@@ -19,7 +20,10 @@ export default function BlogCard({ post, prefersReducedMotion }: BlogCardProps) 
       <div data-blog-card>
         <div
           className="rounded-3xl my-2 md:my-4 p-4 md:p-8 flex flex-col md:flex-row md:justify-between md:items-center transition-colors duration-400"
-          style={{ backgroundColor: bgColor }}
+          style={{ 
+            backgroundColor: bgColor,
+            color: TEXT_COLOR
+          }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >

@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+
+// Try to load the coffee post directly
+let coffeePost;
+let Content;
+let error = null;
+
+try {
+  const blogPosts = await getCollection('blog');
+  coffeePost = blogPosts.find(post => post.slug === 'coffee-and-favorites');
+  
+  if (coffeePost) {
+    const rendered = await coffeePost.render();
+    Content = rendered.Content;
+  }
+} catch (e) {
+  error = e.message;
+}
+---
+
+<Layout title="Blog Test Page">
+  <div class="max-w-3xl mx-auto p-8">
+    <h1 class="text-3xl font-bold mb-8">Blog Test Page</h1>
+    
+    <div class="bg-gray-100 p-6 rounded-lg mb-8">
+      <h2 class="text-xl font-semibold mb-4">Static Content Test</h2>
+      <p>This is a static paragraph. If you can see this, basic page rendering is working.</p>
+    </div>
+
+    <div class="bg-gray-100 p-6 rounded-lg mb-8">
+      <h2 class="text-xl font-semibold mb-4">Blog Collection Test</h2>
+      {coffeePost ? (
+        <div>
+          <p class="text-green-600 font-semibold">✓ Post found: {coffeePost.slug}</p>
+          <p>Title: {coffeePost.data.title}</p>
+          <p>Date: {coffeePost.data.date}</p>
+          <div class="mt-4 p-4 bg-gray-200 rounded overflow-auto">
+            <pre class="whitespace-pre-wrap">{coffeePost.body.substring(0, 200)}...</pre>
+          </div>
+        </div>
+      ) : (
+        <p class="text-red-600 font-semibold">✗ Post not found</p>
+      )}
+    </div>
+
+    <div class="bg-gray-100 p-6 rounded-lg mb-8">
+      <h2 class="text-xl font-semibold mb-4">Content Render Test</h2>
+      {error ? (
+        <p class="text-red-600">Error: {error}</p>
+      ) : Content ? (
+        <div>
+          <p class="text-green-600 font-semibold mb-4">✓ Content component available</p>
+          <div class="prose border-l-4 border-blue-500 pl-4">
+            <Content />
+          </div>
+        </div>
+      ) : (
+        <p class="text-red-600 font-semibold">✗ Content component not available</p>
+      )}
+    </div>
+  </div>
+</Layout> 

@@ -1,0 +1,118 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import CustomCursor from "@/components/CustomCursor";
+import Footer from "@/components/Footer.astro";
+import { TEXT_COLOR } from "@/utils/colorUtils";
+
+// This function runs at build time
+export async function getStaticPaths() {
+  const allBlogEntries = await getCollection('blog');
+  console.log("ALL BLOG ENTRIES:", allBlogEntries.map(entry => entry.slug));
+  
+  return allBlogEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+// Get the post from props
+const { entry } = Astro.props;
+const slug = Astro.params.slug;
+
+if (!entry) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await entry.render();
+
+// For diagnostic purposes, get all blog entries again
+let availablePosts = [];
+try {
+  const allPosts = await getCollection('blog');
+  availablePosts = allPosts.map(post => post.slug);
+} catch (e) {
+  console.error("Error getting blog collection:", e);
+}
+---
+
+<Layout title={entry.data.title}>
+  <div class="custom-cursor-area">
+    <CustomCursor client:only="react" />
+    <main class="w-full max-w-[1500px] mx-auto px-4">
+      <div
+        class="rounded-[32px] h-72 p-8 sm:p-12 pb-12 w-full flex flex-col justify-end"
+        style={{
+          backgroundColor: entry.data.color,
+          color: TEXT_COLOR
+        }}
+      >
+        <h1 class="font-mono font-light text-[2.5rem] mb-2">
+          {entry.data.title}
+        </h1>
+        <div class="font-mono font-light text-2xl opacity-50">
+          <span>{entry.data.date}</span>
+        </div>
+      </div>
+      
+      <div class="prose mx-auto max-w-[660px] mb-4 mt-8">
+        <article>
+          <Content />
+        </article>
+      </div>
+    </main>
+    <Footer />
+  </div>
+</Layout>
+
+<style>
+  .custom-cursor-area {
+    cursor: none !important;
+  }
+
+  @media (hover: none) {
+    .custom-cursor-area {
+      cursor: auto !important;
+    }
+  }
+
+  .prose {
+    font-family: 'Geist', sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: #14120F;
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    font-family: 'Geist Mono', monospace;
+    font-weight: 300;
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
+
+  .prose p {
+    margin-bottom: 1.5em;
+  }
+
+  .prose ul,
+  .prose ol {
+    margin-left: 1.5em;
+    margin-bottom: 1.5em;
+  }
+
+  /* Custom cursor styles for links in prose */
+  .prose a {
+    cursor: none !important;
+  }
+
+  @media (hover: none) {
+    .prose a {
+      cursor: pointer !important;
+    }
+  }
+</style> 

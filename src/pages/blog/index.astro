@@ -1,9 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from "@/layouts/Layout.astro";
 import BlogCard from "@/components/blog/BlogCard";
 import AnimatedTitle from "@/components/AnimatedTitle";
 import Footer from "@/components/Footer.astro";
 import CustomCursor from "@/components/CustomCursor";
+
+// Get all blog posts and sort them by date
+const posts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? !data.draft : true;
+}).then(posts => 
+  posts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+);
 
 // Add an array of colors to choose from
 const colors = [
@@ -15,33 +23,66 @@ const colors = [
   "#96A0FA", // Purple
 ];
 
-const posts = await Astro.glob("./*.md");
 const formattedPosts = posts.map((post) => ({
-  slug: post.url?.split("/").pop()?.replace(".md", "") || "",
-  title: post.frontmatter.title,
-  date: post.frontmatter.date,
-  color: post.frontmatter.color || colors[Math.floor(Math.random() * colors.length)],
+  slug: post.slug,
+  title: post.data.title,
+  date: post.data.date,
+  color: post.data.color || colors[Math.floor(Math.random() * colors.length)],
 }));
 ---
 
-<Layout title="Blog | My Portfolio">
+<Layout title="Blog | Benjamin Krogh">
   <CustomCursor client:load />
-  <main class="max-w-[1500px] mx-auto px-4 pt-4 md:pt-6">
-    <header class="min-h-[300px] md:h-[55vh] mb-4 md:mb-6">
-      <AnimatedTitle 
-        client:only="react"
-        text="/blog: My thoughts on [BR] design, music, and culture"
-        className="text-xl md:text-3xl font-mono mb-4 md:mb-6 font-light bg-[#EDE9E5] rounded-[24px] p-6 md:p-12 w-full min-h-[300px] md:h-[55vh] flex items-center"
-        isHomepage={false}
-      />
+  <main class="w-full max-w-[1500px] mx-auto">
+    <header class="mt-6 mb-12">
+      <div class="w-full max-w-[1500px] font-light mx-auto">
+        <AnimatedTitle 
+          text="/blog: My thoughts on[BR]design, music, and culture"
+          id="blog-title"
+          client:load
+          isHomepage={false}
+        />
+      </div>
     </header>
-    
-    <div class="mt-2 md:mt-4">
-      {formattedPosts.map((post) => (
-        <BlogCard client:load post={post} prefersReducedMotion={false} />
+
+    <div class="px-4 space-y-2">
+      {formattedPosts.map((post, index) => (
+        <BlogCard
+          post={{
+            slug: post.slug,
+            title: post.title,
+            date: post.date,
+            color: post.color
+          }}
+          prefersReducedMotion={false}
+          client:load
+        />
       ))}
     </div>
   </main>
 
   <Footer />
 </Layout>
+
+<style>
+  .custom-cursor-area {
+    cursor: none !important;
+  }
+
+  .custom-cursor-area #custom-cursor {
+    display: none !important;
+  }
+
+  .custom-cursor-area a,
+  .custom-cursor-area button {
+    cursor: none !important;
+  }
+
+  @media (hover: none) {
+    .custom-cursor-area,
+    .custom-cursor-area a,
+    .custom-cursor-area button {
+      cursor: auto !important;
+    }
+  }
+</style>
