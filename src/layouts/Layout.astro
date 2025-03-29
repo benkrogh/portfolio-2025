@@ -32,6 +32,44 @@ const currentPath = Astro.url.pathname;
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     
+    <!-- Directly include fonts - with high priority -->
+    <link rel="preload" href="/fonts/GeistMono-Regular.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high" />
+    <link rel="preload" href="/fonts/GeistMono-Light.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high" />
+    <link rel="preload" href="/fonts/GeistMono-Medium.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high" />
+    
+    <!-- Critical font definitions -->
+    <style>
+      /* Direct font face definitions in the head for critical rendering path */
+      @font-face {
+        font-family: 'Geist Mono';
+        src: url('/fonts/GeistMono-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'Geist Mono';
+        src: url('/fonts/GeistMono-Light.woff2') format('woff2');
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'Geist Mono';
+        src: url('/fonts/GeistMono-Medium.woff2') format('woff2');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      /* Force apply to all HTML */
+      html, body, * {
+        font-family: 'Geist Mono', monospace !important;
+      }
+    </style>
+    
     <ViewTransitions />
   </head>
   <body>
@@ -44,6 +82,37 @@ const currentPath = Astro.url.pathname;
     <MusicPlayer client:only="react" />
   </body>
 </html>
+
+<script>
+  // Programmatically load fonts to ensure they're available
+  document.addEventListener('DOMContentLoaded', () => {
+    // Try loading with the Font Loading API
+    if ('fonts' in document) {
+      console.log('Font Loading API supported');
+      
+      Promise.all([
+        new FontFace('Geist Mono', 'url(/fonts/GeistMono-Light.woff2)', { weight: '300' }).load(),
+        new FontFace('Geist Mono', 'url(/fonts/GeistMono-Regular.woff2)', { weight: '400' }).load(),
+        new FontFace('Geist Mono', 'url(/fonts/GeistMono-Medium.woff2)', { weight: '500' }).load()
+      ]).then(fonts => {
+        fonts.forEach(font => {
+          document.fonts.add(font);
+          console.log(`Font loaded: ${font.family} ${font.weight}`);
+        });
+        
+        // Force refresh all text with the new font
+        document.body.style.fontFamily = 'Geist Mono, monospace';
+        document.querySelectorAll('*').forEach(el => {
+          if (el instanceof HTMLElement) {
+            el.style.fontFamily = 'Geist Mono, monospace';
+          }
+        });
+      }).catch(err => {
+        console.error('Error loading fonts:', err);
+      });
+    }
+  });
+</script>
 
 <style is:global>
   /* ... styles ... */

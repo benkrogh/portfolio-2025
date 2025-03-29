@@ -5,9 +5,15 @@ author: "Benjamin Krogh"
 color: "#EC6A5C"
 ---
 
-### Recently, my wife and I decided that we wanted to enter the world of home espresso. We moved out to a 3 acre property about 25 minutes outside of Portland, so our proximity to (good quality) coffee shops has been a factor. If we can't walk to a local coffee shop, why not get a machine and learn to make some great coffee at home?
+<p class="intro-paragraph">
+Recently, my wife and I decided that we wanted to enter the world of home espresso. We moved out to a 3 acre property about 25 minutes outside of Portland, so our proximity to (good quality) coffee shops has been a factor. If we can't walk to a local coffee shop, why not get a machine and learn to make some great coffee at home?
+</p>
 
-### As it turns out, there are many warnings about diving into this world; making espresso at home is expensive, time consuming, and kind of a pain in the ass. Of course, we read the warnings and thought "This won't be a problem for us! Let's do it!" Our journey began...
+<p class="intro-paragraph">
+As it turns out, there are many warnings about diving into this world; making espresso at home is expensive, time consuming, and kind of a pain in the ass. Of course, we read the warnings and thought "This won't be a problem for us! Let's do it!" Our journey began...
+</p>
+
+<div style="margin-bottom: 2.5rem;"></div>
 
 ## The Grinder
 
@@ -44,29 +50,4 @@ I could go through all the different options we looked at, but with the machine 
 
 ![Profitec Go](/images/blog/profitec-blog.png)
 
-But as we looked at the options available to us, the Profitec stood out. It's made of high quality parts from a reputable company, it's relatively affordable (compared to many higher end machines), and reviews said it consistently produces high quality shots of espresso due to its temperature control and ease of use. We were sold!
-
-## Favorite Coffee Brewing Methods
-
-I've experimented with several brewing methods over the years, each offering a unique flavor profile and brewing experience.
-
-- Pour-over (Hario V60)
-- French Press
-- AeroPress
-- Espresso
-
-## Best Coffee Shops I've Discovered
-
-Here are some of my favorite coffee shops that I've had the pleasure of visiting.
-
-## Coffee Gear Recommendations
-
-Quality equipment makes all the difference in brewing great coffee at home.
-
-## How Coffee Fits Into My Daily Routine
-
-Coffee isn't just a beverage—it's a ritual that shapes my day.
-
-## Other Favorite Things That Pair Well With Coffee
-
-Beyond the cup, there are certain experiences that elevate coffee enjoyment. 
+But as we looked at the options available to us, the Profitec stood out. It's made of high quality parts from a reputable company, it's relatively affordable (compared to many higher end machines), and reviews said it consistently produces high quality shots of espresso due to its temperature control and ease of use. We were sold! 

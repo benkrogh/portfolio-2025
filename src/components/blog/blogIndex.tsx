@@ -88,6 +88,7 @@ const BlogPost = ({
     >
       <div
         className="h-24 rounded-3xl p-12 flex justify-between items-center transition-colors duration-200"
+        data-blog-card
         style={{ 
           backgroundColor: bgColor,
           color: TEXT_COLOR
