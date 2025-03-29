@@ -19,7 +19,7 @@ export default function BlogCard({ post, prefersReducedMotion }: BlogCardProps) 
     >
       <div data-blog-card>
         <div
-          className="rounded-3xl my-2 md:my-4 p-4 md:p-8 flex flex-col md:flex-row md:justify-between md:items-center transition-colors duration-400"
+          className="rounded-3xl my-2 md:my-4 p-12 md:p-12 flex flex-col md:flex-row md:justify-between md:items-center transition-colors duration-400"
           style={{ 
             backgroundColor: bgColor,
             color: TEXT_COLOR

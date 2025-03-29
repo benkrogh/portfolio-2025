@@ -5,6 +5,8 @@ import BlogCard from "@/components/blog/BlogCard";
 import AnimatedTitle from "@/components/AnimatedTitle";
 import Footer from "@/components/Footer.astro";
 import CustomCursor from "@/components/CustomCursor";
+import { formatDate } from "@/utils/blogUtils";
+import BlogIndex from "@/components/blog/blogIndex";
 
 // Get all blog posts and sort them by date
 const posts = await getCollection('blog', ({ data }) => {
@@ -31,37 +33,14 @@ const formattedPosts = posts.map((post) => ({
 }));
 ---
 
-<Layout title="Blog | Benjamin Krogh">
-  <CustomCursor client:load />
-  <main class="w-full max-w-[1500px] mx-auto">
-    <header class="mt-6 mb-12">
-      <div class="w-full max-w-[1500px] font-light mx-auto">
-        <AnimatedTitle 
-          text="/blog: My thoughts on[BR]design, music, and culture"
-          id="blog-title"
-          client:load
-          isHomepage={false}
-        />
-      </div>
-    </header>
-
-    <div class="px-4 space-y-2">
-      {formattedPosts.map((post, index) => (
-        <BlogCard
-          post={{
-            slug: post.slug,
-            title: post.title,
-            date: post.date,
-            color: post.color
-          }}
-          prefersReducedMotion={false}
-          client:load
-        />
-      ))}
+<Layout title="Blog | Ben Krogh">
+  <div class="custom-cursor-area">
+    <CustomCursor client:only="react" />
+    <div class="max-w-[1500px] mx-auto px-4">
+      <BlogIndex client:load posts={formattedPosts} />
     </div>
-  </main>
-
-  <Footer />
+    <Footer />
+  </div>
 </Layout>
 
 <style>
@@ -69,19 +48,8 @@ const formattedPosts = posts.map((post) => ({
     cursor: none !important;
   }
 
-  .custom-cursor-area #custom-cursor {
-    display: none !important;
-  }
-
-  .custom-cursor-area a,
-  .custom-cursor-area button {
-    cursor: none !important;
-  }
-
   @media (hover: none) {
-    .custom-cursor-area,
-    .custom-cursor-area a,
-    .custom-cursor-area button {
+    .custom-cursor-area {
       cursor: auto !important;
     }
   }

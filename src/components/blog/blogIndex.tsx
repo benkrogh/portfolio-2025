@@ -87,7 +87,7 @@ const BlogPost = ({
       className="block no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-3xl"
     >
       <div
-        className="h-24 rounded-3xl p-4 flex justify-between items-center transition-colors duration-200"
+        className="h-24 rounded-3xl p-12 flex justify-between items-center transition-colors duration-200"
         style={{ 
           backgroundColor: bgColor,
           color: TEXT_COLOR
@@ -125,28 +125,32 @@ const BlogIndex = ({ posts = defaultPosts }: { posts?: Post[] }) => {
 
   if (!posts?.length) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-8">
+      <div className="px-4 py-8">
         <h1 className="font-mono text-2xl mb-8">No posts found</h1>
       </div>
     );
   }
 
   return (
-    <div className="max-w-3xl mx-auto pt-32">
-      <header className="min-h-[55vh] flex items-center justify-center px-4">
-        <AnimatedTitle 
-          text="/blog: My thoughts on[BR]design, music, and culture"
-          id="blog-title"
-        />
+    <div className="w-full">
+      <header className="h-[55vh] mt-6 mb-4">
+        <div className="w-full h-full font-light flex items-center">
+          <AnimatedTitle 
+            text="/blog: My thoughts on[BR]design, music, and culture"
+            id="blog-title"
+            isHomepage={true}
+          />
+        </div>
       </header>
 
-      <div className="px-4 space-y-2">
-        {posts.map((post) => (
-          <BlogPost
-            key={post.slug}
-            post={post}
-            prefersReducedMotion={prefersReducedMotion}
-          />
+      <div className="w-full">
+        {posts.map((post, index) => (
+          <div key={post.slug} className={index > 0 ? 'mt-4' : ''}>
+            <BlogPost
+              post={post}
+              prefersReducedMotion={prefersReducedMotion}
+            />
+          </div>
         ))}
       </div>
     </div>
