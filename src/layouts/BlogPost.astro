@@ -19,7 +19,7 @@ const { post, Content } = Astro.props;
 ---
 
 <Layout title={post?.data?.title || 'Blog Post'}>
-  <!-- Preload the font for better performance -->
+  <!-- Font loading with high priority -->
   <link 
     rel="preload" 
     href="/fonts/GeistMono-Regular.woff2" 
@@ -29,9 +29,8 @@ const { post, Content } = Astro.props;
     slot="head"
   />
   
-  <!-- Consolidated font styles -->
   <style slot="head">
-    /* Define font faces once with proper paths and display strategy */
+    /* Ensure the font face is defined */
     @font-face {
       font-family: 'Geist Mono';
       src: url('/fonts/GeistMono-Regular.woff2') format('woff2');
@@ -39,17 +38,11 @@ const { post, Content } = Astro.props;
       font-style: normal;
       font-display: swap;
     }
-    
-    /* Apply the font to all blog content with high specificity */
-    .blog-content,
-    .blog-content * {
-      font-family: 'Geist Mono', monospace !important;
-    }
   </style>
   
   <div class="custom-cursor-area">
     <CustomCursor client:only="react" />
-    <main class="w-full max-w-[1500px] mx-auto px-4 blog-main font-geist-mono">
+    <main class="w-full max-w-[1500px] mx-auto px-4 blog-main">
       {post?.data && (
         <div
           class="rounded-[32px] h-72 p-8 sm:p-12 pb-12 w-full flex flex-col justify-end"
@@ -58,10 +51,10 @@ const { post, Content } = Astro.props;
             color: TEXT_COLOR
           }}
         >
-          <h1 class="font-geist-mono font-light text-[2.5rem] mb-2">
+          <h1 class="font-mono font-light text-[2.5rem] mb-2">
             {post.data.title}
           </h1>
-          <div class="font-geist-mono font-light text-2xl opacity-50">
+          <div class="font-mono font-light text-2xl opacity-50">
             <span>{post.data.date}</span>
           </div>
         </div>
@@ -77,8 +70,7 @@ const { post, Content } = Astro.props;
 </Layout>
 
 <style is:global>
-  /* Simplified global styles with higher specificity selectors */
-  .blog-content,
+  /* Base styles for all blog content */
   .blog-content * {
     font-family: 'Geist Mono', monospace !important;
   }
@@ -128,30 +120,28 @@ const { post, Content } = Astro.props;
 </style>
 
 <script>
-  // Simplified script that focuses on guaranteeing font loading
+  // Simple but effective font application
   document.addEventListener('DOMContentLoaded', () => {
-    // Check if the font is already loaded
-    document.fonts.ready.then(() => {
-      // Force reload the font if it's not available
-      if (!document.fonts.check("1em 'Geist Mono'")) {
-        const fontLoader = new FontFace(
-          'Geist Mono', 
-          "url('/fonts/GeistMono-Regular.woff2') format('woff2')",
-          { display: 'swap' }
-        );
-        
-        fontLoader.load().then(font => {
-          document.fonts.add(font);
-          
-          // Mark elements to force repaint with the loaded font
-          document.querySelectorAll('.blog-content *').forEach(el => {
-            if (el instanceof HTMLElement) {
-              el.style.fontFamily = "'Geist Mono', monospace";
-            }
-          });
-        }).catch(err => {
-          console.error('Font loading failed:', err);
-        });
+    const style = document.createElement('style');
+    style.textContent = `
+      @font-face {
+        font-family: 'Geist Mono';
+        src: url('/fonts/GeistMono-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      .blog-content * {
+        font-family: 'Geist Mono', monospace !important;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Force apply to all elements for good measure
+    document.querySelectorAll('.blog-content *').forEach(el => {
+      if (el instanceof HTMLElement) {
+        el.style.fontFamily = "'Geist Mono', monospace";
       }
     });
   });
