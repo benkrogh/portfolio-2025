@@ -1,6 +1,5 @@
 ---
 import Layout from "./Layout.astro";
-import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer.astro";
 import { TEXT_COLOR } from "@/utils/colorUtils";
 import type { CollectionEntry } from 'astro:content';
@@ -40,33 +39,36 @@ const { post, Content } = Astro.props;
     }
   </style>
   
-  <div class="custom-cursor-area">
-    <CustomCursor client:only="react" />
-    <main class="w-full max-w-[1500px] mx-auto px-4 blog-main">
-      {post?.data && (
-        <div
-          class="rounded-[32px] h-72 p-8 sm:p-12 pb-12 w-full flex flex-col justify-end"
-          style={{
-            backgroundColor: post.data.color,
-            color: TEXT_COLOR
-          }}
-        >
-          <h1 class="font-mono font-light text-[2.5rem] mb-2">
-            {post.data.title}
-          </h1>
-          <div class="font-mono font-light text-2xl opacity-50">
-            <span>{post.data.date}</span>
-          </div>
+  <!-- Header spacing exactly matching the blog index page -->
+  <header class="h-[55vh] mt-6 mb-4">
+    <div class="w-full h-full"></div>
+  </header>
+  
+  <!-- Content flows directly into Layout's slot -->
+  {post?.data && (
+    <div class="w-full mt-6 mb-4">
+      <div
+        class="rounded-[24px] w-full h-[55vh] p-8 sm:p-12 flex flex-col justify-end"
+        style={{
+          backgroundColor: post.data.color,
+          color: TEXT_COLOR
+        }}
+      >
+        <h1 class="font-mono font-light text-[2.5rem] mb-2">
+          {post.data.title}
+        </h1>
+        <div class="font-mono font-light text-2xl opacity-50">
+          <span>{post.data.date}</span>
         </div>
-      )}
-      <div class="prose space-y-2 mx-auto max-w-[660px] mb-4 mt-8 blog-content">
-        <article>
-          {Content && <Content />}
-        </article>
       </div>
-    </main>
-    <Footer />
+    </div>
+  )}
+  <div class="prose space-y-2 mx-auto max-w-[660px] mb-4 mt-8 blog-content">
+    <article>
+      {Content && <Content />}
+    </article>
   </div>
+  <Footer />
 </Layout>
 
 <style is:global>
