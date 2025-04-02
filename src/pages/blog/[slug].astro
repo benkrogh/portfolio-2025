@@ -39,9 +39,9 @@ try {
 <Layout title={entry.data.title}>
   <div class="custom-cursor-area">
     <CustomCursor client:only="react" />
-    <main class="w-full max-w-[1500px] mx-auto px-4">
+    <main class="w-full max-w-[1500px] mx-auto px-4 pt-6">
       <div
-        class="rounded-[32px] h-72 p-8 sm:p-12 pb-12 w-full flex flex-col justify-end"
+        class="rounded-[24px] h-72 p-8 sm:p-12 pb-12 w-full flex flex-col justify-end"
         style={{
           backgroundColor: entry.data.color,
           color: TEXT_COLOR
@@ -55,7 +55,7 @@ try {
         </div>
       </div>
       
-      <div class="prose mx-auto max-w-[660px] mb-4 mt-8">
+      <div class="prose mx-auto max-w-[660px] mb-4 mt-8 blog-content">
         <article>
           <Content />
         </article>
@@ -76,42 +76,54 @@ try {
     }
   }
 
-  .prose {
-    font-family: 'Geist', sans-serif;
+  /* Apply blog content styles */
+  .blog-content {
+    font-family: 'Geist Mono', monospace;
     font-size: 1.125rem;
     line-height: 1.75;
     color: #14120F;
   }
 
-  .prose h1,
-  .prose h2,
-  .prose h3,
-  .prose h4,
-  .prose h5,
-  .prose h6 {
+  /* Add border radius to images with stronger selectors */
+  .blog-content img,
+  .prose img,
+  article img {
+    border-radius: 24px !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 1.5em 0 !important;
+    overflow: hidden !important; /* Ensures the content respects the radius */
+  }
+
+  .blog-content h1,
+  .blog-content h2,
+  .blog-content h3,
+  .blog-content h4,
+  .blog-content h5,
+  .blog-content h6 {
     font-family: 'Geist Mono', monospace;
     font-weight: 300;
     margin-top: 2em;
     margin-bottom: 1em;
   }
 
-  .prose p {
+  .blog-content p {
     margin-bottom: 1.5em;
   }
 
-  .prose ul,
-  .prose ol {
+  .blog-content ul,
+  .blog-content ol {
     margin-left: 1.5em;
     margin-bottom: 1.5em;
   }
 
   /* Custom cursor styles for links in prose */
-  .prose a {
+  .blog-content a {
     cursor: none !important;
   }
 
   @media (hover: none) {
-    .prose a {
+    .blog-content a {
       cursor: pointer !important;
     }
   }

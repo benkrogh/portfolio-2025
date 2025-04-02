@@ -115,5 +115,13 @@ const currentPath = Astro.url.pathname;
 </script>
 
 <style is:global>
-  /* ... styles ... */
+  /* Apply border radius to ALL images site-wide */
+  img {
+    border-radius: 24px !important;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: hidden !important;
+  }
+  
+  /* ... existing styles ... */
 </style>
