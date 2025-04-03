@@ -41,7 +41,7 @@ try {
     <CustomCursor client:only="react" />
     <main class="w-full max-w-[1500px] mx-auto px-4 pt-6">
       <div
-        class="rounded-[24px] h-72 p-8 sm:p-12 pb-12 w-full flex flex-col justify-end"
+        class="rounded-[32px] h-72 p-8 sm:p-12 pb-12 w-full flex flex-col justify-end"
         style={{
           backgroundColor: entry.data.color,
           color: TEXT_COLOR
@@ -82,17 +82,6 @@ try {
     font-size: 1.125rem;
     line-height: 1.75;
     color: #14120F;
-  }
-
-  /* Add border radius to images with stronger selectors */
-  .blog-content img,
-  .prose img,
-  article img {
-    border-radius: 24px !important;
-    max-width: 100% !important;
-    height: auto !important;
-    margin: 1.5em 0 !important;
-    overflow: hidden !important; /* Ensures the content respects the radius */
   }
 
   .blog-content h1,
