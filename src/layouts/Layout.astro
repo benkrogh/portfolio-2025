@@ -15,6 +15,7 @@ export interface Props {
 
 const { title, description = "Ben Krogh's portfolio showcasing product design work" } = Astro.props;
 const currentPath = Astro.url.pathname;
+const isBlogPage = currentPath.startsWith('/blog/') && !currentPath.endsWith('/blog/');
 ---
 
 <!doctype html>
@@ -32,20 +33,20 @@ const currentPath = Astro.url.pathname;
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     
-    <!-- Directly include fonts - with high priority -->
+    <!-- CRITICAL: Blocking font preloads - fetch with highest priority and block paint until loaded -->
     <link rel="preload" href="/fonts/GeistMono-Regular.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high" />
     <link rel="preload" href="/fonts/GeistMono-Light.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high" />
     <link rel="preload" href="/fonts/GeistMono-Medium.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high" />
     
-    <!-- Critical font definitions -->
-    <style>
-      /* Direct font face definitions in the head for critical rendering path */
+    <!-- Critical CSS for blocking font load -->
+    <style is:inline>
+      /* Font definitions with font-display: block to block rendering until fonts are available */
       @font-face {
         font-family: 'Geist Mono';
         src: url('/fonts/GeistMono-Regular.woff2') format('woff2');
         font-weight: 400;
         font-style: normal;
-        font-display: swap;
+        font-display: block; /* Block text rendering until font is loaded */
       }
       
       @font-face {
@@ -53,7 +54,7 @@ const currentPath = Astro.url.pathname;
         src: url('/fonts/GeistMono-Light.woff2') format('woff2');
         font-weight: 300;
         font-style: normal;
-        font-display: swap;
+        font-display: block; /* Block text rendering until font is loaded */
       }
       
       @font-face {
@@ -61,16 +62,25 @@ const currentPath = Astro.url.pathname;
         src: url('/fonts/GeistMono-Medium.woff2') format('woff2');
         font-weight: 500;
         font-style: normal;
-        font-display: swap;
+        font-display: block; /* Block text rendering until font is loaded */
       }
       
       /* Force apply to all HTML */
       html, body, * {
         font-family: 'Geist Mono', monospace !important;
       }
+      
+      /* Special styling for blog content */
+      .blog-content * {
+        font-family: 'Geist Mono', monospace !important;
+      }
     </style>
     
-    <ViewTransitions />
+    <!-- Slot for head content from child layouts -->
+    <slot name="head" />
+    
+    <!-- Only use ViewTransitions for non-blog pages to avoid font loading issues -->
+    {!isBlogPage && <ViewTransitions />}
   </head>
   <body>
     <CustomCursor client:load />
@@ -80,6 +90,43 @@ const currentPath = Astro.url.pathname;
       <slot />
     </main>
     <MusicPlayer client:only="react" />
+    
+    <!-- Ensure font loading works with client routing -->
+    <script is:inline>
+      // Execute immediately
+      (function() {
+        console.log("Enforcing Geist Mono fonts");
+        
+        // Function to ensure fonts are applied
+        function ensureFonts() {
+          console.log("Ensuring fonts are applied");
+          
+          // Force font loading
+          if ('fonts' in document) {
+            Promise.all([
+              document.fonts.load("400 1em 'Geist Mono'"),
+              document.fonts.load("300 1em 'Geist Mono'"),
+              document.fonts.load("500 1em 'Geist Mono'")
+            ]).then(() => {
+              console.log("Fonts loaded successfully");
+              document.documentElement.classList.add('fonts-loaded');
+            });
+          }
+        }
+        
+        // Run immediately
+        ensureFonts();
+        
+        // Also run on various events
+        document.addEventListener('DOMContentLoaded', ensureFonts);
+        
+        // Handle ViewTransitions events if they exist
+        if (typeof document.addEventListener === 'function') {
+          document.addEventListener('astro:page-load', ensureFonts);
+          document.addEventListener('astro:after-swap', ensureFonts);
+        }
+      })();
+    </script>
   </body>
 </html>
 

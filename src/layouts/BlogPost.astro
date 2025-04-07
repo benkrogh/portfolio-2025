@@ -18,24 +18,75 @@ const { post, Content } = Astro.props;
 ---
 
 <Layout title={post?.data?.title || 'Blog Post'}>
-  <!-- Font loading with high priority -->
+  <!-- Font loading with critical priority -->
   <link 
     rel="preload" 
     href="/fonts/GeistMono-Regular.woff2" 
     as="font" 
     type="font/woff2" 
     crossorigin 
+    fetchpriority="high"
+    slot="head"
+  />
+  <link 
+    rel="preload" 
+    href="/fonts/GeistMono-Light.woff2" 
+    as="font" 
+    type="font/woff2" 
+    crossorigin 
+    fetchpriority="high"
+    slot="head"
+  />
+  <link 
+    rel="preload" 
+    href="/fonts/GeistMono-Medium.woff2" 
+    as="font" 
+    type="font/woff2" 
+    crossorigin 
+    fetchpriority="high"
     slot="head"
   />
   
-  <style slot="head">
-    /* Ensure the font face is defined */
+  <!-- Critical CSS for font face definitions injected directly in head -->
+  <style is:inline slot="head">
+    /* Ensure the font face is defined inline in the head */
     @font-face {
       font-family: 'Geist Mono';
       src: url('/fonts/GeistMono-Regular.woff2') format('woff2');
       font-weight: 400;
       font-style: normal;
       font-display: swap;
+    }
+    
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('/fonts/GeistMono-Light.woff2') format('woff2');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('/fonts/GeistMono-Medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    /* Direct critical styling for blog content */
+    .blog-content * {
+      font-family: 'Geist Mono', monospace !important;
+    }
+    
+    /* Pre-define font for article container */
+    article {
+      font-family: 'Geist Mono', monospace !important;
+    }
+    
+    /* Force headings to use Geist Mono */
+    h1, h2, h3, h4, h5, h6, p, blockquote, li {
+      font-family: 'Geist Mono', monospace !important;
     }
   </style>
   
@@ -122,29 +173,70 @@ const { post, Content } = Astro.props;
 </style>
 
 <script>
-  // Simple but effective font application
-  document.addEventListener('DOMContentLoaded', () => {
+  // Enhanced function to apply fonts more aggressively
+  function applyFonts() {
+    console.log('Applying Geist Mono fonts to blog content');
+    
+    // Create a promise to ensure font loading
+    if ('fonts' in document) {
+      Promise.all([
+        new FontFace('Geist Mono', 'url(/fonts/GeistMono-Regular.woff2)', { weight: '400' }).load(),
+        new FontFace('Geist Mono', 'url(/fonts/GeistMono-Light.woff2)', { weight: '300' }).load(),
+        new FontFace('Geist Mono', 'url(/fonts/GeistMono-Medium.woff2)', { weight: '500' }).load()
+      ]).then(fonts => {
+        // Add the fonts to the document
+        fonts.forEach(font => {
+          document.fonts.add(font);
+          console.log(`Font loaded: ${font.family} ${font.weight}`);
+        });
+        
+        // Force apply styles after fonts are loaded
+        applyStyles();
+      }).catch(err => {
+        console.error('Error loading fonts:', err);
+        // Even if font loading fails, try to apply styles anyway
+        applyStyles();
+      });
+    } else {
+      // Fallback for browsers without Font Loading API
+      applyStyles();
+    }
+  }
+  
+  // Apply styles aggressively to all blog content
+  function applyStyles() {
+    // Add a style element
     const style = document.createElement('style');
     style.textContent = `
-      @font-face {
-        font-family: 'Geist Mono';
-        src: url('/fonts/GeistMono-Regular.woff2') format('woff2');
-        font-weight: 400;
-        font-style: normal;
-        font-display: swap;
-      }
-      
       .blog-content * {
+        font-family: 'Geist Mono', monospace !important;
+      }
+      article * {
+        font-family: 'Geist Mono', monospace !important;
+      }
+      h1, h2, h3, h4, h5, h6, p, blockquote, li {
         font-family: 'Geist Mono', monospace !important;
       }
     `;
     document.head.appendChild(style);
     
-    // Force apply to all elements for good measure
-    document.querySelectorAll('.blog-content *').forEach(el => {
+    // Force direct style application to all elements
+    document.querySelectorAll('.blog-content *, article *, h1, h2, h3, h4, h5, h6, p, blockquote, li').forEach(el => {
       if (el instanceof HTMLElement) {
         el.style.fontFamily = "'Geist Mono', monospace";
       }
     });
-  });
+  }
+
+  // Run on initial page load
+  document.addEventListener('DOMContentLoaded', applyFonts);
+  
+  // Run on View Transitions navigation
+  document.addEventListener('astro:page-load', applyFonts);
+  
+  // Also run on astro:after-swap for ViewTransitions
+  document.addEventListener('astro:after-swap', applyFonts);
+  
+  // For good measure, run it immediately too
+  applyFonts();
 </script>
