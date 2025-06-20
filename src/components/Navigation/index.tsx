@@ -1,13 +1,58 @@
 import styles from "./navigation.module.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import useScrollDirection from "@/hooks/useScrollDirection";
 
 interface NavigationProps {
   currentPath: string;
 }
 
-const Navigation = ({ currentPath }: NavigationProps) => {
+const Navigation = ({ currentPath: initialPath }: NavigationProps) => {
   const isNavVisible = useScrollDirection(50);
+  const [currentPath, setCurrentPath] = useState(initialPath);
+
+  // Update currentPath when route changes
+  useEffect(() => {
+    setCurrentPath(window.location.pathname);
+    
+    // Listen for ViewTransitions events
+    const handlePageLoad = () => {
+      // Small delay to ensure pathname is updated after transition
+      setTimeout(() => {
+        setCurrentPath(window.location.pathname);
+      }, 50);
+    };
+    
+    const handleAfterSwap = () => {
+      // Small delay to ensure pathname is updated after transition
+      setTimeout(() => {
+        setCurrentPath(window.location.pathname);
+      }, 50);
+    };
+
+    document.addEventListener('astro:page-load', handlePageLoad);
+    document.addEventListener('astro:after-swap', handleAfterSwap);
+    
+    // Also listen for popstate events (browser back/forward)
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      document.removeEventListener('astro:page-load', handlePageLoad);
+      document.removeEventListener('astro:after-swap', handleAfterSwap);
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [initialPath]);
+
+  // Helper function to check if a path is active
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return currentPath === "/";
+    }
+    return currentPath.startsWith(path);
+  };
 
   return (
     <div
@@ -34,7 +79,7 @@ const Navigation = ({ currentPath }: NavigationProps) => {
               <a
                 href="/"
                 className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 ${
-                  currentPath === "/" 
+                  isActive("/") 
                     ? "bg-[#17120A] text-white hover:bg-[#17120A]/90 active" 
                     : "text-[#17120A]"
                 }`}
@@ -45,7 +90,7 @@ const Navigation = ({ currentPath }: NavigationProps) => {
               <a
                 href="/about"
                 className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 ${
-                  currentPath === "/about" 
+                  isActive("/about") 
                     ? "bg-[#17120A] text-white hover:bg-[#17120A]/90 active" 
                     : "text-[#17120A]"
                 }`}
@@ -56,7 +101,7 @@ const Navigation = ({ currentPath }: NavigationProps) => {
               <a
                 href="/blog"
                 className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 ${
-                  currentPath === "/blog" 
+                  isActive("/blog") 
                     ? "bg-[#17120A] text-white hover:bg-[#17120A]/90 active" 
                     : "text-[#17120A]"
                 }`}
