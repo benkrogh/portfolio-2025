@@ -1,0 +1,37 @@
+{
+  "$ref": "#/definitions/blog",
+  "definitions": {
+    "blog": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "draft": {
+          "type": "boolean",
+          "default": false
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "date",
+        "author",
+        "color"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

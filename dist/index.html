@@ -1,12 +1,117 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Portfolio</title>
-    <script type="module" crossorigin src="/assets/main-3jURgnkY.js"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html>
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Ben Krogh's portfolio showcasing product design work"><meta name="generator" content="Astro v5.13.5"><title>Home | My Portfolio</title><!-- Favicon links --><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><!-- CRITICAL: Blocking font preloads - fetch with highest priority and block paint until loaded --><link rel="preload" href="/fonts/GeistMono-Regular.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high"><link rel="preload" href="/fonts/GeistMono-Light.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high"><link rel="preload" href="/fonts/GeistMono-Medium.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high"><!-- Critical CSS for blocking font load --><style>
+      /* Font definitions with font-display: block to block rendering until fonts are available */
+      @font-face {
+        font-family: 'Geist Mono';
+        src: url('/fonts/GeistMono-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: block; /* Block text rendering until font is loaded */
+      }
+      
+      @font-face {
+        font-family: 'Geist Mono';
+        src: url('/fonts/GeistMono-Light.woff2') format('woff2');
+        font-weight: 300;
+        font-style: normal;
+        font-display: block; /* Block text rendering until font is loaded */
+      }
+      
+      @font-face {
+        font-family: 'Geist Mono';
+        src: url('/fonts/GeistMono-Medium.woff2') format('woff2');
+        font-weight: 500;
+        font-style: normal;
+        font-display: block; /* Block text rendering until font is loaded */
+      }
+      
+      /* Force apply to all HTML */
+      html, body, * {
+        font-family: 'Geist Mono', monospace !important;
+      }
+      
+      /* Special styling for blog content */
+      .blog-content * {
+        font-family: 'Geist Mono', monospace !important;
+      }
+    </style><!-- Slot for head content from child layouts --><!-- Only use ViewTransitions for non-blog pages to avoid font loading issues --><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.DZnDNxNb.js"></script><link rel="stylesheet" href="/_astro/index.PRWJfNUS.css">
+<link rel="stylesheet" href="/_astro/about.BE_wJUze.css">
+<style>.custom-cursor-area[data-astro-cid-j7pv25f6]{cursor:none!important}.custom-cursor-area[data-astro-cid-j7pv25f6] #custom-cursor[data-astro-cid-j7pv25f6]{display:none!important}.custom-cursor-area[data-astro-cid-j7pv25f6] a[data-astro-cid-j7pv25f6],.custom-cursor-area[data-astro-cid-j7pv25f6] button[data-astro-cid-j7pv25f6]{cursor:none!important}@media (hover: none){.custom-cursor-area[data-astro-cid-j7pv25f6],.custom-cursor-area[data-astro-cid-j7pv25f6] a[data-astro-cid-j7pv25f6],.custom-cursor-area[data-astro-cid-j7pv25f6] button[data-astro-cid-j7pv25f6]{cursor:auto!important}}
+</style></head> <body> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();</script><script>(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="Z1OJf2O" prefix="r7" component-url="/_astro/CustomCursor.D_9pfeQx.js" component-export="default" renderer-url="/_astro/client.CdEtSVKo.js" props="{}" ssr client="load" opts="{&quot;name&quot;:&quot;CustomCursor&quot;,&quot;value&quot;:true}"></astro-island> <astro-island uid="1EGQ6a" prefix="r8" component-url="/_astro/Navigation.xB_5EsnW.js" component-export="default" renderer-url="/_astro/client.CdEtSVKo.js" props="{&quot;currentPath&quot;:[0,&quot;/&quot;]}" ssr client="load" opts="{&quot;name&quot;:&quot;Navigation&quot;,&quot;value&quot;:true}" await-children><div class="_headerNav_1x764_2 undefined fixed w-full"><div class="w-full max-w-[1500px] mx-auto"><div class="px-6"><nav class="flex items-center h-[72px] pl-4 sm:pl-8 pr-3 rounded-[24px] bg-[#FCF9F4]/20 backdrop-blur-[16px] z-[1000]"><a href="/" class="hidden sm:block hover:opacity-80 transition-opacity"><img src="/images/BK-dark.svg" alt="BK Logo" class="w-[50px] h-[36px]"/></a><div class="flex items-center text-[0.938rem] font-medium z-10 gap-1.5 w-full sm:w-auto justify-center sm:justify-start sm:ml-auto"><a href="/" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 bg-[#17120A] text-white hover:bg-[#17120A]/90 active"><span class="inline-block w-2 h-2 rounded-full bg-red-500"></span>projects</a><a href="/about" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 text-[#17120A]"><span class="inline-block w-2 h-2 rounded-full bg-blue-500"></span>about</a><a href="/blog" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl transition-all hover:bg-[#17120A]/10 text-[#17120A]"><span class="inline-block w-2 h-2 rounded-full bg-green-500"></span>blog</a></div></nav></div></div></div><!--astro:end--></astro-island> <astro-island uid="ebTUf" prefix="r9" component-url="/_astro/SmoothScroll.CoNMP6b8.js" component-export="default" renderer-url="/_astro/client.CdEtSVKo.js" props="{}" ssr client="load" opts="{&quot;name&quot;:&quot;SmoothScroll&quot;,&quot;value&quot;:true}"></astro-island> <main class="custom-cursor-area max-w-[1500px] mx-auto pt-[104px]">  <astro-island uid="ZzdEGF" prefix="r5" component-url="/_astro/CustomCursor.D_9pfeQx.js" component-export="default" renderer-url="/_astro/client.CdEtSVKo.js" props="{&quot;data-astro-cid-j7pv25f6&quot;:[0,true]}" ssr client="load" opts="{&quot;name&quot;:&quot;CustomCursor&quot;,&quot;value&quot;:true}"></astro-island> <main class="custom-cursor-area max-w-[1500px] mx-auto px-4" data-astro-cid-j7pv25f6> <!-- Hero Section --> <header class="h-[55vh] mb-6 mt-6" data-astro-cid-j7pv25f6> <div class="w-full h-full max-w-[1500px] font-light mx-auto flex items-center" data-astro-cid-j7pv25f6> <script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).only=e;window.dispatchEvent(new Event("astro:only"));})();</script><astro-island uid="IFVGo" component-url="/_astro/AnimatedTitle.BSwNbGby.js" component-export="default" renderer-url="/_astro/client.CdEtSVKo.js" props="{&quot;text&quot;:[0,&quot;Ben Krogh is a product [BR] design leader who still [BR] loves to make things.&quot;],&quot;isHomepage&quot;:[0,true],&quot;data-astro-cid-j7pv25f6&quot;:[0,true]}" ssr client="only" opts="{&quot;name&quot;:&quot;AnimatedTitle&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island> </div> </header> <!-- Projects Grid --> <section class="project-grid-area grid grid-cols-1 md:grid-cols-2 gap-6 mb-4" data-astro-cid-j7pv25f6> <a href="/work/square" data-project data-title="Square" data-date="WIP" class="block relative group" data-astro-cid-j7pv25f6> <div class="
+                relative overflow-hidden rounded-[24px] bg-gradient-to-br undefined 
+                w-full pb-[90%] flex items-center justify-center
+                transition-transform duration-300 ease-out
+                hover:scale-[1.02] focus:scale-[1.02]
+              " data-astro-cid-j7pv25f6> <img src="/images/homepage/square.png" alt="Square" class="absolute inset-0 w-full h-full object-cover
+                transition-transform duration-500 ease-out
+                hover:scale-[1.02] group-hover:scale-[1.02]" data-astro-cid-j7pv25f6> <div class="absolute inset-0 bg-gradient-to-br undefined opacity-10" data-astro-cid-j7pv25f6></div> </div> </a><a href="/work/square-charge" data-project data-title="Square Charge" data-date="Created 11.24" class="block relative group" data-astro-cid-j7pv25f6> <div class="
+                relative overflow-hidden rounded-[24px] bg-gradient-to-br undefined 
+                w-full pb-[90%] flex items-center justify-center
+                transition-transform duration-300 ease-out
+                hover:scale-[1.02] focus:scale-[1.02]
+              " data-astro-cid-j7pv25f6> <img src="/images/homepage/squarecharge.png" alt="Square Charge" class="absolute inset-0 w-full h-full object-cover
+                transition-transform duration-500 ease-out
+                hover:scale-[1.02] group-hover:scale-[1.02]" data-astro-cid-j7pv25f6> <div class="absolute inset-0 bg-gradient-to-br undefined opacity-10" data-astro-cid-j7pv25f6></div> </div> </a><a href="/work/ebay-today" data-project data-title="eBay Today" data-date="Created 11.24" class="block relative group" data-astro-cid-j7pv25f6> <div class="
+                relative overflow-hidden rounded-[24px] bg-gradient-to-br undefined 
+                w-full pb-[90%] flex items-center justify-center
+                transition-transform duration-300 ease-out
+                hover:scale-[1.02] focus:scale-[1.02]
+              " data-astro-cid-j7pv25f6> <img src="/images/homepage/ebay.png" alt="eBay Today" class="absolute inset-0 w-full h-full object-cover
+                transition-transform duration-500 ease-out
+                hover:scale-[1.02] group-hover:scale-[1.02]" data-astro-cid-j7pv25f6> <div class="absolute inset-0 bg-gradient-to-br undefined opacity-10" data-astro-cid-j7pv25f6></div> </div> </a><a href="/work/motivmo" data-project data-title="Motivmo" data-date="Created 11.24" class="block relative group" data-astro-cid-j7pv25f6> <div class="
+                relative overflow-hidden rounded-[24px] bg-gradient-to-br undefined 
+                w-full pb-[90%] flex items-center justify-center
+                transition-transform duration-300 ease-out
+                hover:scale-[1.02] focus:scale-[1.02]
+              " data-astro-cid-j7pv25f6> <img src="/images/homepage/motivmo.png" alt="Motivmo" class="absolute inset-0 w-full h-full object-cover
+                transition-transform duration-500 ease-out
+                hover:scale-[1.02] group-hover:scale-[1.02]" data-astro-cid-j7pv25f6> <div class="absolute inset-0 bg-gradient-to-br undefined opacity-10" data-astro-cid-j7pv25f6></div> </div> </a><a href="/work/bazaar" data-project data-title="Project Five" data-date="Created 11.24" class="block relative group" data-astro-cid-j7pv25f6> <div class="
+                relative overflow-hidden rounded-[24px] bg-gradient-to-br undefined 
+                w-full pb-[90%] flex items-center justify-center
+                transition-transform duration-300 ease-out
+                hover:scale-[1.02] focus:scale-[1.02]
+              " data-astro-cid-j7pv25f6> <img src="/images/homepage/bazaar.png" alt="Project Five" class="absolute inset-0 w-full h-full object-cover
+                transition-transform duration-500 ease-out
+                hover:scale-[1.02] group-hover:scale-[1.02]" data-astro-cid-j7pv25f6> <div class="absolute inset-0 bg-gradient-to-br undefined opacity-10" data-astro-cid-j7pv25f6></div> </div> </a><a href="/work/demobuddy" data-project data-title="Project Six" data-date="Created 11.24" class="block relative group" data-astro-cid-j7pv25f6> <div class="
+                relative overflow-hidden rounded-[24px] bg-gradient-to-br undefined 
+                w-full pb-[90%] flex items-center justify-center
+                transition-transform duration-300 ease-out
+                hover:scale-[1.02] focus:scale-[1.02]
+              " data-astro-cid-j7pv25f6> <img src="/images/homepage/demobuddy.png" alt="Project Six" class="absolute inset-0 w-full h-full object-cover
+                transition-transform duration-500 ease-out
+                hover:scale-[1.02] group-hover:scale-[1.02]" data-astro-cid-j7pv25f6> <div class="absolute inset-0 bg-gradient-to-br undefined opacity-10" data-astro-cid-j7pv25f6></div> </div> </a> </section> <!-- Design Principles Section --> <astro-island uid="Z25dzuB" prefix="r6" component-url="/_astro/DesignPrinciples.B8P6fzCu.js" component-export="default" renderer-url="/_astro/client.CdEtSVKo.js" props="{&quot;data-astro-cid-j7pv25f6&quot;:[0,true]}" ssr client="load" opts="{&quot;name&quot;:&quot;DesignPrinciples&quot;,&quot;value&quot;:true}" await-children><div class="relative"><div style="background-color:#EC6A5C;border-radius:24px" class="w-full p-8 sm:p-12"><div class="md:hidden"><div class="flex justify-between items-center"><span class="GeistMono text-base" style="color:#521710;letter-spacing:-0.02em">SEVEN DESIGN PRINCIPLES:</span><button class="text-[#521710] hover:text-white transition-colors duration-500"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4L12 20M4 12L20 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></button></div><div class="grid transition-[grid-template-rows] duration-500 ease-out grid-rows-[0fr]"><div class="overflow-hidden"><div class="mt-6"><div class="mb-4 last:mb-0"><div class="text-base" style="color:#521710;letter-spacing:-0.02em">01<!-- -->.<!-- -->DESIGN TO DELIGHT AND INSPIRE</div><p class="mt-2 text-sm text-[#521710]/80">Good design doesn&#x27;t end at pleasing visuals. Every detail and interaction with one&#x27;s work is an opportunity to create a meaningful exchange. This can be realized in many ways: clever copy, perfectly-timed animations, or interactions to guide the user.</p></div><div class="mb-4 last:mb-0"><div class="text-base" style="color:#521710;letter-spacing:-0.02em">02<!-- -->.<!-- -->BE THOUGHTFUL FIRST, CLEVER LATER</div><p class="mt-2 text-sm text-[#521710]/80">Begin with clarity. Ensure the core experience is intuitive and accessible before adding creative flourishes. Cleverness should enhance a design, not obstruct it.</p></div><div class="mb-4 last:mb-0"><div class="text-base" style="color:#521710;letter-spacing:-0.02em">03<!-- -->.<!-- -->DESIGN WITH CONSTRAINTS</div><p class="mt-2 text-sm text-[#521710]/80">Constraints breed creativity. Working within limitations - whether technical, visual, or conceptual - often leads to more focused and innovative solutions.</p></div><div class="mb-4 last:mb-0"><div class="text-base" style="color:#521710;letter-spacing:-0.02em">04<!-- -->.<!-- -->DESIGN SYSTEMS THAT INSPIRE TRUST</div><p class="mt-2 text-sm text-[#521710]/80">Consistency in design details builds trust with your users. Every interaction should reinforce that trust through predictable patterns and honest communication.</p></div><div class="mb-4 last:mb-0"><div class="text-base" style="color:#521710;letter-spacing:-0.02em">05<!-- -->.<!-- -->DESIGN TO EMPOWER PEOPLE</div><p class="mt-2 text-sm text-[#521710]/80">Good design removes barriers and enables users to achieve their goals efficiently. It should make complex tasks feel simple and give users confidence in their actions.</p></div><div class="mb-4 last:mb-0"><div class="text-base" style="color:#521710;letter-spacing:-0.02em">06<!-- -->.<!-- -->HAVE A REASON FOR WHAT YOU DO</div><p class="mt-2 text-sm text-[#521710]/80">Every design decision should serve a purpose. From color choices to interaction patterns, be intentional and able to articulate the reasoning behind each choice.</p></div><div class="mb-4 last:mb-0"><div class="text-base" style="color:#521710;letter-spacing:-0.02em">07<!-- -->.<!-- -->GOOD DESIGN IS REDUCTIVE</div><p class="mt-2 text-sm text-[#521710]/80">Our world is full of clutter and noise that we navigate every day. Good design takes away the extra elements that distract and offer a clear and engaging experience that stands apart. As designers, we reduce what is necessary until all that remains is crucial.</p></div></div></div></div></div><span class="GeistMono text-2xl inline line-height-1.4 hidden md:inline" style="color:#521710;letter-spacing:-0.02em">SEVEN DESIGN PRINCIPLES:<!-- --> <span class="cursor-pointer relative" style="color:#521710;transition:color 400ms ease-in-out;letter-spacing:-0.02em">01<!-- -->.<!-- -->DESIGN TO DELIGHT AND INSPIRE</span> <span class="cursor-pointer relative" style="color:#521710;transition:color 400ms ease-in-out;letter-spacing:-0.02em">02<!-- -->.<!-- -->BE THOUGHTFUL FIRST, CLEVER LATER</span> <span class="cursor-pointer relative" style="color:#521710;transition:color 400ms ease-in-out;letter-spacing:-0.02em">03<!-- -->.<!-- -->DESIGN WITH CONSTRAINTS</span> <span class="cursor-pointer relative" style="color:#521710;transition:color 400ms ease-in-out;letter-spacing:-0.02em">04<!-- -->.<!-- -->DESIGN SYSTEMS THAT INSPIRE TRUST</span> <span class="cursor-pointer relative" style="color:#521710;transition:color 400ms ease-in-out;letter-spacing:-0.02em">05<!-- -->.<!-- -->DESIGN TO EMPOWER PEOPLE</span> <span class="cursor-pointer relative" style="color:#521710;transition:color 400ms ease-in-out;letter-spacing:-0.02em">06<!-- -->.<!-- -->HAVE A REASON FOR WHAT YOU DO</span> <span class="cursor-pointer relative" style="color:#521710;transition:color 400ms ease-in-out;letter-spacing:-0.02em">07<!-- -->.<!-- -->GOOD DESIGN IS REDUCTIVE</span> </span></div><div class="absolute bg-[#17120A] text-white rounded-xl py-3 px-4 text-sm w-[446px] z-50 transition-all duration-300 ease-out hidden md:block" style="left:0px;top:0;transform:translate(-50%, 0) scale(0.97);opacity:0;pointer-events:none;visibility:hidden"></div></div><!--astro:end--></astro-island> </main>  <footer class="w-full mx-auto pt-4 py-2 pb-8 px-4"> <div class="max-w-[1500px] mx-auto"> <div class="bg-[#17120A] text-white rounded-[24px] p-8 sm:p-12 flex justify-between items-center"> <div class="font-mono text-[#A39F98] text-sm">
+© Ben Krogh 2009 - present. Coded with ❤️ using Cursor.
+</div> <nav> <ul class="font-mono text-base flex flex-col items-end gap-2"> <li> <a href="https://read.cv/benkrogh" class="hover:opacity-70 transition-opacity"> read.cv </a> </li><li> <a href="/music" class="hover:opacity-70 transition-opacity"> my music </a> </li><li> <a href="https://dribbble.com/benkrogh" class="hover:opacity-70 transition-opacity"> dribbble </a> </li> </ul> </nav> </div> </div> </footer>  </main> <astro-island uid="1989yT" component-url="/_astro/MusicPlayer.CsKF-nqP.js" component-export="default" renderer-url="/_astro/client.CdEtSVKo.js" props="{}" ssr client="only" opts="{&quot;name&quot;:&quot;MusicPlayer&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island> <!-- Ensure font loading works with client routing --> <script>
+      // Execute immediately
+      (function() {
+        console.log("Enforcing Geist Mono fonts");
+        
+        // Function to ensure fonts are applied
+        function ensureFonts() {
+          console.log("Ensuring fonts are applied");
+          
+          // Force font loading
+          if ('fonts' in document) {
+            Promise.all([
+              document.fonts.load("400 1em 'Geist Mono'"),
+              document.fonts.load("300 1em 'Geist Mono'"),
+              document.fonts.load("500 1em 'Geist Mono'")
+            ]).then(() => {
+              console.log("Fonts loaded successfully");
+              document.documentElement.classList.add('fonts-loaded');
+            });
+          }
+        }
+        
+        // Run immediately
+        ensureFonts();
+        
+        // Also run on various events
+        document.addEventListener('DOMContentLoaded', ensureFonts);
+        
+        // Handle ViewTransitions events if they exist
+        if (typeof document.addEventListener === 'function') {
+          document.addEventListener('astro:page-load', ensureFonts);
+          document.addEventListener('astro:after-swap', ensureFonts);
+        }
+      })();
+    </script> </body> </html> <script type="module">document.addEventListener("DOMContentLoaded",()=>{"fonts"in document&&(console.log("Font Loading API supported"),Promise.all([new FontFace("Geist Mono","url(/fonts/GeistMono-Light.woff2)",{weight:"300"}).load(),new FontFace("Geist Mono","url(/fonts/GeistMono-Regular.woff2)",{weight:"400"}).load(),new FontFace("Geist Mono","url(/fonts/GeistMono-Medium.woff2)",{weight:"500"}).load()]).then(e=>{e.forEach(o=>{document.fonts.add(o),console.log(`Font loaded: ${o.family} ${o.weight}`)}),document.body.style.fontFamily="Geist Mono, monospace",document.querySelectorAll("*").forEach(o=>{o instanceof HTMLElement&&(o.style.fontFamily="Geist Mono, monospace")})}).catch(e=>{console.error("Error loading fonts:",e)}))});</script>  
