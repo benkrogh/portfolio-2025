@@ -1,0 +1,57 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CaseStudyHeader from '../../components/CaseStudyHeader';
+import CaseStudyHero from '../../components/CaseStudyHero';
+import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid, ContentImage } from '../../components/CaseStudyImages';
+import CaseStudyText from '../../components/CaseStudyText';
+import Footer from '../../components/Footer.astro';
+import ScrollFadeIn from '../../components/ScrollFadeIn';
+
+const pageTitle = "Magnettic Case Study";
+---
+
+<Layout title={pageTitle}>
+  <main class="pt-0">
+    <div class="container mx-auto px-6">
+      <CaseStudyHeader 
+        client:load
+        title="Magnettic"
+        tags={["2025", "PRODUCT DESIGN", "FOUNDER", "DESIGN TO CODE"]}
+        description="Building Magnettic: the best way to create real prototypes utilizing the power of AI."
+      />
+    </div>
+
+    <CaseStudyHero 
+      client:load
+      imageSrc="/images/magnettic/hero.png"
+      alt="Magnettic platform interface showcase"
+    />
+
+    <ScrollFadeIn client:load>
+     <CaseStudyText client:load>
+         Designers and developers often struggle to maintain consistency and speed when translating designs into functional prototypes.
+      <CaseStudyText.Secondary>
+        As founder and lead designer, I'm creating Magnettic: a transformative tool that allows teams to easily create real prototypes in minutes with the power of AI. 
+      </CaseStudyText.Secondary>
+      <CaseStudyText.Secondary>
+        We're currently building out V1 product, which is coming late 2025. 
+      </CaseStudyText.Secondary>
+    </CaseStudyText>
+    </ScrollFadeIn>
+
+    <ScrollFadeIn client:load>
+      <ContentImage 
+        client:load
+        src="/images/magnettic/marketing-home.png"
+        alt='Square project detail 1'
+      />
+    </ScrollFadeIn>
+    <AsymmetricGrid 
+      client:load
+      largeImage={{ src: "/images/magnettic/main-interface.png", alt: "Main Magnettic interface" }}
+      smallImage={{ src: "/images/magnettic/component-library.png", alt: "Component library interface" }}
+    />
+  </main>
+  
+  <Footer />
+</Layout>
