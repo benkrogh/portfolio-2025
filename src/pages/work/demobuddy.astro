@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CaseStudyHeader from '../../components/CaseStudyHeader';
+import CaseStudyHero from '../../components/CaseStudyHero';
+import { FullWidthImage, TwoByTwoGrid, AsymmetricGrid } from '../../components/CaseStudyImages';
+import CaseStudyText from '../../components/CaseStudyText';
+import Footer from '../../components/Footer.astro';
+
+const pageTitle = "demoBuddy Case Study";
+---
+
+<Layout title={pageTitle}>
+  <main class="pt-0">
+    <div class="container mx-auto px-6">
+      <CaseStudyHeader 
+        client:load
+        title="demoBuddy"
+        tags={["2024", "PRODUCT DESIGN", "FOUNDER"]}
+        description="Building a tool to help musicians convert audio demos into shareable video."
+      />
+    </div>
+
+    <CaseStudyHero 
+      client:load
+      imageSrc="/images/homepage/demobuddy.png"
+      alt="demoBuddy interface showcase"
+    />
+    
+    <CaseStudyText client:load>
+      Musicians write a lot of songs, and typically have a lot of audio files on their phones and computers.
+      <CaseStudyText.Secondary>
+        As both founder and designer, I'm leading the development of a solution that streamlines the demo creation process.
+      </CaseStudyText.Secondary>
+    </CaseStudyText>
+
+    <AsymmetricGrid 
+      client:load
+      largeImage={{ src: "/images/demobuddy/main-concept.png", alt: "Main interface concept" }}
+      smallImage={{ src: "/images/demobuddy/detail.png", alt: "Interface detail" }}
+    />
+  </main>
+  
+  <Footer />
+</Layout> 

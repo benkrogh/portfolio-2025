@@ -6,47 +6,41 @@ import Footer from "@/components/Footer.astro";
 import AnimatedTitle from "@/components/AnimatedTitle";
 
 const projects = [
+    {
+    title: "Magnettic",
+    date: "WIP",
+    image: "/images/homepage/magnettic.png",
+    url: "/work/magnettic",
+  },
   {
     title: "Square",
     date: "WIP",
     image: "/images/homepage/square.png",
     url: "/work/square",
-    gradient: "from-blue-500 to-purple-600",
   },
   {
     title: "Square Charge",
     date: "Created 11.24",
     image: "/images/homepage/squarecharge.png",
     url: "/work/square-charge",
-    gradient: "from-green-400 to-emerald-600",
   },
   {
     title: "eBay Today",
     date: "Created 11.24",
     image: "/images/homepage/ebay.png",
     url: "/work/ebay-today",
-    gradient: "from-yellow-400 to-orange-500",
   },
   {
     title: "Motivmo",
     date: "Created 11.24",
     image: "/images/homepage/motivmo.png",
     url: "/work/motivmo",
-    gradient: "from-pink-400 to-rose-500",
   },
   {
     title: "Project Five",
     date: "Created 11.24",
     image: "/images/homepage/bazaar.png",
     url: "/work/bazaar",
-    gradient: "from-indigo-400 to-cyan-500",
-  },
-  {
-    title: "Magnettic",
-    date: "WIP",
-    image: "/images/homepage/magnettic.png",
-    url: "/work/magnettic",
-    gradient: "from-violet-500 to-purple-600",
   },
 ];
 ---
@@ -79,12 +73,12 @@ const projects = [
             class="block relative group"
           >
             <div
-              class={`
-                relative overflow-hidden rounded-[24px] bg-gradient-to-br ${project.gradient} 
+              class="
+                relative overflow-hidden rounded-[24px] bg-neutral-100
                 w-full pb-[90%] flex items-center justify-center
                 transition-transform duration-300 ease-out
                 hover:scale-[1.02] focus:scale-[1.02]
-              `}
+              "
             >
               <img
                 src={project.image}
@@ -93,7 +87,6 @@ const projects = [
                 transition-transform duration-500 ease-out
                 hover:scale-[1.02] group-hover:scale-[1.02]"
               />
-              <div class={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-10`} />
             </div>
           </a>
         ))
