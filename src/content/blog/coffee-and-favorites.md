@@ -51,3 +51,23 @@ I could go through all the different options we looked at, but with the machine 
 ![Profitec Go](/images/blog/profitec-blog.png)
 
 But as we looked at the options available to us, the Profitec stood out. It's made of high quality parts from a reputable company, it's relatively affordable (compared to many higher end machines), and reviews said it consistently produces high quality shots of espresso due to its temperature control and ease of use. We were sold! 
+
+## In Practice
+
+It's been several months since we made the leap into home espresso, with its steep learning curve and quirks. Was it worth it? After months of daily espresso drinks, from flat whites to iced americanos, I find myself answering that question with a wholehearted: Yes, it's absolutely worth it. Here are a few things I've learned that have made all the difference for me, as well as made this entire process super enjoyable:
+
+### Slightly longer shot: My sweet spot
+
+I've found that I really enjoy a slightly longer shot pull with a bit more water volume. It's not quite a Lungo, but somewhere in between an espresso and Lungo. It's a bit more balanced of a flavor and I find that it has really hit the spot in a hot beverage. 
+
+### Consistency is key
+
+We've kept our espresso beans the same this entire time, along with the grams in/out while pulling shots, with the same espresso basket. Brewing espresso involves a lot of different variables, so I've found that honing in on the right bean and overall approach has made my shots much more consistent and enjoyable. The biggest factor is honestly the beans: Changing your beans so that the bean, the roast, as well as the freshness are all new will lead to a lot more fiddling with your grinder to ensure your shots are pulling consistently!
+
+### Know your machine
+
+Our Profitec is a single boiler machine, which means it only has one element to heat both the steam wand as well as pulling shots. These tasks require different water temperatures, so it can lead to needing to wait in between pulling a shot and being able to steam your milk. As I've gotten to know the machine, I've recognized that it's much faster for the machine to go down in temperature from steam -> shot pulling, so I find that steaming my milk first is a better way to prep for a cortado or flat white. It's a nice little hack, and one that I've only found out from using the machine daily. 
+
+## Final thoughts
+
+I'm a beverage guy, through and through. I love having a beautiful little machine on my kitchen counter, I love the ritual of weighing my beans, I love the satisfaction of a perfectly pulled shot... it all works for me! Getting into home espresso has been a journey filled with lots of trial and error, but it's been incredibly rewarding. And at the end of the day, I'm able to make some delicious beverages that bring me some joy, and make each day just a little better. Cheers! 
