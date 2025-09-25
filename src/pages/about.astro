@@ -87,26 +87,26 @@ const testimonials = [
 <Layout title="About | Ben Krogh">
   <CustomCursor client:load />
   <main class="custom-cursor-area max-w-[1500px] mx-auto px-4">
-    <!-- Hero Section - Updated styles -->
-    <header class="mt-6 mb-12">
-      <div class="w-full max-w-[1500px] font-light mx-auto">
+    <!-- Hero Section -->
+    <header class="h-[55vh] mt-6 mb-6">
+      <div class="w-full h-full max-w-[1500px] font-light mx-auto flex items-center">
         <AnimatedTitle 
           client:only="react"
           text="Seventeen years of crafting [BR] digital experiences that [BR] make a difference."
-          isHomepage={false}
+          isHomepage={true}
         />
       </div>
     </header>
 
     <!-- Experience Section -->
-    <div class="min-h-[75vh] flex items-center py-24">
+    <div class="min-h-[75vh] flex items-center py-12 md:py-24">
       <div class="max-w-[1500px] mx-auto px-6">
         <div class="max-w-[660px] mx-auto">
           <ScrollFadeIn client:load>
-            <div class="font-geist-mono text-[32px] tracking-[-0.03em]">
+            <div class="section-heading font-geist-mono tracking-[-0.03em]">
               For over seventeen years, I've been at the forefront of product design, 
               leading teams and crafting experiences that millions of people use daily.
-              <p class="font-geist-mono text-[22px] text-[#524D47] max-w-[546px] tracking-[-0.03em] mt-8">
+              <p class="subtext font-geist-mono text-[#524D47] max-w-[546px] tracking-[-0.03em] mt-6 md:mt-8">
                 My approach combines strategic thinking with hands-on design execution, 
                 ensuring that every product not only looks beautiful but delivers real value 
                 to its users.
@@ -118,11 +118,11 @@ const testimonials = [
     </div>
 
     <!-- Companies Section -->
-    <section class="min-h-[75vh] py-24">
+    <section class="min-h-[75vh] py-12 md:py-24">
       <div class="max-w-[1500px] mx-auto px-6">
         <ScrollFadeIn client:load>
           <div class="max-w-[660px] mx-auto">
-            <h2 class="font-geist-mono text-[32px] tracking-[-0.03em] mb-20">
+            <h2 class="section-heading font-geist-mono tracking-[-0.03em] mb-12 md:mb-20">
               I've had the privilege of designing products for some amazing companies:
             </h2>
           </div>
@@ -144,11 +144,11 @@ const testimonials = [
     </section>
 
     <!-- Testimonials Section -->
-    <div class="min-h-[75vh] pt-24">
+    <div class="min-h-[75vh] pt-12 md:pt-24">
       <div class="max-w-[1500px] mx-auto">
         <ScrollFadeIn client:load>
           <div class="testimonials-header max-w-[660px] mx-auto">
-            <h2 class="font-geist-mono text-[32px] tracking-[-0.03em]">
+            <h2 class="section-heading font-geist-mono tracking-[-0.03em]">
               Here are some kind words from some talented collaborators I've had the pleasure of working with:
             </h2>
           </div>
@@ -158,7 +158,7 @@ const testimonials = [
             <ScrollFadeIn client:load>
               <div class={`testimonial-card`}>
                 <blockquote>
-                  <p class="quote-text font-geist-mono text-[28px] leading-[1.3] tracking-[-0.03em] mb-8 font-normal">
+                  <p class="quote-text font-geist-mono leading-[1.3] tracking-[-0.03em] mb-6 md:mb-8 font-normal">
                     {testimonial.quote}
                   </p>
                   <footer class="flex items-center gap-4">
@@ -170,8 +170,8 @@ const testimonials = [
                       class="rounded-full"
                     />
                     <div>
-                      <p class="font-medium text-lg">{testimonial.author}</p>
-                      <p class="font-light text-[#524D47]">{testimonial.role}</p>
+                      <p class="author-name font-medium font-geist-mono">{testimonial.author}</p>
+                      <p class="author-role font-light font-geist-mono text-[#524D47]">{testimonial.role}</p>
                     </div>
                   </footer>
                 </blockquote>
@@ -191,8 +191,124 @@ const testimonials = [
 </Layout>
 
 <style>
+  /* Responsive Typography System */
+  .hero-text {
+    font-size: clamp(1.75rem, 4vw + 0.5rem, 2rem);
+    line-height: 1.25;
+  }
+
+  .subtext {
+    font-size: clamp(1.125rem, 2.5vw + 0.25rem, 1.375rem);
+    line-height: 1.4;
+  }
+
+  .section-heading {
+    font-size: clamp(1.5rem, 3.5vw + 0.5rem, 2rem);
+    line-height: 1.25;
+  }
+
+  .quote-text {
+    font-size: clamp(1rem, 3vw + 0.5rem, 1.75rem) !important;
+    line-height: 1.3 !important;
+    font-weight: 400 !important;
+  }
+
+  .author-name {
+    font-size: clamp(1rem, 2vw + 0.25rem, 1.125rem);
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+  }
+
+  .author-role {
+    font-size: clamp(0.875rem, 1.5vw + 0.25rem, 1rem);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  /* Mobile-first responsive spacing */
   .testimonials-header {
-    margin-bottom: 120px !important;
+    margin-bottom: clamp(3rem, 8vw, 7.5rem) !important;
+  }
+
+  /* Responsive padding for sections */
+  @media (max-width: 640px) {
+    .hero-text {
+      font-size: 1.75rem;
+    }
+    
+    .subtext {
+      font-size: 1.125rem;
+      margin-top: 1.5rem;
+    }
+    
+    .section-heading {
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .quote-text {
+      font-size: 1rem !important;
+    }
+    
+    .author-name {
+      font-size: 1rem;
+    }
+    
+    .author-role {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .hero-text {
+      font-size: 1.875rem;
+    }
+    
+    .subtext {
+      font-size: 1.25rem;
+    }
+    
+    .section-heading {
+      font-size: 1.75rem;
+    }
+    
+    .quote-text {
+      font-size: 1.25rem !important;
+    }
+    
+    .author-name {
+      font-size: 1.0625rem;
+    }
+    
+    .author-role {
+      font-size: 0.9375rem;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .hero-text {
+      font-size: 2rem;
+    }
+    
+    .subtext {
+      font-size: 1.375rem;
+    }
+    
+    .section-heading {
+      font-size: 2rem;
+    }
+    
+    .quote-text {
+      font-size: 1.75rem !important;
+    }
+    
+    .author-name {
+      font-size: 1.125rem;
+    }
+    
+    .author-role {
+      font-size: 1rem;
+    }
   }
 
   .custom-cursor-area {
@@ -233,32 +349,35 @@ const testimonials = [
   .testimonial-card {
     display: inline-block;
     width: 100%;
-    margin-bottom: 24px;
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
     background-color: #EDE9E5;
-    border-radius: 24px;
+    border-radius: clamp(1rem, 3vw, 1.5rem);
     overflow: hidden;
     position: relative;
-    padding: 48px 40px;
+    padding: clamp(1.5rem, 5vw, 3rem) clamp(1.25rem, 4vw, 2.5rem);
     transition-property: transform;
     transition-duration: 300ms;
     transition-timing-function: ease-out;
+  }
+
+  @media (max-width: 640px) {
+    .testimonial-card {
+      padding: 1.5rem 1.25rem;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+    }
   }
 
   .testimonial-card:hover {
     transform: scale(1.02);
   }
 
-  .quote-text {
-    font-size: 28px !important;
-    line-height: 1.3 !important;
-    font-weight: 400 !important;
-  }
 
   /* Add specific styles for companies grid */
   .companies-container {
     background-color: #EDE9E5;
-    border-radius: 24px;
-    padding: 40px 30px;
+    border-radius: clamp(1rem, 3vw, 1.5rem);
+    padding: clamp(1.5rem, 5vw, 2.5rem) clamp(1.25rem, 4vw, 1.875rem);
     max-width: 1500px;
     margin: 0 auto;
   }
@@ -266,7 +385,7 @@ const testimonials = [
   .companies-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
     align-items: center;
     justify-items: center;
   }
@@ -278,26 +397,36 @@ const testimonials = [
   }
 
   .company-item img {
-    width: 100px;
+    width: clamp(60px, 12vw, 100px);
     max-width: 100px;
     height: auto;
   }
 
+  @media (min-width: 480px) {
+    .companies-row {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
   @media (min-width: 768px) {
     .companies-container {
-      padding: 40px 60px;
+      padding: 2.5rem 3.75rem;
     }
 
     .companies-row {
       display: flex;
       flex-wrap: nowrap;
-      gap: 60px;
+      gap: clamp(2.5rem, 5vw, 3.75rem);
       justify-content: space-between;
     }
 
     .company-item {
       flex: 1;
       min-width: 0;
+    }
+
+    .company-item img {
+      width: 100px;
     }
   }
 
