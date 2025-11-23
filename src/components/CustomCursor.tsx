@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { soundEffects } from "@/utils/soundEffects";
 import throttle from "lodash.throttle";
 
 interface CursorState {
@@ -50,6 +51,15 @@ export default function CustomCursor() {
       const isFooterNav = footerArea?.contains(navArea);
       const isLink = target.closest("a");
       const projectGrid = document.querySelector(".project-grid-area");
+
+      // Play hover sound for interactive elements
+      const shouldPlaySound = (footerArea && isLink) || 
+                             ((projectCard && projectGrid?.contains(target)) || blogCard) || 
+                             (navArea && !isFooterNav && isLink);
+      
+      if (shouldPlaySound && !cursor.isHovering) {
+        soundEffects.playSound('menuclick', 0.15);
+      }
 
       if (footerArea && isLink) {
         setCursor((prev) => ({
