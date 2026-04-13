@@ -10,22 +10,10 @@ const defaultPosts = [
     color: getPostColor(0),
   },
   {
-    slug: "ios-app-with-claude",
-    title: "Making an iOS app with Claude",
-    date: "2024-11-12",
-    color: getPostColor(1),
-  },
-  {
-    slug: "favorite-albums",
+    slug: "favorite-albums-2024",
     title: "My favorite albums of 2024",
-    date: "2024-10-05",
-    color: getPostColor(2),
-  },
-  {
-    slug: "ai-thoughts",
-    title: "What's the deal with AI, anyway?",
-    date: "2024-09-23",
-    color: getPostColor(3),
+    date: "2024-03-20",
+    color: getPostColor(1),
   },
 ];
 

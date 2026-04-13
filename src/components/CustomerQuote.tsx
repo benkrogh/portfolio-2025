@@ -24,7 +24,7 @@ const CustomerQuote: React.FC<CustomerQuoteProps> = ({
       className={`p-6 sm:p-8 rounded-2xl sm:rounded-[24px] ${bgColor} h-full flex flex-col`}
     >
       <h2 className={`font-geist-mono text-[20px] sm:text-[24px] lg:text-[28px] tracking-[-0.03em] leading-tight ${textColor}`}>
-        "{quote}"
+        {`\u201C${quote}\u201D`}
       </h2>
       <h3 className={`font-geist-mono text-[15px] sm:text-[16px] lg:text-[18px] tracking-[-0.02em] ${authorColor} mt-auto pt-6`}>
         -{author}, {company}

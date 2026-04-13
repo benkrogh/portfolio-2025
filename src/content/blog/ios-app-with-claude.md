@@ -3,6 +3,7 @@ title: "Coding a portfolio site with Cursor"
 date: "2024-11-12"
 author: "Benjamin Krogh"
 color: "#F09456"
+draft: true
 ---
 
 <p class="intro-paragraph">

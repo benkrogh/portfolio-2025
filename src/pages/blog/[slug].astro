@@ -7,7 +7,10 @@ import { TEXT_COLOR } from "@/utils/colorUtils";
 
 // This function runs at build time
 export async function getStaticPaths() {
-  const allBlogEntries = await getCollection('blog');
+  const allBlogEntries = await getCollection('blog', ({ data }) => {
+    // Production builds omit draft posts; dev server keeps URLs for local editing
+    return import.meta.env.PROD ? !data.draft : true;
+  });
   console.log("ALL BLOG ENTRIES:", allBlogEntries.map(entry => entry.slug));
   
   return allBlogEntries.map(entry => ({

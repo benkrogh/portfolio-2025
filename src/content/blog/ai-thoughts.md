@@ -3,6 +3,7 @@ title: "What's the deal with AI, anyway?"
 date: "2024-09-23"
 author: "Benjamin Krogh"
 color: "#C1E5C3"
+draft: true
 ---
 
 [Your AI thoughts post content will go here. This post can explore:

@@ -12,7 +12,8 @@ interface Track {
 
 interface AudioAnalyser {
   analyser: AnalyserNode;
-  dataArray: Uint8Array;
+  /** Typed for `AnalyserNode.getByteFrequencyData` (requires ArrayBuffer-backed storage). */
+  dataArray: Uint8Array<ArrayBuffer>;
 }
 
 const tracks: Track[] = [
@@ -56,14 +57,13 @@ const MusicPlayer = () => {
   } = usePlayerStore();
   
   const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [audioAnalyser, setAudioAnalyser] = useState<AudioAnalyser | null>(
     null,
   );
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationFrameId = useRef<number>();
-  const audioContextRef = useRef<AudioContext | null>(null);
   const lastScrollY = useRef(0);
   const isMounted = useRef(false);
   const [tooltipVisible, setTooltipVisible] = useState(false);
@@ -84,8 +84,12 @@ const MusicPlayer = () => {
       try {
         // Reuse existing audio context if available
         if (!persistentAudioContext) {
-          persistentAudioContext = new (window.AudioContext ||
-            (window as any).webkitAudioContext)();
+          const AC =
+            window.AudioContext ||
+            (window as Window & { webkitAudioContext?: typeof AudioContext })
+              .webkitAudioContext;
+          if (!AC) return;
+          persistentAudioContext = new AC();
         }
 
         // Only create new nodes if they don't exist
@@ -101,7 +105,7 @@ const MusicPlayer = () => {
         }
 
         const bufferLength = persistentAnalyserNode.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
+        const dataArray = new Uint8Array(new ArrayBuffer(bufferLength));
 
         setAudioAnalyser({ 
           analyser: persistentAnalyserNode, 

@@ -33,6 +33,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "lint": "eslint src",
+    "check": "tsc --noEmit && npm run lint && npm run build"
   }
 }

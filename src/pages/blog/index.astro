@@ -8,10 +8,8 @@ import CustomCursor from "@/components/CustomCursor";
 import { formatDate } from "@/utils/blogUtils";
 import BlogIndex from "@/components/blog/blogIndex";
 
-// Get all blog posts and sort them by date
-const posts = await getCollection('blog', ({ data }) => {
-  return import.meta.env.PROD ? !data.draft : true;
-}).then(posts => 
+// Omit drafts from the listing (unfinished / not ready to publish)
+const posts = await getCollection('blog', ({ data }) => !data.draft).then(posts =>
   posts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
 );
 

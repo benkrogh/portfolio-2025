@@ -52,4 +52,6 @@ CaseStudyText.Secondary = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+CaseStudyText.Secondary.displayName = "CaseStudyText.Secondary";
+
 export default CaseStudyText; 
