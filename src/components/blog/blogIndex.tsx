@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AnimatedTitle from "../AnimatedTitle";
-import { getPostColor, adjustColor, TEXT_COLOR } from "@/utils/colorUtils";
+import BlogCard from "./BlogCard";
+import { getPostColor } from "@/utils/colorUtils";
 
 const defaultPosts = [
   {
@@ -46,69 +47,6 @@ interface Post {
   color: string;
 }
 
-const formatDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  return date
-    .toLocaleDateString("en-US", {
-      month: "2-digit",
-      day: "2-digit",
-      year: "2-digit",
-    })
-    .replace(/\//g, ".");
-};
-
-const BlogPost = ({
-  post,
-  prefersReducedMotion,
-}: {
-  post: Post;
-  prefersReducedMotion: boolean;
-}) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const bgColor = isHovered ? adjustColor(post.color, 10) : post.color;
-  const shouldReduceMotion = prefersReducedMotion;
-  // Placeholder for shouldReduceMotion
-  console.log(shouldReduceMotion);
-  return (
-    <a
-      href={`/blog/${post.slug}`}
-      className="block no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black rounded-3xl"
-    >
-      <div
-        className="h-24 rounded-3xl p-12 flex justify-between items-center transition-colors duration-200"
-        data-blog-card
-        style={{ 
-          backgroundColor: bgColor,
-          color: TEXT_COLOR
-        }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div className="flex items-center">
-          <span className="font-mono text-[1.5rem] leading-[2rem]">
-            {post.title}
-          </span>
-          <div className="relative ml-2">
-            <span
-              aria-hidden="true"
-              style={{
-                display: "inline-block",
-                transform: isHovered ? "translateX(12px)" : "translateX(0)",
-                transition: "transform 0.2s ease-in-out",
-              }}
-            >
-              →
-            </span>
-          </div>
-        </div>
-        <span className="font-mono text-[1.5rem] leading-[2rem]">
-          {formatDate(post.date)}
-        </span>
-      </div>
-    </a>
-  );
-};
-
 const BlogIndex = ({ posts = defaultPosts }: { posts?: Post[] }) => {
   const prefersReducedMotion = useReducedMotion();
 
@@ -122,20 +60,18 @@ const BlogIndex = ({ posts = defaultPosts }: { posts?: Post[] }) => {
 
   return (
     <div className="w-full">
-      <header className="h-[55vh] mt-6 mb-4">
-        <div className="w-full h-full font-light flex items-center">
-          <AnimatedTitle 
-            text="/blog: My thoughts on[BR]design, music, and culture"
-            id="blog-title"
-            isHomepage={true}
-          />
-        </div>
+      <header className="mt-6 mb-4">
+        <AnimatedTitle 
+          text="/blog: My thoughts on[BR] design, music, and culture"
+          id="blog-title"
+          isHomepage={true}
+        />
       </header>
 
       <div className="w-full">
         {posts.map((post, index) => (
-          <div key={post.slug} className={index > 0 ? 'mt-4' : ''}>
-            <BlogPost
+          <div key={post.slug} className={index > 0 ? "mt-4" : ""}>
+            <BlogCard
               post={post}
               prefersReducedMotion={prefersReducedMotion}
             />

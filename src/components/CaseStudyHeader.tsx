@@ -30,7 +30,7 @@ const CaseStudyHeader: React.FC<CaseStudyHeaderProps> = ({ title, tags, descript
           {tags.map((tag, index) => (
             <div 
               key={index}
-              className="h-[28px] sm:h-[36px] px-3 sm:px-4 rounded-[10px] bg-[#fcfaf7] 
+              className="h-[28px] sm:h-[36px] px-3 sm:px-4 rounded-[10px] bg-[#FCFBF9] 
                        border border-[#D6D2CB] flex items-center"
             >
               <span className="font-geist-mono text-[13px] sm:text-[15px]">{tag}</span>

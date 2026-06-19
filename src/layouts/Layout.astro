@@ -88,7 +88,9 @@ const isBlogPage = currentPath.startsWith('/blog/') && !currentPath.endsWith('/b
     <main class="custom-cursor-area max-w-[1500px] mx-auto pt-[104px]">
       <slot />
     </main>
-    <MusicPlayer client:only="react" />
+    <div transition:persist="music-player">
+      <MusicPlayer client:only="react" />
+    </div>
     
     <!-- Ensure font loading works with client routing -->
     <script is:inline>

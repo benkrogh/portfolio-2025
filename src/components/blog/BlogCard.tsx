@@ -19,7 +19,7 @@ export default function BlogCard({ post, prefersReducedMotion }: BlogCardProps) 
     >
       <div data-blog-card>
         <div
-          className="rounded-3xl my-2 md:my-4 p-12 md:p-12 flex flex-col md:flex-row md:justify-between md:items-center transition-colors duration-400"
+          className="rounded-3xl my-2 md:my-4 p-6 md:p-12 flex flex-col md:flex-row md:justify-between md:items-center gap-2 md:gap-0 min-h-[7rem] md:min-h-0 transition-colors duration-400"
           style={{ 
             backgroundColor: bgColor,
             color: TEXT_COLOR
@@ -27,12 +27,12 @@ export default function BlogCard({ post, prefersReducedMotion }: BlogCardProps) 
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div className="flex items-center mb-2 md:mb-0">
-            <span className="text-lg md:text-[1.5rem] leading-normal md:leading-[2rem]">
+          <div className="flex items-center md:mb-0">
+            <span className="font-mono text-lg md:text-[1.5rem] leading-snug md:leading-[2rem]">
               {post.title}
             </span>
             <div
-              className={`ml-2 md:ml-4 text-lg md:text-[1.5rem] leading-normal md:leading-[2rem] transform inline-block ${
+              className={`ml-2 md:ml-4 text-lg md:text-[1.5rem] leading-snug md:leading-[2rem] transform inline-block shrink-0 ${
                 prefersReducedMotion
                   ? ""
                   : "transition-transform duration-400 ease-in-out"
@@ -44,7 +44,7 @@ export default function BlogCard({ post, prefersReducedMotion }: BlogCardProps) 
               →
             </div>
           </div>
-          <span className="text-base md:text-[1.5rem] leading-normal md:leading-[2rem]">
+          <span className="font-mono text-base md:text-[1.5rem] leading-snug md:leading-[2rem] md:shrink-0">
             {formatDate(post.date)}
           </span>
         </div>
