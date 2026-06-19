@@ -150,7 +150,7 @@ const Navigation = ({ currentPath: initialPath }: NavigationProps) => {
         } fixed w-full`}
       >
         <div className="w-full max-w-[1500px] mx-auto">
-          <div className="px-6">
+          <div className="px-4">
             <nav className="flex items-center justify-between h-[72px] pl-4 sm:pl-8 pr-3 rounded-[24px] bg-[#FCF9F4]/20 backdrop-blur-[16px] z-[1000]">
               <a
                 href="/"

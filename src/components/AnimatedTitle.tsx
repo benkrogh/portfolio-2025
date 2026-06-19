@@ -15,7 +15,7 @@ export default function AnimatedTitle({
 }: AnimatedTitleProps) {
   // Default classes that change based on isHomepage
   const defaultClasses = isHomepage
-    ? "text-xl sm:text-[28px] md:text-3xl font-mono font-light bg-[#EDE9E5] rounded-[24px] w-full min-h-[200px] h-auto sm:h-[55vh] flex items-center p-6 sm:p-8 md:p-12 leading-snug sm:leading-normal"
+    ? "text-xl sm:text-[28px] md:text-3xl font-mono font-light bg-[#EDE9E5] rounded-[24px] w-full h-full min-h-[50vh] sm:min-h-0 flex items-center p-6 sm:p-8 md:p-12 leading-snug sm:leading-normal"
     : "text-xl md:text-3xl font-mono bg-[#EDE9E5] rounded-[24px] w-full min-h-[300px] md:h-[55vh] flex items-center p-6 md:p-12";
 
   useEffect(() => {

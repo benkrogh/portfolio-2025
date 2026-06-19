@@ -616,15 +616,15 @@ const MusicPlayer = () => {
           <div
             className={
               showWelcome
-                ? `absolute inset-x-0 inset-y-0 flex items-center gap-4 justify-between px-4 ${
+                ? `absolute inset-x-0 inset-y-0 flex items-center gap-2 sm:gap-4 justify-between px-3 sm:px-4 ${
                     isExpanded ? "sm:px-8" : ""
                   } ${isExpanded ? "sm:flex-row" : "flex-row"}`
-                : `flex min-h-0 flex-1 items-center px-4 ${
+                : `flex min-h-0 flex-1 items-center px-3 sm:px-4 ${
                     isExpanded ? "sm:px-8" : ""
-                  } ${isExpanded ? "sm:flex-row" : "flex-row"} gap-4 justify-between`
+                  } ${isExpanded ? "sm:flex-row" : "flex-row"} gap-2 sm:gap-4 justify-between`
             }
           >
-              <div className="flex items-center gap-4 flex-shrink-0">
+              <div className="flex items-center gap-2 sm:gap-4 min-w-0 flex-1">
                 <div className={`album-area ${
                   isExpanded ? "w-16 h-16" : "w-10 h-10"
                 } rounded-lg flex-shrink-0 overflow-hidden relative group`}>
@@ -653,12 +653,13 @@ const MusicPlayer = () => {
                     </button>
                   )}
                 </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-medium text-gray-900 truncate max-w-[200px] sm:max-w-[250px] md:max-w-[300px]">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                    <h3 className="font-medium text-gray-900 truncate min-w-0 sm:max-w-[250px] md:max-w-[300px]">
                       {showWelcome ? "Care for some music?" : tracks[currentTrackIndex].title}
                     </h3>
-                    <div className="relative group"
+                    <div
+                      className="relative group shrink-0 hidden sm:block"
                       onMouseEnter={() => setTooltipVisible(true)}
                       onMouseLeave={() => setTooltipVisible(false)}
                     >
@@ -676,19 +677,19 @@ const MusicPlayer = () => {
                 </div>
               </div>
 
-              <div className={`${isExpanded ? "flex-1 flex justify-center" : "flex justify-end"}`}>
-                <div className={`flex items-center ${isExpanded ? "gap-8" : "gap-4"}`}>
+              <div className={`shrink-0 ${isExpanded ? "flex-1 flex justify-center" : "flex justify-end"}`}>
+                <div className={`flex items-center ${isExpanded ? "gap-8" : "gap-1.5 sm:gap-4"}`}>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       playPreviousTrack();
                     }}
                     className={`group relative flex items-center justify-center ${
-                      isExpanded ? "w-10 h-10" : "w-8 h-8"
+                      isExpanded ? "w-10 h-10" : "w-7 h-7 sm:w-8 sm:h-8"
                     }`}
                   >
                     <div className="absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
-                    <SkipBack className={`relative ${isExpanded ? "w-5 h-5 sm:w-6 sm:h-6" : "w-4 h-4"}`} />
+                    <SkipBack className={`relative ${isExpanded ? "w-5 h-5 sm:w-6 sm:h-6" : "w-3.5 h-3.5 sm:w-4 sm:h-4"}`} />
                   </button>
                   <button
                     onClick={(e) => {
@@ -696,14 +697,14 @@ const MusicPlayer = () => {
                       togglePlay();
                     }}
                     className={`group relative flex items-center justify-center ${
-                      isExpanded ? "w-[50px] h-[50px]" : "w-8 h-8"
+                      isExpanded ? "w-[50px] h-[50px]" : "w-7 h-7 sm:w-8 sm:h-8"
                     }`}
                   >
                     <div className="absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
                     {isPlaying ? (
-                      <Pause className={`relative ${isExpanded ? "w-6 h-6 sm:w-[30px] sm:h-[30px]" : "w-5 h-5"}`} />
+                      <Pause className={`relative ${isExpanded ? "w-6 h-6 sm:w-[30px] sm:h-[30px]" : "w-4 h-4 sm:w-5 sm:h-5"}`} />
                     ) : (
-                      <Play className={`relative ${isExpanded ? "w-6 h-6 sm:w-[30px] sm:h-[30px]" : "w-5 h-5"}`} />
+                      <Play className={`relative ${isExpanded ? "w-6 h-6 sm:w-[30px] sm:h-[30px]" : "w-4 h-4 sm:w-5 sm:h-5"}`} />
                     )}
                   </button>
                   <button
@@ -712,16 +713,16 @@ const MusicPlayer = () => {
                       playNextTrack();
                     }}
                     className={`group relative flex items-center justify-center ${
-                      isExpanded ? "w-10 h-10" : "w-8 h-8"
+                      isExpanded ? "w-10 h-10" : "w-7 h-7 sm:w-8 sm:h-8"
                     }`}
                   >
                     <div className="absolute inset-0 bg-[#D6D2CB] rounded-[10px] transition-all duration-300 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100" />
-                    <SkipForward className={`relative ${isExpanded ? "w-5 h-5 sm:w-6 sm:h-6" : "w-4 h-4"}`} />
+                    <SkipForward className={`relative ${isExpanded ? "w-5 h-5 sm:w-6 sm:h-6" : "w-3.5 h-3.5 sm:w-4 sm:h-4"}`} />
                   </button>
                 </div>
               </div>
 
-              {isExpanded && <div className="flex-shrink-0 w-[100px]" />}
+              {isExpanded && <div className="hidden sm:block flex-shrink-0 w-[100px]" />}
           </div>
 
           {!showWelcome && (
