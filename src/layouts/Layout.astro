@@ -2,7 +2,7 @@
 // Import necessary styles and components
 import "../styles/fonts.css";
 import "../styles/global.css";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import Navigation from "@/components/Navigation";
 import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/utils/SmoothScroll";
@@ -79,8 +79,7 @@ const isBlogPage = currentPath.startsWith('/blog/') && !currentPath.endsWith('/b
     <!-- Slot for head content from child layouts -->
     <slot name="head" />
     
-    <!-- Only use ViewTransitions for non-blog pages to avoid font loading issues -->
-    {!isBlogPage && <ViewTransitions />}
+    {!isBlogPage && <ClientRouter />}
   </head>
   <body>
     <CustomCursor client:load />

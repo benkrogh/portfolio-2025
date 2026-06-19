@@ -1,37 +1,31 @@
 {
-  "$ref": "#/definitions/blog",
-  "definitions": {
-    "blog": {
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string"
-        },
-        "date": {
-          "type": "string"
-        },
-        "author": {
-          "type": "string"
-        },
-        "color": {
-          "type": "string"
-        },
-        "draft": {
-          "type": "boolean",
-          "default": false
-        },
-        "$schema": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "title",
-        "date",
-        "author",
-        "color"
-      ],
-      "additionalProperties": false
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "draft": {
+      "default": false,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
     }
   },
-  "$schema": "http://json-schema.org/draft-07/schema#"
+  "required": [
+    "title",
+    "date",
+    "author",
+    "color"
+  ]
 }

@@ -24,7 +24,7 @@ const colors = [
 ];
 
 const formattedPosts = posts.map((post) => ({
-  slug: post.slug,
+  slug: post.id,
   title: post.data.title,
   date: post.data.date,
   color: post.data.color || colors[Math.floor(Math.random() * colors.length)],

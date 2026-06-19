@@ -1,42 +1,28 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/Footer.astro";
 import { TEXT_COLOR } from "@/utils/colorUtils";
 
-// This function runs at build time
 export async function getStaticPaths() {
   const allBlogEntries = await getCollection('blog', ({ data }) => {
-    // Production builds omit draft posts; dev server keeps URLs for local editing
     return import.meta.env.PROD ? !data.draft : true;
   });
-  console.log("ALL BLOG ENTRIES:", allBlogEntries.map(entry => entry.slug));
-  
+
   return allBlogEntries.map(entry => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
 
-// Get the post from props
 const { entry } = Astro.props;
-const slug = Astro.params.slug;
 
 if (!entry) {
   return Astro.redirect('/404');
 }
 
-const { Content } = await entry.render();
-
-// For diagnostic purposes, get all blog entries again
-let availablePosts = [];
-try {
-  const allPosts = await getCollection('blog');
-  availablePosts = allPosts.map(post => post.slug);
-} catch (e) {
-  console.error("Error getting blog collection:", e);
-}
+const { Content } = await render(entry);
 ---
 
 <Layout title={entry.data.title}>

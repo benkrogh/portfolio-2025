@@ -1,18 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render as renderEntry } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 
-// Try to load the coffee post directly
 let coffeePost;
 let Content;
 let error = null;
 
 try {
   const blogPosts = await getCollection('blog');
-  coffeePost = blogPosts.find(post => post.slug === 'coffee-and-favorites');
+  coffeePost = blogPosts.find(post => post.id === 'coffee-and-favorites');
   
   if (coffeePost) {
-    const rendered = await coffeePost.render();
+    const rendered = await renderEntry(coffeePost);
     Content = rendered.Content;
   }
 } catch (e) {
@@ -33,7 +32,7 @@ try {
       <h2 class="text-xl font-semibold mb-4">Blog Collection Test</h2>
       {coffeePost ? (
         <div>
-          <p class="text-green-600 font-semibold">✓ Post found: {coffeePost.slug}</p>
+          <p class="text-green-600 font-semibold">✓ Post found: {coffeePost.id}</p>
           <p>Title: {coffeePost.data.title}</p>
           <p>Date: {coffeePost.data.date}</p>
           <div class="mt-4 p-4 bg-gray-200 rounded overflow-auto">
